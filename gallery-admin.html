@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Quản lý gallery | Golyn Nail</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fffaf3;--panel:#fff;--ink:#33261d;--muted:#7f7066;--line:#eadfce;--gold:#c9963c;--danger:#b84a3a}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:"Be Vietnam Pro",sans-serif}.shell{max-width:1180px;margin:0 auto;padding:32px 20px 64px}header{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:24px}h1{font-size:28px;font-weight:500;margin:0}h2{margin-top:0;font-size:20px}a{color:var(--ink)}.layout{display:grid;grid-template-columns:minmax(0,1fr) 430px;gap:22px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:20px;box-shadow:0 8px 28px rgba(64,42,22,.06)}label{display:block;font-size:12px;font-weight:600;margin:14px 0 7px;color:var(--muted)}input,textarea{width:100%;border:1px solid var(--line);border-radius:6px;padding:11px 12px;background:#fff;color:var(--ink);font:inherit}textarea{min-height:88px;resize:vertical}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}button{border:0;border-radius:6px;padding:11px 14px;font:inherit;cursor:pointer;background:var(--ink);color:#fff}.secondary{background:var(--gold)}.ghost{background:#f3eadb;color:var(--ink)}.danger{background:var(--danger)}.item{display:grid;grid-template-columns:72px 1fr;gap:12px;border:1px solid var(--line);border-radius:8px;padding:12px;margin-bottom:10px;background:#fff}.thumb{width:72px;height:88px;object-fit:cover;border-radius:6px;background:#eee}.item h3{font-size:15px;margin:0 0 4px}.item p{font-size:12px;color:var(--muted);line-height:1.5;margin:0 0 8px}.hint,.status{font-size:13px;line-height:1.7;color:var(--muted)}.check{display:flex;align-items:center;gap:9px;margin-top:14px}.check input{width:auto}@media(max-width:900px){.layout{grid-template-columns:1fr}.row{grid-template-columns:1fr}header{align-items:flex-start;flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="shell">
+<header>
+  <div>
+    <h1>Quản lý gallery</h1>
+    <p class="hint">Thêm ảnh, sửa tên/nhãn, chọn ảnh nổi bật cho trang chủ, rồi xuất <code>gallery-data.js</code>.</p>
+  </div>
+  <div><a href="cms-supabase.html">Supabase CMS</a> · <a href="admin.html">Admin bài viết</a> · <a href="gallery.html">Xem gallery</a></div>
+</header>
+<div class="layout">
+  <section class="panel">
+    <h2 id="formTitle">Thêm ảnh</h2>
+    <input type="hidden" id="editIndex">
+    <label>Đường dẫn ảnh</label>
+    <input id="itemSrc" placeholder="VD: images/nail12.jpg">
+    <div class="row">
+      <div><label>Tên mẫu</label><input id="itemLabel" placeholder="VD: Pink Marble"></div>
+      <div><label>Tag hiển thị</label><input id="itemTag" placeholder="VD: Marble Art"></div>
+    </div>
+    <label>Alt text SEO</label>
+    <textarea id="itemAlt" placeholder="VD: Pink marble nail design"></textarea>
+    <label class="check"><input type="checkbox" id="itemFeatured"> Hiển thị trên trang chủ</label>
+    <div class="actions">
+      <button onclick="saveItem()">Lưu ảnh</button>
+      <button class="ghost" onclick="resetForm()">Làm mới form</button>
+      <button class="danger" onclick="deleteItem()">Xóa ảnh đang sửa</button>
+    </div>
+    <div class="status" id="status"></div>
+  </section>
+  <aside class="panel">
+    <h2>Danh sách ảnh</h2>
+    <div id="galleryList"></div>
+    <div class="actions">
+      <button class="secondary" onclick="exportDataFile()">Xuất gallery-data.js</button>
+      <button class="ghost" onclick="clearDrafts()">Xóa bản nháp local</button>
+    </div>
+    <p class="hint">Copy ảnh mới vào thư mục <code>images</code> trước, rồi nhập đường dẫn vào đây.</p>
+  </aside>
+</div>
+</div>
+<script src="assets/js/gallery-data.js"></script>
+<script>
+const STORAGE_KEY="golynAdminGallery";
+const baseItems=Array.isArray(window.GOLYN_GALLERY_ITEMS)?window.GOLYN_GALLERY_ITEMS:[];
+function drafts(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY)||"null")||baseItems}catch{return baseItems}}
+function saveDrafts(items){localStorage.setItem(STORAGE_KEY,JSON.stringify(items));renderList()}
+function value(id){return document.getElementById(id).value.trim()}
+function escapeHTML(value){return String(value||"").replace(/[&<>"']/g,char=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]))}
+function setStatus(message){document.getElementById("status").textContent=message}
+function resetForm(){document.getElementById("formTitle").textContent="Thêm ảnh";document.getElementById("editIndex").value="";["itemSrc","itemLabel","itemTag","itemAlt"].forEach(id=>document.getElementById(id).value="");document.getElementById("itemFeatured").checked=false;setStatus("")}
+function saveItem(){const src=value("itemSrc");if(!src){setStatus("Vui lòng nhập đường dẫn ảnh.");return}const item={src,label:value("itemLabel")||src.split("/").pop(),tag:value("itemTag"),alt:value("itemAlt"),featured:document.getElementById("itemFeatured").checked};const items=[...drafts()];const idx=value("editIndex");if(idx==="")items.push(item);else items[Number(idx)]=item;saveDrafts(items);resetForm();setStatus("Đã lưu bản nháp gallery. Nhớ xuất file để cập nhật website thật.")}
+function editItem(index){const item=drafts()[index];if(!item)return;document.getElementById("formTitle").textContent="Chỉnh sửa ảnh";document.getElementById("editIndex").value=String(index);document.getElementById("itemSrc").value=item.src||"";document.getElementById("itemLabel").value=item.label||"";document.getElementById("itemTag").value=item.tag||"";document.getElementById("itemAlt").value=item.alt||"";document.getElementById("itemFeatured").checked=!!item.featured;setStatus("Đang sửa ảnh số "+(index+1))}
+function deleteItem(){const idx=value("editIndex");if(idx===""){setStatus("Chưa chọn ảnh để xóa.");return}if(!confirm("Xóa ảnh này khỏi dữ liệu gallery?"))return;const items=drafts().filter((_,index)=>index!==Number(idx));saveDrafts(items);resetForm();setStatus("Đã xóa khỏi bản nháp. File ảnh trong thư mục images không bị xóa.")}
+function clearDrafts(){if(confirm("Xóa toàn bộ bản nháp gallery local?")){localStorage.removeItem(STORAGE_KEY);resetForm();renderList()}}
+function renderList(){const list=document.getElementById("galleryList");const items=drafts();list.innerHTML=items.map((item,index)=>`<div class="item"><img class="thumb" src="${escapeHTML(item.src)}" alt=""><div><h3>${escapeHTML(item.label||item.src)}</h3><p>${escapeHTML(item.src)}<br>${item.featured?"Trang chủ · ":""}${escapeHTML(item.tag||"")}</p><button class="ghost" onclick="editItem(${index})">Sửa</button></div></div>`).join("")||'<p class="hint">Chưa có ảnh.</p>'}
+function exportDataFile(){const data="window.GOLYN_GALLERY_ITEMS = "+JSON.stringify(drafts(),null,2)+";\n";const blob=new Blob([data],{type:"text/javascript"});const link=document.createElement("a");link.href=URL.createObjectURL(blob);link.download="gallery-data.js";link.click();URL.revokeObjectURL(link.href);setStatus("Đã xuất gallery-data.js. Thay file trong assets/js để cập nhật website.")}
+resetForm();renderList();
+</script>
+</body>
+</html>
