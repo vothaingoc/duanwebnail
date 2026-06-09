@@ -1,0 +1,125 @@
+{
+  "images": [
+    {
+      "title": "Burgundy Ribbon",
+      "label": "Burgundy Ribbon",
+      "alt": "Burgundy ribbon nail design",
+      "tag": "Ribbon Art",
+      "image": "images/nail1.jpg",
+      "src": "images/nail1.jpg",
+      "createdAt": "2026-05-31",
+      "featured": true,
+      "order": 1
+    },
+    {
+      "title": "Princess Rose",
+      "label": "Princess Rose",
+      "alt": "Princess rose nail design",
+      "tag": "Rose Pearl",
+      "image": "images/nail2.jpg",
+      "src": "images/nail2.jpg",
+      "createdAt": "2026-05-30",
+      "featured": true,
+      "order": 2
+    },
+    {
+      "title": "Pearl White",
+      "label": "Pearl White",
+      "alt": "Pearl white nail design",
+      "tag": "Pearl Lace",
+      "image": "images/nail3.jpg",
+      "src": "images/nail3.jpg",
+      "createdAt": "2026-05-29",
+      "featured": true,
+      "order": 3
+    },
+    {
+      "title": "Nude Bijou",
+      "label": "Nude Bijou",
+      "alt": "Nude bijou nail design",
+      "tag": "Nude Bijou",
+      "image": "images/nail4.jpg",
+      "src": "images/nail4.jpg",
+      "createdAt": "2026-05-28",
+      "featured": true,
+      "order": 4
+    },
+    {
+      "title": "Nude Bijou",
+      "label": "Nude Bijou",
+      "alt": "Nude bijou nail design",
+      "tag": "Nude Bijou",
+      "image": "images/nail5.jpg",
+      "src": "images/nail5.jpg",
+      "createdAt": "2026-05-27",
+      "featured": true,
+      "order": 5
+    },
+    {
+      "title": "Lemon Mirror",
+      "label": "Lemon Mirror",
+      "alt": "Lemon mirror nail design",
+      "tag": "Lemon Mirror",
+      "image": "images/nail6.jpg",
+      "src": "images/nail6.jpg",
+      "createdAt": "2026-05-26",
+      "featured": true,
+      "order": 6
+    },
+    {
+      "title": "Pink Tweed",
+      "label": "Pink Tweed",
+      "alt": "Pink tweed nail design",
+      "tag": "Pink Tweed",
+      "image": "images/nail7.jpg",
+      "src": "images/nail7.jpg",
+      "createdAt": "2026-05-25",
+      "featured": true,
+      "order": 7
+    },
+    {
+      "title": "Lace Pearl",
+      "label": "Lace Pearl",
+      "alt": "Lace pearl nail design",
+      "tag": "Glossy Pink",
+      "image": "images/nail8.jpg",
+      "src": "images/nail8.jpg",
+      "createdAt": "2026-05-24",
+      "featured": true,
+      "order": 8
+    },
+    {
+      "title": "Pink Gloss",
+      "label": "Pink Gloss",
+      "alt": "Pink gloss nail design",
+      "tag": "Silver Crystal",
+      "image": "images/nail9.jpg",
+      "src": "images/nail9.jpg",
+      "createdAt": "2026-05-23",
+      "featured": false,
+      "order": 9
+    },
+    {
+      "title": "Snow Silver",
+      "label": "Snow Silver",
+      "alt": "Snow silver nail design",
+      "tag": "Soft Flower",
+      "image": "images/nail10.jpg",
+      "src": "images/nail10.jpg",
+      "createdAt": "2026-05-22",
+      "featured": false,
+      "order": 10
+    },
+    {
+      "title": "Soft Flower",
+      "label": "Soft Flower",
+      "alt": "Soft flower nail design",
+      "tag": "Crystal White",
+      "image": "images/nail11.jpg",
+      "src": "images/nail11.jpg",
+      "createdAt": "2026-05-21",
+      "featured": false,
+      "order": 11
+    }
+  ]
+}

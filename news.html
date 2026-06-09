@@ -367,7 +367,7 @@ nav {
 
 /* ── FOOTER ── */
 footer { background: #2E1A08; padding: 60px 80px 26px; }
-.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 42px; margin-bottom: 42px; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 42px; margin-bottom: 42px; }
 .footer-brand .nav-logo { font-size: 23px; }
 .footer-logo-wrap {
   display: inline-flex; align-items: center;
@@ -852,14 +852,6 @@ html[lang="vi"] { --serif: 'Cormorant Garamond', serif; --sans: 'Be Vietnam Pro'
 <p class="footer-desc" data-i18n="footer_desc">大阪中心部の高品質ネイルアトリエ。日本の技術と国際的なスタイルの融合。</p>
 </div>
 <div>
-<div class="footer-col-title" data-i18n="footer_svc">サービス</div>
-<ul class="footer-links">
-<li><a href="#">Gel Nail</a></li>
-<li><a href="#">Nail Art</a></li>
-<li><a href="#">Hand Care</a></li>
-</ul>
-</div>
-<div>
 <div class="footer-col-title" data-i18n="footer_info">インフォ</div>
 <ul class="footer-links">
 <li><a data-i18n="footer_about" href="#">私たちについて</a></li>
@@ -916,7 +908,7 @@ let currentEditingArticle = null;
 function openLoginModal() { document.getElementById('loginModal').classList.add('open'); }
 function closeLoginModal() { document.getElementById('loginModal').classList.remove('open'); }
 function adminLogin() {
-  alert('Admin is disabled on the public news page. Use admin.html locally.');
+  alert('Admin is disabled on the public news page. Use /admin/ Decap CMS.');
 }
 function adminLogout() {
   isAdminLoggedIn = false;
@@ -1225,9 +1217,6 @@ function initPagination() {
 document.addEventListener('DOMContentLoaded',()=>{resetNewsScroll();setLang(localStorage.getItem('golynLang')||'ja');redirectHeaderHashLinks();setupNewsTopLinks();setupBlogLinkListener()});
 document.addEventListener('click',event=>{if(!event.target.closest('.lang-picker'))closeLangMenus()});</script>
 <script src="assets/js/articles-data.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="assets/js/supabase-config.js"></script>
-<script src="assets/js/supabase-content.js"></script>
 <script src="assets/js/blog-shared.js"></script>
 </body>
 </html>
