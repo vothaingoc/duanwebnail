@@ -2,7 +2,7 @@ backend:
   name: github
   repo: vothaingoc/duanwebnail
   branch: main
-  base_url: https://api.netlify.com
+  base_url: https://golyn-decap-oauth.vothaingoc1991.workers.dev
   auth_endpoint: auth
 
 local_backend: true
