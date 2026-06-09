@@ -1,13 +1,14 @@
 backend:
   name: github
-  repo: YOUR_GITHUB_USERNAME/YOUR_REPOSITORY_NAME
+  repo: vothaingoc/duanwebnail
   branch: main
-  base_url: https://YOUR_CLOUDFLARE_WORKER_OR_AUTH_PROVIDER_URL
+  base_url: https://api.netlify.com
+  auth_endpoint: auth
 
 local_backend: true
 
-site_url: https://YOUR_DOMAIN.pages.dev
-display_url: https://YOUR_DOMAIN.pages.dev
+site_url: https://duanwebnail.pages.dev
+display_url: https://duanwebnail.pages.dev
 logo_url: /images/nail1.jpg
 
 media_folder: "images/uploads"
