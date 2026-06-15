@@ -189,10 +189,24 @@
     return group.find(article => article.lang === lang) || group.find(article => article.lang === "ja") || group[0];
   }
 
+  function renderInlineMarkdown(value) {
+    const imagePattern = /!\[([^\]]*)\]\(([^)\s]+)\)/g;
+    let html = "";
+    let lastIndex = 0;
+    String(value || "").replace(imagePattern, (match, alt, src, index) => {
+      html += escapeHTML(value.slice(lastIndex, index));
+      html += `<img class="article-inline-image" src="${escapeHTML(src)}" alt="${escapeHTML(alt)}" loading="lazy">`;
+      lastIndex = index + match.length;
+      return match;
+    });
+    html += escapeHTML(value.slice(lastIndex));
+    return html;
+  }
+
   function renderBody(content) {
     return String(content || "")
       .split(/\n{2,}/)
-      .map(block => `<p>${escapeHTML(block).replace(/\n/g, "<br>")}</p>`)
+      .map(block => `<p>${renderInlineMarkdown(block).replace(/\n/g, "<br>")}</p>`)
       .join("");
   }
 
