@@ -11,6 +11,27 @@
     return clean(value).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   }
 
+  function attributeValue(attrs, name) {
+    const match = String(attrs || "").match(new RegExp(`${name}\\s*=\\s*(?:"([^"]*)"|'([^']*)'|([^\\s>]+))`, "i"));
+    return match ? clean(match[1] || match[2] || match[3]) : "";
+  }
+
+  function widthFromStyle(style) {
+    const match = String(style || "").match(/(?:^|;)\s*width\s*:\s*([^;]+)/i);
+    return match ? clean(match[1]) : "";
+  }
+
+  function normalizeEditorWidth(value) {
+    return new RegExp(`^(?:${widthPattern})$`, "i").test(clean(value)) ? clean(value) : "";
+  }
+
+  function imageBlockHTML(image, alt, title, width) {
+    const safeWidth = normalizeEditorWidth(width);
+    const titleAttr = title ? ` title="${escapeAttribute(title)}"` : "";
+    const widthStyle = safeWidth ? `width:${escapeAttribute(safeWidth)};` : "";
+    return `<img class="article-inline-image" src="${escapeAttribute(image)}" alt="${escapeAttribute(alt)}"${titleAttr} style="${widthStyle}max-width:100%;height:auto;">`;
+  }
+
   function parseWidth(value) {
     const match = clean(value).match(/^(\d+(?:\.\d+)?)(%|px|rem|em|vw)$/i);
     return {
@@ -423,13 +444,22 @@
         hint: "Examples: 50%, 80%, 360px, 28rem. Leave blank for full width."
       }
     ],
-    pattern: new RegExp("!\\[([^\\]]*)\\]\\((\\S+?)(?:\\s+\"([^\"]*)\")?\\)(?:\\s*\\{width=(" + widthPattern + ")\\})?", "i"),
+    pattern: new RegExp("<img\\b([^>]*)>|!\\[([^\\]]*)\\]\\((\\S+?)(?:\\s+\"([^\"]*)\")?\\)(?:\\s*\\{width=(" + widthPattern + ")\\})?", "i"),
     fromBlock(match) {
+      if (match[1]) {
+        const attrs = match[1];
+        return {
+          alt: attributeValue(attrs, "alt"),
+          image: attributeValue(attrs, "src"),
+          title: attributeValue(attrs, "title"),
+          width: attributeValue(attrs, "width") || widthFromStyle(attributeValue(attrs, "style"))
+        };
+      }
       return {
-        alt: match[1] || "",
-        image: match[2] || "",
-        title: match[3] || "",
-        width: match[4] || ""
+        alt: match[2] || "",
+        image: match[3] || "",
+        title: match[4] || "",
+        width: match[5] || ""
       };
     },
     toBlock(data) {
@@ -437,15 +467,13 @@
       const alt = clean(data.alt);
       const title = clean(data.title);
       const width = clean(data.width);
-      const titleText = title ? ` "${title}"` : "";
-      const widthText = width ? `{width=${width}}` : "";
-      return `![${alt}](${image}${titleText})${widthText}`;
+      return imageBlockHTML(image, alt, title, width);
     },
     toPreview(data) {
       const image = clean(data.image);
       const alt = escapeAttribute(data.alt);
       const title = escapeAttribute(data.title);
-      const width = clean(data.width);
+      const width = normalizeEditorWidth(data.width);
       const style = width ? ` style="width:${escapeAttribute(width)};max-width:100%;height:auto;"` : ' style="max-width:100%;height:auto;"';
       const titleAttr = title ? ` title="${title}"` : "";
       return `<img src="${escapeAttribute(image)}" alt="${alt}"${titleAttr}${style}>`;

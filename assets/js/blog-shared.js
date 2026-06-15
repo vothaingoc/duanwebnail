@@ -203,6 +203,30 @@
     return `<img class="article-inline-image" src="${escapeHTML(src)}" alt="${escapeHTML(alt)}" loading="lazy"${titleAttr}${style}>`;
   }
 
+  function readAttribute(attrs, name) {
+    const match = String(attrs || "").match(new RegExp(`${name}\\s*=\\s*(?:"([^"]*)"|'([^']*)'|([^\\s>]+))`, "i"));
+    return match ? String(match[1] || match[2] || match[3] || "") : "";
+  }
+
+  function widthFromStyle(style) {
+    const match = String(style || "").match(/(?:^|;)\s*width\s*:\s*([^;]+)/i);
+    return match ? match[1] : "";
+  }
+
+  function safeImageSrc(src) {
+    return /^(https?:\/\/|\/|images\/|\.\/images\/)/i.test(String(src || "").trim());
+  }
+
+  function htmlImageBlock(value) {
+    const match = String(value || "").trim().match(/^<img\b([^>]*)>$/i);
+    if (!match) return "";
+    const attrs = match[1];
+    const src = readAttribute(attrs, "src");
+    if (!safeImageSrc(src)) return "";
+    const width = readAttribute(attrs, "width") || widthFromStyle(readAttribute(attrs, "style"));
+    return imageHTML(src, readAttribute(attrs, "alt"), width, readAttribute(attrs, "title"));
+  }
+
   function renderInlineMarkdown(value) {
     const imagePattern = /!\[([^\]]*)\]\((\S+?)(?:\s+"([^"]*)")?\)(?:\s*\{width=([^}]+)\})?/g;
     let html = "";
@@ -231,6 +255,10 @@
       .split(/\n{2,}/)
       .map(block => {
         const trimmed = block.trim();
+        const safeHTMLImage = htmlImageBlock(trimmed);
+        if (safeHTMLImage) {
+          return `<p>${safeHTMLImage}</p>`;
+        }
         const image = imageURLWithWidth(trimmed);
         if (image || isImageURL(trimmed)) {
           return `<p>${imageHTML(image ? image.src : trimmed, "", image ? image.width : "")}</p>`;
