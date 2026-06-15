@@ -267,6 +267,11 @@
     return ["default", "sans", "serif", "japanese", "vietnamese"].includes(font) ? font : "default";
   }
 
+  function normalizeTextAlign(value) {
+    const align = String(value || "").trim().toLowerCase();
+    return ["left", "center", "right"].includes(align) ? align : "";
+  }
+
   function textFontStyle(value) {
     const font = normalizeTextFont(value);
     if (font === "serif") return "font-family:'Cormorant Garamond',serif;";
@@ -290,11 +295,13 @@
     return "default";
   }
 
-  function styledTextHTML(text, font, size, color) {
+  function styledTextHTML(text, font, size, color, align) {
     const safeFont = normalizeTextFont(font);
     const safeSize = normalizeTextSize(size);
     const safeColor = normalizeTextColor(color);
-    return `<div class="article-styled-text" data-font="${safeFont}" style="${textFontStyle(safeFont)}font-size:${escapeHTML(safeSize)};color:${escapeHTML(safeColor)};">${escapeHTML(text).replace(/\n/g, "<br>")}</div>`;
+    const safeAlign = normalizeTextAlign(align);
+    const alignStyle = safeAlign ? `text-align:${safeAlign};` : "";
+    return `<div class="article-styled-text" data-font="${safeFont}" style="${textFontStyle(safeFont)}font-size:${escapeHTML(safeSize)};color:${escapeHTML(safeColor)};${alignStyle}">${escapeHTML(text).replace(/\n/g, "<br>")}</div>`;
   }
 
   function styledInlineHTML(text, font, size, color) {
@@ -337,7 +344,8 @@
       decodeHTML(match[2] || ""),
       readAttribute(attrs, "data-font") || fontKeyFromStyle(style),
       styleValue(style, "font-size") || "16px",
-      styleValue(style, "color") || "#4A2E10"
+      styleValue(style, "color") || "#4A2E10",
+      styleValue(style, "text-align")
     );
   }
 

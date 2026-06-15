@@ -117,6 +117,11 @@
     return `<div class="article-styled-text" data-font="${normalizeTextFont(font)}" style="${fontStyle(font)}font-size:${escapeAttribute(normalizeTextSize(size))};color:${escapeAttribute(normalizeTextColor(color))};">${escapeHTML(text).replace(/\n/g, "<br>")}</div>`;
   }
 
+  function normalizeTextAlign(value) {
+    const align = clean(value).toLowerCase();
+    return ["left", "center", "right"].includes(align) ? align : "";
+  }
+
   function styledInlineHTML(text, font, size, color) {
     return `<span class="article-styled-inline" data-font="${normalizeTextFont(font)}" style="${fontStyle(font)}font-size:${escapeAttribute(normalizeTextSize(size))};color:${escapeAttribute(normalizeTextColor(color))};">${escapeHTML(text)}</span>`;
   }
@@ -622,10 +627,27 @@
   function editorToolbarCandidates() {
     const candidates = Array.from(document.querySelectorAll("div")).filter(node => {
       const text = clean(node.textContent);
-      const buttons = node.querySelectorAll("button").length;
-      return buttons >= 6 && text.includes("Rich Text") && text.includes("Markdown") && !node.querySelector("textarea");
+      return text.includes("Rich Text") && text.includes("Markdown") && !node.querySelector("textarea");
     });
     return candidates.filter(node => !candidates.some(other => other !== node && node.contains(other)));
+  }
+
+  function closestToolbarFromText() {
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    let node = walker.nextNode();
+    while (node) {
+      if (clean(node.nodeValue).includes("Rich Text")) {
+        let parent = node.parentElement;
+        for (let i = 0; parent && i < 8; i += 1, parent = parent.parentElement) {
+          const text = clean(parent.textContent);
+          if (text.includes("Rich Text") && text.includes("Markdown") && !parent.querySelector("textarea")) {
+            return parent;
+          }
+        }
+      }
+      node = walker.nextNode();
+    }
+    return null;
   }
 
   function activeEditorTarget() {
@@ -674,8 +696,35 @@
     }
   }
 
+  function alignSelectedText(value) {
+    const command = value === "center" ? "justifyCenter" : value === "right" ? "justifyRight" : "justifyLeft";
+    const target = activeEditorTarget();
+    if (target && (target.tagName === "TEXTAREA" || target.tagName === "INPUT")) {
+      const start = target.selectionStart || 0;
+      const end = target.selectionEnd || start;
+      const selected = target.value.slice(start, end) || window.prompt("Text to align", "") || "";
+      if (!selected) return;
+      const style = value === "center"
+        ? "text-align:center;"
+        : value === "right"
+          ? "text-align:right;"
+          : "text-align:left;";
+      const html = `<div class="article-styled-text" style="${style}">${escapeHTML(selected).replace(/\n/g, "<br>")}</div>`;
+      setInputValue(target, target.value.slice(0, start) + html + target.value.slice(end));
+      target.focus();
+      target.setSelectionRange(start + html.length, start + html.length);
+      return;
+    }
+    document.execCommand(command, false, null);
+    const editor = activeEditorTarget();
+    if (editor) editor.dispatchEvent(new Event("input", { bubbles: true }));
+  }
+
   function enhanceRichTextToolbar() {
-    editorToolbarCandidates().forEach(toolbar => {
+    const toolbars = editorToolbarCandidates();
+    const fallback = closestToolbarFromText();
+    if (!toolbars.length && fallback) toolbars.push(fallback);
+    toolbars.forEach(toolbar => {
       if (toolbar.dataset.golynTextToolbar === "true") return;
       toolbar.dataset.golynTextToolbar = "true";
 
@@ -742,12 +791,22 @@
       });
       larger.title = "Increase selected text size";
 
+      const alignLeft = makeButton("L", () => alignSelectedText("left"));
+      alignLeft.title = "Align left";
+      const alignCenter = makeButton("C", () => alignSelectedText("center"));
+      alignCenter.title = "Align center";
+      const alignRight = makeButton("R", () => alignSelectedText("right"));
+      alignRight.title = "Align right";
+
       controls.appendChild(font);
       controls.appendChild(smaller);
       controls.appendChild(size);
       controls.appendChild(larger);
       controls.appendChild(color);
       controls.appendChild(apply);
+      controls.appendChild(alignLeft);
+      controls.appendChild(alignCenter);
+      controls.appendChild(alignRight);
       toolbar.appendChild(controls);
     });
   }
