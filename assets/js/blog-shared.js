@@ -189,13 +189,26 @@
     return group.find(article => article.lang === lang) || group.find(article => article.lang === "ja") || group[0];
   }
 
+  function normalizeImageWidth(value) {
+    const width = String(value || "").trim();
+    return /^(?:100|[1-9]?\d)(?:\.\d+)?%$|^(?:[1-9]\d{0,3})(?:\.\d+)?(?:px|rem|em|vw)$/i.test(width)
+      ? width
+      : "";
+  }
+
+  function imageHTML(src, alt, width) {
+    const safeWidth = normalizeImageWidth(width);
+    const style = safeWidth ? ` style="width:${escapeHTML(safeWidth)}"` : "";
+    return `<img class="article-inline-image" src="${escapeHTML(src)}" alt="${escapeHTML(alt)}" loading="lazy"${style}>`;
+  }
+
   function renderInlineMarkdown(value) {
-    const imagePattern = /!\[([^\]]*)\]\(([^)\s]+)\)/g;
+    const imagePattern = /!\[([^\]]*)\]\(([^)\s]+)\)(?:\{width=([^}]+)\})?/g;
     let html = "";
     let lastIndex = 0;
-    String(value || "").replace(imagePattern, (match, alt, src, index) => {
+    String(value || "").replace(imagePattern, (match, alt, src, width, index) => {
       html += escapeHTML(value.slice(lastIndex, index));
-      html += `<img class="article-inline-image" src="${escapeHTML(src)}" alt="${escapeHTML(alt)}" loading="lazy">`;
+      html += imageHTML(src, alt, width);
       lastIndex = index + match.length;
       return match;
     });
@@ -207,13 +220,19 @@
     return /^https?:\/\/\S+\.(?:avif|gif|jpe?g|png|webp)(?:[?#]\S*)?$/i.test(String(value || "").trim());
   }
 
+  function imageURLWithWidth(value) {
+    const match = String(value || "").trim().match(/^(https?:\/\/\S+\.(?:avif|gif|jpe?g|png|webp)(?:[?#]\S*)?)(?:\s+\{width=([^}]+)\})?$/i);
+    return match ? { src: match[1], width: match[2] || "" } : null;
+  }
+
   function renderBody(content) {
     return String(content || "")
       .split(/\n{2,}/)
       .map(block => {
         const trimmed = block.trim();
-        if (isImageURL(trimmed)) {
-          return `<p><img class="article-inline-image" src="${escapeHTML(trimmed)}" alt="" loading="lazy"></p>`;
+        const image = imageURLWithWidth(trimmed);
+        if (image || isImageURL(trimmed)) {
+          return `<p>${imageHTML(image ? image.src : trimmed, "", image ? image.width : "")}</p>`;
         }
         return `<p>${renderInlineMarkdown(block).replace(/\n/g, "<br>")}</p>`;
       })
