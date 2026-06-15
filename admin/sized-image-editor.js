@@ -52,6 +52,71 @@
     return `<img class="article-inline-image" src="${escapeAttribute(image)}" alt="${escapeAttribute(alt)}"${titleAttr} data-align="${normalizeAlign(align)}" style="${widthStyle}max-width:100%;height:auto;${alignStyle(align)}">`;
   }
 
+  function decodeHTML(value) {
+    return String(value || "")
+      .replace(/<br\s*\/?>/gi, "\n")
+      .replace(/<[^>]*>/g, "")
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'")
+      .replace(/&lt;/g, "<")
+      .replace(/&gt;/g, ">")
+      .replace(/&amp;/g, "&");
+  }
+
+  function escapeHTML(value) {
+    return String(value || "").replace(/[&<>"']/g, char => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    }[char]));
+  }
+
+  function normalizeTextSize(value) {
+    const size = clean(value);
+    return /^(?:[8-9]|[1-5]\d|60)(?:\.\d+)?px$|^(?:0?\.\d+|[1-4](?:\.\d+)?|5)rem$|^(?:[8-9]|[1-5]\d|60)(?:\.\d+)?pt$/i.test(size)
+      ? size
+      : "16px";
+  }
+
+  function normalizeTextColor(value) {
+    const color = clean(value);
+    return /^#[0-9a-f]{3}(?:[0-9a-f]{3})?$/i.test(color) ? color : "#4A2E10";
+  }
+
+  function normalizeTextFont(value) {
+    const font = clean(value).toLowerCase();
+    return ["default", "sans", "serif", "japanese", "vietnamese"].includes(font) ? font : "default";
+  }
+
+  function fontStyle(value) {
+    const font = normalizeTextFont(value);
+    if (font === "serif") return "font-family:'Cormorant Garamond',serif;";
+    if (font === "japanese") return "font-family:'Noto Sans JP','Yu Gothic',sans-serif;";
+    if (font === "vietnamese") return "font-family:'Be Vietnam Pro',Arial,sans-serif;";
+    if (font === "sans") return "font-family:'Jost',Arial,sans-serif;";
+    return "";
+  }
+
+  function styleValue(style, property) {
+    const match = String(style || "").match(new RegExp(`(?:^|;)\\s*${property}\\s*:\\s*([^;]+)`, "i"));
+    return match ? clean(match[1]) : "";
+  }
+
+  function fontKeyFromStyle(style) {
+    const family = styleValue(style, "font-family").toLowerCase();
+    if (family.includes("cormorant")) return "serif";
+    if (family.includes("noto sans jp") || family.includes("yu gothic")) return "japanese";
+    if (family.includes("be vietnam")) return "vietnamese";
+    if (family.includes("jost") || family.includes("arial")) return "sans";
+    return "default";
+  }
+
+  function styledTextHTML(text, font, size, color) {
+    return `<div class="article-styled-text" data-font="${normalizeTextFont(font)}" style="${fontStyle(font)}font-size:${escapeAttribute(normalizeTextSize(size))};color:${escapeAttribute(normalizeTextColor(color))};">${escapeHTML(text).replace(/\n/g, "<br>")}</div>`;
+  }
+
   function parseWidth(value) {
     const match = clean(value).match(/^(\d+(?:\.\d+)?)(%|px|rem|em|vw)$/i);
     return {
@@ -460,9 +525,89 @@
     control.insertAdjacentElement("afterend", controls);
   }
 
+  function enhanceTextSizeInput(input) {
+    if (input.dataset.golynTextSizeEnhanced === "true") return;
+    const field = findFieldByLabel(input, "FONT SIZE");
+    if (!field) return;
+    input.dataset.golynTextSizeEnhanced = "true";
+    input.placeholder = "16px";
+
+    const presets = ["14px", "16px", "18px", "20px", "24px", "32px"];
+    const controls = document.createElement("div");
+    controls.style.display = "flex";
+    controls.style.flexWrap = "wrap";
+    controls.style.gap = "8px";
+    controls.style.marginTop = "10px";
+    controls.style.padding = "12px";
+    controls.style.border = "1px solid #d5d7de";
+    controls.style.borderRadius = "6px";
+    controls.style.background = "#fff";
+
+    const adjust = direction => {
+      const parsed = clean(input.value).match(/^(\d+(?:\.\d+)?)(px|pt|rem)$/i);
+      const unit = parsed ? parsed[2].toLowerCase() : "px";
+      const current = parsed ? Number(parsed[1]) : 16;
+      const step = unit === "rem" ? 0.1 : 1;
+      const next = Math.max(unit === "rem" ? 0.5 : 8, current + direction * step);
+      setInputValue(input, `${Number(next.toFixed(2))}${unit}`);
+    };
+
+    controls.appendChild(makeButton("-", () => adjust(-1)));
+    controls.appendChild(makeButton("+", () => adjust(1)));
+    presets.forEach(preset => controls.appendChild(makeButton(preset, () => setInputValue(input, preset))));
+    input.insertAdjacentElement("afterend", controls);
+  }
+
+  function enhanceTextColorInput(input) {
+    if (input.dataset.golynTextColorEnhanced === "true") return;
+    const field = findFieldByLabel(input, "COLOR");
+    if (!field) return;
+    input.dataset.golynTextColorEnhanced = "true";
+    input.placeholder = "#4A2E10";
+
+    const colors = ["#1C1008", "#4A2E10", "#A0722A", "#C9963C", "#BC002D", "#0F766E", "#2563EB", "#7C3AED"];
+    const controls = document.createElement("div");
+    controls.style.display = "flex";
+    controls.style.flexWrap = "wrap";
+    controls.style.alignItems = "center";
+    controls.style.gap = "8px";
+    controls.style.marginTop = "10px";
+    controls.style.padding = "12px";
+    controls.style.border = "1px solid #d5d7de";
+    controls.style.borderRadius = "6px";
+    controls.style.background = "#fff";
+
+    const picker = document.createElement("input");
+    picker.type = "color";
+    picker.value = normalizeTextColor(input.value);
+    picker.style.width = "42px";
+    picker.style.height = "32px";
+    picker.style.border = "1px solid #cbd1dc";
+    picker.style.borderRadius = "5px";
+    picker.addEventListener("input", () => setInputValue(input, picker.value));
+    input.addEventListener("input", () => {
+      picker.value = normalizeTextColor(input.value);
+    });
+    controls.appendChild(picker);
+
+    colors.forEach(color => {
+      const button = makeButton("", () => setInputValue(input, color));
+      button.style.background = color;
+      button.style.minWidth = "28px";
+      button.style.width = "28px";
+      button.style.padding = "0";
+      button.title = color;
+      controls.appendChild(button);
+    });
+
+    input.insertAdjacentElement("afterend", controls);
+  }
+
   function enhanceSizedImageWidthControls() {
     document.querySelectorAll("input, textarea").forEach(input => {
       if (findWidthField(input)) enhanceWidthInput(input);
+      if (findFieldByLabel(input, "FONT SIZE")) enhanceTextSizeInput(input);
+      if (findFieldByLabel(input, "COLOR")) enhanceTextColorInput(input);
     });
     document.querySelectorAll("input, textarea, select").forEach(control => {
       if (findFieldByLabel(control, "ALIGN")) enhanceAlignControl(control);
@@ -561,6 +706,66 @@
         : ` style="max-width:100%;height:auto;${alignStyle(data.align)}"`;
       const titleAttr = title ? ` title="${title}"` : "";
       return `<img src="${escapeAttribute(image)}" alt="${alt}"${titleAttr} data-align="${normalizeAlign(data.align)}"${style}>`;
+    }
+  });
+
+  CMS.registerEditorComponent({
+    id: "styled-text",
+    label: "Styled Text",
+    fields: [
+      {
+        name: "text",
+        label: "Text",
+        widget: "text",
+        required: true
+      },
+      {
+        name: "font",
+        label: "Font",
+        widget: "select",
+        options: [
+          { label: "Default", value: "default" },
+          { label: "Sans", value: "sans" },
+          { label: "Serif", value: "serif" },
+          { label: "Japanese", value: "japanese" },
+          { label: "Vietnamese", value: "vietnamese" }
+        ],
+        default: "default",
+        required: false
+      },
+      {
+        name: "size",
+        label: "Font Size",
+        widget: "string",
+        default: "16px",
+        required: false,
+        hint: "Examples: 14px, 18px, 24px, 1.2rem."
+      },
+      {
+        name: "color",
+        label: "Color",
+        widget: "string",
+        default: "#4A2E10",
+        required: false,
+        hint: "Use a hex color such as #4A2E10."
+      }
+    ],
+    pattern: /<div\b([^>]*)class=(?:"[^"]*\barticle-styled-text\b[^"]*"|'[^']*\barticle-styled-text\b[^']*')[^>]*>([\s\S]*?)<\/div>/i,
+    fromBlock(match) {
+      const attrs = match[1] || "";
+      const style = attributeValue(attrs, "style");
+      return {
+        text: decodeHTML(match[2] || ""),
+        font: attributeValue(attrs, "data-font") || fontKeyFromStyle(style),
+        size: styleValue(style, "font-size") || "16px",
+        color: styleValue(style, "color") || "#4A2E10"
+      };
+    },
+    toBlock(data) {
+      return styledTextHTML(data.text, data.font, data.size, data.color);
+    },
+    toPreview(data) {
+      return styledTextHTML(data.text, data.font, data.size, data.color);
     }
   });
 })();

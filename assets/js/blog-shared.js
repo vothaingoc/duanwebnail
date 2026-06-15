@@ -239,6 +239,64 @@
     return /^(https?:\/\/|\/|images\/|\.\/images\/)/i.test(String(src || "").trim());
   }
 
+  function decodeHTML(value) {
+    return String(value || "")
+      .replace(/<br\s*\/?>/gi, "\n")
+      .replace(/<[^>]*>/g, "")
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'")
+      .replace(/&lt;/g, "<")
+      .replace(/&gt;/g, ">")
+      .replace(/&amp;/g, "&");
+  }
+
+  function normalizeTextSize(value) {
+    const size = String(value || "").trim();
+    return /^(?:[8-9]|[1-5]\d|60)(?:\.\d+)?px$|^(?:0?\.\d+|[1-4](?:\.\d+)?|5)rem$|^(?:[8-9]|[1-5]\d|60)(?:\.\d+)?pt$/i.test(size)
+      ? size
+      : "16px";
+  }
+
+  function normalizeTextColor(value) {
+    const color = String(value || "").trim();
+    return /^#[0-9a-f]{3}(?:[0-9a-f]{3})?$/i.test(color) ? color : "#4A2E10";
+  }
+
+  function normalizeTextFont(value) {
+    const font = String(value || "").trim().toLowerCase();
+    return ["default", "sans", "serif", "japanese", "vietnamese"].includes(font) ? font : "default";
+  }
+
+  function textFontStyle(value) {
+    const font = normalizeTextFont(value);
+    if (font === "serif") return "font-family:'Cormorant Garamond',serif;";
+    if (font === "japanese") return "font-family:'Noto Sans JP','Yu Gothic',sans-serif;";
+    if (font === "vietnamese") return "font-family:'Be Vietnam Pro',Arial,sans-serif;";
+    if (font === "sans") return "font-family:'Jost',Arial,sans-serif;";
+    return "";
+  }
+
+  function styleValue(style, property) {
+    const match = String(style || "").match(new RegExp(`(?:^|;)\\s*${property}\\s*:\\s*([^;]+)`, "i"));
+    return match ? match[1] : "";
+  }
+
+  function fontKeyFromStyle(style) {
+    const family = styleValue(style, "font-family").toLowerCase();
+    if (family.includes("cormorant")) return "serif";
+    if (family.includes("noto sans jp") || family.includes("yu gothic")) return "japanese";
+    if (family.includes("be vietnam")) return "vietnamese";
+    if (family.includes("jost") || family.includes("arial")) return "sans";
+    return "default";
+  }
+
+  function styledTextHTML(text, font, size, color) {
+    const safeFont = normalizeTextFont(font);
+    const safeSize = normalizeTextSize(size);
+    const safeColor = normalizeTextColor(color);
+    return `<div class="article-styled-text" data-font="${safeFont}" style="${textFontStyle(safeFont)}font-size:${escapeHTML(safeSize)};color:${escapeHTML(safeColor)};">${escapeHTML(text).replace(/\n/g, "<br>")}</div>`;
+  }
+
   function htmlImageBlock(value) {
     const match = String(value || "").trim().match(/^<img\b([^>]*)>$/i);
     if (!match) return "";
@@ -248,6 +306,19 @@
     const width = readAttribute(attrs, "width") || widthFromStyle(readAttribute(attrs, "style"));
     const align = readAttribute(attrs, "data-align") || alignFromStyle(readAttribute(attrs, "style"));
     return imageHTML(src, readAttribute(attrs, "alt"), width, readAttribute(attrs, "title"), align);
+  }
+
+  function htmlStyledTextBlock(value) {
+    const match = String(value || "").trim().match(/^<div\b([^>]*)class=(?:"[^"]*\barticle-styled-text\b[^"]*"|'[^']*\barticle-styled-text\b[^']*')[^>]*>([\s\S]*?)<\/div>$/i);
+    if (!match) return "";
+    const attrs = match[1] || "";
+    const style = readAttribute(attrs, "style");
+    return styledTextHTML(
+      decodeHTML(match[2] || ""),
+      readAttribute(attrs, "data-font") || fontKeyFromStyle(style),
+      styleValue(style, "font-size") || "16px",
+      styleValue(style, "color") || "#4A2E10"
+    );
   }
 
   function renderInlineMarkdown(value) {
@@ -281,6 +352,10 @@
         const safeHTMLImage = htmlImageBlock(trimmed);
         if (safeHTMLImage) {
           return `<p>${safeHTMLImage}</p>`;
+        }
+        const safeStyledText = htmlStyledTextBlock(trimmed);
+        if (safeStyledText) {
+          return safeStyledText;
         }
         const image = imageURLWithWidth(trimmed);
         if (image || isImageURL(trimmed)) {
