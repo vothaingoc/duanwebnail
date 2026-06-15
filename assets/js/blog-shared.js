@@ -203,10 +203,20 @@
     return html;
   }
 
+  function isImageURL(value) {
+    return /^https?:\/\/\S+\.(?:avif|gif|jpe?g|png|webp)(?:[?#]\S*)?$/i.test(String(value || "").trim());
+  }
+
   function renderBody(content) {
     return String(content || "")
       .split(/\n{2,}/)
-      .map(block => `<p>${renderInlineMarkdown(block).replace(/\n/g, "<br>")}</p>`)
+      .map(block => {
+        const trimmed = block.trim();
+        if (isImageURL(trimmed)) {
+          return `<p><img class="article-inline-image" src="${escapeHTML(trimmed)}" alt="" loading="lazy"></p>`;
+        }
+        return `<p>${renderInlineMarkdown(block).replace(/\n/g, "<br>")}</p>`;
+      })
       .join("");
   }
 
