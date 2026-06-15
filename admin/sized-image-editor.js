@@ -117,6 +117,10 @@
     return `<div class="article-styled-text" data-font="${normalizeTextFont(font)}" style="${fontStyle(font)}font-size:${escapeAttribute(normalizeTextSize(size))};color:${escapeAttribute(normalizeTextColor(color))};">${escapeHTML(text).replace(/\n/g, "<br>")}</div>`;
   }
 
+  function styledInlineHTML(text, font, size, color) {
+    return `<span class="article-styled-inline" data-font="${normalizeTextFont(font)}" style="${fontStyle(font)}font-size:${escapeAttribute(normalizeTextSize(size))};color:${escapeAttribute(normalizeTextColor(color))};">${escapeHTML(text)}</span>`;
+  }
+
   function parseWidth(value) {
     const match = clean(value).match(/^(\d+(?:\.\d+)?)(%|px|rem|em|vw)$/i);
     return {
@@ -615,14 +619,152 @@
     syncAllPreviewWidths();
   }
 
-  const observer = new MutationObserver(() => enhanceSizedImageWidthControls());
+  function editorToolbarCandidates() {
+    const candidates = Array.from(document.querySelectorAll("div")).filter(node => {
+      const text = clean(node.textContent);
+      const buttons = node.querySelectorAll("button").length;
+      return buttons >= 6 && text.includes("Rich Text") && text.includes("Markdown") && !node.querySelector("textarea");
+    });
+    return candidates.filter(node => !candidates.some(other => other !== node && node.contains(other)));
+  }
+
+  function activeEditorTarget() {
+    const selection = window.getSelection && window.getSelection();
+    if (selection && selection.rangeCount) {
+      let node = selection.anchorNode;
+      while (node && node !== document.body) {
+        if (node.nodeType === 1 && node.isContentEditable) return node;
+        node = node.parentNode;
+      }
+    }
+    const active = document.activeElement;
+    if (active && (active.tagName === "TEXTAREA" || active.tagName === "INPUT" || active.isContentEditable)) return active;
+    return null;
+  }
+
+  function insertAtTextarea(textarea, html, plainText) {
+    const start = textarea.selectionStart || 0;
+    const end = textarea.selectionEnd || start;
+    const before = textarea.value.slice(0, start);
+    const after = textarea.value.slice(end);
+    const selected = textarea.value.slice(start, end) || plainText;
+    const htmlWithText = html(selected);
+    setInputValue(textarea, before + htmlWithText + after);
+    textarea.focus();
+    textarea.setSelectionRange(start + htmlWithText.length, start + htmlWithText.length);
+  }
+
+  function insertStyledInline(font, size, color) {
+    const target = activeEditorTarget();
+    const selection = window.getSelection && window.getSelection();
+    const selectedText = selection && selection.rangeCount ? selection.toString() : "";
+    const fallbackText = selectedText || window.prompt("Text to style", "") || "";
+    if (!fallbackText) return;
+
+    const build = text => styledInlineHTML(text, font, size, color);
+    if (target && (target.tagName === "TEXTAREA" || target.tagName === "INPUT")) {
+      insertAtTextarea(target, build, fallbackText);
+      return;
+    }
+
+    if (selection && selection.rangeCount) {
+      document.execCommand("insertHTML", false, build(fallbackText));
+      const editor = activeEditorTarget();
+      if (editor) editor.dispatchEvent(new Event("input", { bubbles: true }));
+    }
+  }
+
+  function enhanceRichTextToolbar() {
+    editorToolbarCandidates().forEach(toolbar => {
+      if (toolbar.dataset.golynTextToolbar === "true") return;
+      toolbar.dataset.golynTextToolbar = "true";
+
+      const controls = document.createElement("div");
+      controls.style.display = "inline-flex";
+      controls.style.alignItems = "center";
+      controls.style.gap = "6px";
+      controls.style.marginLeft = "10px";
+      controls.style.paddingLeft = "10px";
+      controls.style.borderLeft = "1px solid #c4c8d2";
+
+      const font = document.createElement("select");
+      font.title = "Font";
+      font.style.height = "28px";
+      font.style.border = "1px solid #cbd1dc";
+      font.style.borderRadius = "5px";
+      [
+        ["default", "Default"],
+        ["sans", "Sans"],
+        ["serif", "Serif"],
+        ["japanese", "JP"],
+        ["vietnamese", "VI"]
+      ].forEach(([value, label]) => {
+        const option = document.createElement("option");
+        option.value = value;
+        option.textContent = label;
+        font.appendChild(option);
+      });
+
+      const size = document.createElement("select");
+      size.title = "Font size";
+      size.style.height = "28px";
+      size.style.border = "1px solid #cbd1dc";
+      size.style.borderRadius = "5px";
+      ["14px", "16px", "18px", "20px", "24px", "32px"].forEach(value => {
+        const option = document.createElement("option");
+        option.value = value;
+        option.textContent = value;
+        size.appendChild(option);
+      });
+      size.value = "16px";
+
+      const color = document.createElement("input");
+      color.type = "color";
+      color.title = "Text color";
+      color.value = "#4A2E10";
+      color.style.width = "32px";
+      color.style.height = "28px";
+      color.style.border = "1px solid #cbd1dc";
+      color.style.borderRadius = "5px";
+
+      const apply = makeButton("A", () => insertStyledInline(font.value, size.value, color.value));
+      apply.title = "Apply text style to selected text";
+      apply.style.fontWeight = "700";
+
+      const smaller = makeButton("A-", () => {
+        const current = parseInt(size.value, 10) || 16;
+        size.value = `${Math.max(8, current - 2)}px`;
+      });
+      smaller.title = "Decrease selected text size";
+      const larger = makeButton("A+", () => {
+        const current = parseInt(size.value, 10) || 16;
+        size.value = `${Math.min(60, current + 2)}px`;
+      });
+      larger.title = "Increase selected text size";
+
+      controls.appendChild(font);
+      controls.appendChild(smaller);
+      controls.appendChild(size);
+      controls.appendChild(larger);
+      controls.appendChild(color);
+      controls.appendChild(apply);
+      toolbar.appendChild(controls);
+    });
+  }
+
+  const observer = new MutationObserver(() => {
+    enhanceSizedImageWidthControls();
+    enhanceRichTextToolbar();
+  });
   if (document.body) {
     observer.observe(document.body, { childList: true, subtree: true });
     enhanceSizedImageWidthControls();
+    enhanceRichTextToolbar();
   } else {
     document.addEventListener("DOMContentLoaded", () => {
       observer.observe(document.body, { childList: true, subtree: true });
       enhanceSizedImageWidthControls();
+      enhanceRichTextToolbar();
     });
   }
 

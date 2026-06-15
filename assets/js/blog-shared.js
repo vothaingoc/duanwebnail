@@ -297,6 +297,13 @@
     return `<div class="article-styled-text" data-font="${safeFont}" style="${textFontStyle(safeFont)}font-size:${escapeHTML(safeSize)};color:${escapeHTML(safeColor)};">${escapeHTML(text).replace(/\n/g, "<br>")}</div>`;
   }
 
+  function styledInlineHTML(text, font, size, color) {
+    const safeFont = normalizeTextFont(font);
+    const safeSize = normalizeTextSize(size);
+    const safeColor = normalizeTextColor(color);
+    return `<span class="article-styled-inline" data-font="${safeFont}" style="${textFontStyle(safeFont)}font-size:${escapeHTML(safeSize)};color:${escapeHTML(safeColor)};">${escapeHTML(text)}</span>`;
+  }
+
   function htmlImageBlock(value) {
     const match = String(value || "").trim().match(/^<img\b([^>]*)>$/i);
     if (!match) return "";
@@ -321,13 +328,26 @@
     );
   }
 
+  function htmlStyledInline(value) {
+    const match = String(value || "").match(/^<span\b([^>]*)class=(?:"[^"]*\barticle-styled-inline\b[^"]*"|'[^']*\barticle-styled-inline\b[^']*')[^>]*>([\s\S]*?)<\/span>$/i);
+    if (!match) return "";
+    const attrs = match[1] || "";
+    const style = readAttribute(attrs, "style");
+    return styledInlineHTML(
+      decodeHTML(match[2] || ""),
+      readAttribute(attrs, "data-font") || fontKeyFromStyle(style),
+      styleValue(style, "font-size") || "16px",
+      styleValue(style, "color") || "#4A2E10"
+    );
+  }
+
   function renderInlineMarkdown(value) {
-    const imagePattern = /!\[([^\]]*)\]\((\S+?)(?:\s+"([^"]*)")?\)(?:\s*\{width=([^}]+)\})?/g;
+    const inlinePattern = /<span\b[^>]*class=(?:"[^"]*\barticle-styled-inline\b[^"]*"|'[^']*\barticle-styled-inline\b[^']*')[^>]*>[\s\S]*?<\/span>|!\[([^\]]*)\]\((\S+?)(?:\s+"([^"]*)")?\)(?:\s*\{width=([^}]+)\})?/g;
     let html = "";
     let lastIndex = 0;
-    String(value || "").replace(imagePattern, (match, alt, src, title, width, index) => {
+    String(value || "").replace(inlinePattern, (match, alt, src, title, width, index) => {
       html += escapeHTML(value.slice(lastIndex, index));
-      html += imageHTML(src, alt, width, title);
+      html += htmlStyledInline(match) || imageHTML(src, alt, width, title);
       lastIndex = index + match.length;
       return match;
     });
