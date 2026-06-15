@@ -143,6 +143,162 @@
 
   const widthWidget = registerImageWidthWidget() ? "image_width" : "string";
 
+  function setInputValue(input, value) {
+    const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value").set;
+    setter.call(input, value);
+    input.dispatchEvent(new Event("input", { bubbles: true }));
+    input.dispatchEvent(new Event("change", { bubbles: true }));
+  }
+
+  function previewWidth(value) {
+    const parsed = parseWidth(value);
+    if (!parsed.amount) return "100%";
+    if (parsed.unit === "%" || parsed.unit === "vw") return `${clampWidth(parsed.amount, parsed.unit)}%`;
+    const px = parsed.unit === "px" ? Number(parsed.amount) : Number(parsed.amount) * 16;
+    return `${Math.min(100, Math.max(5, (px / 640) * 100))}%`;
+  }
+
+  function findWidthField(input) {
+    let node = input.parentElement;
+    for (let i = 0; node && i < 7; i += 1, node = node.parentElement) {
+      const controls = node.querySelectorAll("input, textarea, select");
+      const text = clean(node.textContent).toUpperCase();
+      if (controls.length === 1 && controls[0] === input && text.includes("WIDTH")) {
+        return node;
+      }
+    }
+    return null;
+  }
+
+  function makeButton(label, onClick) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = label;
+    button.style.border = "1px solid #cbd1dc";
+    button.style.borderRadius = "5px";
+    button.style.background = "#f6f7fb";
+    button.style.color = "#1f2937";
+    button.style.minWidth = label.length > 3 ? "58px" : "34px";
+    button.style.height = "32px";
+    button.style.padding = "0 10px";
+    button.style.cursor = "pointer";
+    button.addEventListener("click", onClick);
+    return button;
+  }
+
+  function enhanceWidthInput(input) {
+    if (input.dataset.golynWidthEnhanced === "true") return;
+    const field = findWidthField(input);
+    if (!field) return;
+
+    input.dataset.golynWidthEnhanced = "true";
+    input.placeholder = "Auto, 50%, 360px...";
+
+    const units = ["%", "px", "rem", "em", "vw"];
+    const presets = ["25%", "50%", "75%", "100%", "320px", "480px", "640px"];
+    const controls = document.createElement("div");
+    controls.style.display = "grid";
+    controls.style.gap = "10px";
+    controls.style.marginTop = "10px";
+    controls.style.padding = "12px";
+    controls.style.border = "1px solid #d5d7de";
+    controls.style.borderRadius = "6px";
+    controls.style.background = "#fff";
+
+    const row = document.createElement("div");
+    row.style.display = "flex";
+    row.style.flexWrap = "wrap";
+    row.style.alignItems = "center";
+    row.style.gap = "8px";
+
+    const unitSelect = document.createElement("select");
+    unitSelect.style.height = "32px";
+    unitSelect.style.border = "1px solid #cbd1dc";
+    unitSelect.style.borderRadius = "5px";
+    unitSelect.style.padding = "0 8px";
+    units.forEach(unit => {
+      const option = document.createElement("option");
+      option.value = unit;
+      option.textContent = unit;
+      unitSelect.appendChild(option);
+    });
+
+    const bar = document.createElement("div");
+    bar.style.width = "100%";
+    bar.style.maxWidth = "360px";
+    bar.style.height = "8px";
+    bar.style.borderRadius = "999px";
+    bar.style.background = "#eceff4";
+    bar.style.overflow = "hidden";
+
+    const fill = document.createElement("div");
+    fill.style.height = "100%";
+    fill.style.background = "#3f6edb";
+    bar.appendChild(fill);
+
+    const update = () => {
+      const parsed = parseWidth(input.value);
+      unitSelect.value = parsed.unit;
+      fill.style.width = previewWidth(input.value);
+    };
+
+    const write = value => {
+      setInputValue(input, value);
+      update();
+    };
+
+    const adjust = direction => {
+      const parsed = parseWidth(input.value);
+      const unit = parsed.unit || unitSelect.value || "%";
+      const current = Number(parsed.amount) || (unit === "%" ? 100 : 320);
+      const step = unit === "px" ? 20 : unit === "rem" || unit === "em" ? 1 : 5;
+      const next = clampWidth(current + direction * step, unit);
+      write(next ? `${next}${unit}` : "");
+    };
+
+    unitSelect.addEventListener("change", () => {
+      const parsed = parseWidth(input.value);
+      const amount = parsed.amount || (unitSelect.value === "%" ? 100 : 320);
+      const next = clampWidth(amount, unitSelect.value);
+      write(next ? `${next}${unitSelect.value}` : "");
+    });
+    input.addEventListener("input", update);
+
+    row.appendChild(makeButton("-", () => adjust(-1)));
+    row.appendChild(makeButton("+", () => adjust(1)));
+    row.appendChild(unitSelect);
+    row.appendChild(makeButton("Auto", () => write("")));
+
+    const presetRow = document.createElement("div");
+    presetRow.style.display = "flex";
+    presetRow.style.flexWrap = "wrap";
+    presetRow.style.gap = "8px";
+    presets.forEach(preset => presetRow.appendChild(makeButton(preset, () => write(preset))));
+
+    controls.appendChild(row);
+    controls.appendChild(presetRow);
+    controls.appendChild(bar);
+    input.insertAdjacentElement("afterend", controls);
+    update();
+  }
+
+  function enhanceSizedImageWidthControls() {
+    document.querySelectorAll("input, textarea").forEach(input => {
+      if (findWidthField(input)) enhanceWidthInput(input);
+    });
+  }
+
+  const observer = new MutationObserver(() => enhanceSizedImageWidthControls());
+  if (document.body) {
+    observer.observe(document.body, { childList: true, subtree: true });
+    enhanceSizedImageWidthControls();
+  } else {
+    document.addEventListener("DOMContentLoaded", () => {
+      observer.observe(document.body, { childList: true, subtree: true });
+      enhanceSizedImageWidthControls();
+    });
+  }
+
   CMS.registerEditorComponent({
     id: "sized-image",
     label: "Sized Image",
