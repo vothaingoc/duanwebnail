@@ -405,6 +405,7 @@
     button.style.height = "32px";
     button.style.padding = "0 10px";
     button.style.cursor = "pointer";
+    button.addEventListener("mousedown", event => event.preventDefault());
     button.addEventListener("click", onClick);
     return button;
   }
@@ -720,27 +721,18 @@
     if (editor) editor.dispatchEvent(new Event("input", { bubbles: true }));
   }
 
-  function enhanceRichTextToolbar() {
-    const toolbars = editorToolbarCandidates();
-    const fallback = closestToolbarFromText();
-    if (!toolbars.length && fallback) toolbars.push(fallback);
-    toolbars.forEach(toolbar => {
-      if (toolbar.dataset.golynTextToolbar === "true") return;
-      toolbar.dataset.golynTextToolbar = "true";
+  function createTextToolbarControls() {
+    const controls = document.createElement("div");
+    controls.style.display = "inline-flex";
+    controls.style.alignItems = "center";
+    controls.style.flexWrap = "wrap";
+    controls.style.gap = "6px";
 
-      const controls = document.createElement("div");
-      controls.style.display = "inline-flex";
-      controls.style.alignItems = "center";
-      controls.style.gap = "6px";
-      controls.style.marginLeft = "10px";
-      controls.style.paddingLeft = "10px";
-      controls.style.borderLeft = "1px solid #c4c8d2";
-
-      const font = document.createElement("select");
-      font.title = "Font";
-      font.style.height = "28px";
-      font.style.border = "1px solid #cbd1dc";
-      font.style.borderRadius = "5px";
+    const font = document.createElement("select");
+    font.title = "Font";
+    font.style.height = "28px";
+    font.style.border = "1px solid #cbd1dc";
+    font.style.borderRadius = "5px";
       [
         ["default", "Default"],
         ["sans", "Sans"],
@@ -807,23 +799,85 @@
       controls.appendChild(alignLeft);
       controls.appendChild(alignCenter);
       controls.appendChild(alignRight);
+    return controls;
+  }
+
+  function enhanceRichTextToolbar() {
+    const toolbars = editorToolbarCandidates();
+    const fallback = closestToolbarFromText();
+    if (!toolbars.length && fallback) toolbars.push(fallback);
+    toolbars.forEach(toolbar => {
+      if (toolbar.dataset.golynTextToolbar === "true") return;
+      toolbar.dataset.golynTextToolbar = "true";
+
+      const controls = createTextToolbarControls();
+      controls.style.marginLeft = "10px";
+      controls.style.paddingLeft = "10px";
+      controls.style.borderLeft = "1px solid #c4c8d2";
       toolbar.appendChild(controls);
     });
+  }
+
+  function persistentToolbarHost() {
+    const toolbar = closestToolbarFromText() || editorToolbarCandidates()[0];
+    if (!toolbar) return null;
+
+    let node = toolbar;
+    for (let i = 0; node && i < 5; i += 1, node = node.parentElement) {
+      const text = clean(node.textContent);
+      if (text.includes("Rich Text") && text.includes("Markdown")) return node;
+    }
+    return toolbar.parentElement || toolbar;
+  }
+
+  function ensurePersistentTextToolbar() {
+    const host = persistentToolbarHost();
+    if (!host || document.querySelector("[data-golyn-persistent-text-toolbar='true']")) return;
+
+    const bar = document.createElement("div");
+    bar.dataset.golynPersistentTextToolbar = "true";
+    bar.style.display = "flex";
+    bar.style.alignItems = "center";
+    bar.style.flexWrap = "wrap";
+    bar.style.gap = "8px";
+    bar.style.padding = "8px 12px";
+    bar.style.borderTop = "1px solid #c4c8d2";
+    bar.style.borderBottom = "1px solid #c4c8d2";
+    bar.style.background = "#eef0f5";
+
+    const label = document.createElement("span");
+    label.textContent = "Text tools";
+    label.style.fontSize = "12px";
+    label.style.fontWeight = "700";
+    label.style.color = "#4b5563";
+    label.style.marginRight = "4px";
+    bar.appendChild(label);
+    bar.appendChild(createTextToolbarControls());
+
+    const toolbar = closestToolbarFromText() || editorToolbarCandidates()[0];
+    if (toolbar && toolbar.parentElement) {
+      toolbar.insertAdjacentElement("afterend", bar);
+    } else {
+      host.insertAdjacentElement("afterbegin", bar);
+    }
   }
 
   const observer = new MutationObserver(() => {
     enhanceSizedImageWidthControls();
     enhanceRichTextToolbar();
+    ensurePersistentTextToolbar();
   });
   if (document.body) {
     observer.observe(document.body, { childList: true, subtree: true });
     enhanceSizedImageWidthControls();
     enhanceRichTextToolbar();
+    ensurePersistentTextToolbar();
   } else {
     document.addEventListener("DOMContentLoaded", () => {
       observer.observe(document.body, { childList: true, subtree: true });
       enhanceSizedImageWidthControls();
       enhanceRichTextToolbar();
+      ensurePersistentTextToolbar();
     });
   }
 
