@@ -78,6 +78,8 @@ collections:
               - { label: "Title", name: "title", widget: "string" }
               - { label: "Alt Text", name: "alt", widget: "string" }
               - { label: "Tag", name: "tag", widget: "string", required: false }
+              - { label: "Category", name: "category", widget: "select", options: ["simple", "gel", "foot", "seasonal", "design"], default: "simple" }
+              - { label: "Tags", name: "tags", widget: "list", required: false, hint: "Use values such as new, simple, gel, foot, seasonal, design" }
               - { label: "Image URL", name: "image", widget: "string", hint: "Paste a Cloudflare R2 public URL, e.g. https://pub-xxxxx.r2.dev/gallery/xxx.jpg" }
               - { label: "Created At", name: "createdAt", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD", required: false }
               - { label: "Featured", name: "featured", widget: "boolean", default: false }

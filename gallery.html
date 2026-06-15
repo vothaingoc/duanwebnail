@@ -609,6 +609,9 @@ html[lang="vi"] { --serif: 'Cormorant Garamond', serif; --sans: 'Be Vietnam Pro'
 
 .gallery-page{padding:calc(var(--nav-h) + 72px) 80px 96px;background:var(--cream)}
 .gallery-page .gallery-grid{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;grid-auto-rows:auto!important;align-items:start}
+.gallery-filters{max-width:1180px;margin:0 auto 28px;display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
+.gallery-filter{min-height:38px;padding:0 16px;border:1px solid rgba(74,55,40,.2);border-radius:2px;background:transparent;color:var(--brown-deep);font-family:var(--sans);font-size:12px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:background .25s,color .25s,border-color .25s}
+.gallery-filter:hover,.gallery-filter.active{background:var(--brown-deep);border-color:var(--brown-deep);color:var(--cream)}
 .gallery-page .gallery-item{position:relative;width:100%;height:auto;aspect-ratio:3/4;border:0;border-radius:4px;overflow:hidden;background:var(--beige);cursor:zoom-in;transition:transform .3s,box-shadow .3s}
 .gallery-page .gallery-item:nth-child(n){grid-column:auto!important;grid-row:auto!important}
 .gallery-page .gallery-grid:not(.expanded) .gallery-item:nth-child(n){display:block}
@@ -620,7 +623,10 @@ html[lang="vi"] { --serif: 'Cormorant Garamond', serif; --sans: 'Be Vietnam Pro'
 .gallery-thumb{flex:0 0 54px;width:54px;height:68px;border:1px solid rgba(245,239,230,.24);border-radius:4px;overflow:hidden;background:transparent;padding:0;opacity:.62;cursor:pointer;transition:opacity .2s,border-color .2s,transform .2s}
 .gallery-thumb.active{opacity:1;border-color:var(--gold);transform:translateY(-2px)}
 .gallery-thumb img{width:100%;height:100%;object-fit:cover;display:block}
-@media(max-width:900px){.gallery-page{padding:calc(var(--nav-h) + 54px) 20px 70px}.gallery-page .gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}}
+.gallery-more{max-width:1180px;margin:34px auto 0;text-align:center}
+.gallery-more[hidden]{display:none}
+.gallery-more .btn-price-detail{border:0;cursor:pointer;font-family:var(--sans)}
+@media(max-width:900px){.gallery-page{padding:calc(var(--nav-h) + 54px) 20px 70px}.gallery-filters{justify-content:flex-start;gap:8px;margin-bottom:22px;overflow-x:auto;flex-wrap:nowrap;padding-bottom:4px}.gallery-filter{flex:0 0 auto}.gallery-page .gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}}
 @media(max-width:460px){.gallery-page .gallery-grid{grid-template-columns:1fr}}
 </style>
 </head>
@@ -691,7 +697,9 @@ html[lang="vi"] { --serif: 'Cormorant Garamond', serif; --sans: 'Be Vietnam Pro'
     <h1 class="sec-title" data-i18n="gallery_page_title"><em>&#20840;&#12390;&#12398;</em>&#12487;&#12470;&#12452;&#12531;</h1>
     <div class="sec-line"></div>
   </section>
+  <div class="gallery-filters" data-gallery-filters aria-label="Gallery categories"></div>
   <section class="gallery-grid" aria-label="Nail design gallery"></section>
+  <div class="gallery-more"><button class="btn-price-detail" type="button" data-gallery-more>Xem thêm</button></div>
 </main>
 <div class="lightbox" id="galleryLightbox" aria-hidden="true">
   <button class="lightbox-close" type="button" aria-label="Close">&times;</button>
@@ -758,7 +766,7 @@ function toggleLangMenu(button){const picker=button.closest('.lang-picker');cons
 function updateLangPickers(lang){document.querySelectorAll('.lang-picker').forEach(picker=>{const flag=picker.querySelector('.lang-current .flag');const label=picker.querySelector('.lang-current-label');if(flag)flag.className='flag '+(langFlagClasses[lang]||langFlagClasses.ja);if(label)label.textContent=langLabels[lang]||langLabels.ja;picker.querySelectorAll('[data-lang-option]').forEach(option=>option.classList.toggle('active',option.dataset.langOption===lang))})}
 function setLang(lang){if(!galleryI18n[lang])lang='ja';document.documentElement.lang=lang;const dict=galleryI18n[lang];document.querySelectorAll('[data-i18n]').forEach(el=>{const key=el.getAttribute('data-i18n');if(dict[key])el.innerHTML=dict[key]});updateLangPickers(lang);localStorage.setItem('golynLang',lang)}
 function chooseLang(lang){setLang(lang);closeLangMenus()}
-function refreshGalleryLightboxData(){galleryItems=window.GOLYN_GALLERY_ITEMS||[];galleryImages=galleryItems.map(item=>item.src);galleryLabels=galleryItems.map(item=>item.label);buildGalleryThumbs();document.querySelectorAll('[data-gallery-index]').forEach(item=>{if(item.dataset.previewBound==='true')return;item.dataset.previewBound='true';item.addEventListener('click',()=>showGalleryImage(Number(item.dataset.galleryIndex)))})}
+function refreshGalleryLightboxData(){galleryItems=window.GOLYN_ACTIVE_GALLERY_ITEMS||window.GOLYN_GALLERY_ITEMS||[];galleryImages=galleryItems.map(item=>item.src);galleryLabels=galleryItems.map(item=>item.label);buildGalleryThumbs();document.querySelectorAll('[data-gallery-index]').forEach(item=>{if(item.dataset.previewBound==='true')return;item.dataset.previewBound='true';item.addEventListener('click',()=>showGalleryImage(Number(item.dataset.galleryIndex)))})}
 function updateGalleryThumbs(){document.querySelectorAll('.gallery-thumb').forEach((thumb,index)=>{thumb.classList.toggle('active',index===currentGalleryIndex)})}
 function buildGalleryThumbs(){const thumbs=document.getElementById('galleryThumbs');if(!thumbs)return;thumbs.innerHTML=galleryImages.map((src,index)=>'<button class="gallery-thumb" type="button" data-thumb-index="'+index+'" aria-label="View image '+(index+1)+'"><img src="'+src+'" alt=""/></button>').join('');thumbs.querySelectorAll('[data-thumb-index]').forEach(thumb=>{thumb.addEventListener('click',event=>{event.stopPropagation();showGalleryImage(Number(thumb.dataset.thumbIndex))})})}
 function showGalleryImage(index){if(!galleryImages.length)return;const lightbox=document.getElementById('galleryLightbox');const image=document.getElementById('lightboxImage');const counter=document.getElementById('lightboxCounter');currentGalleryIndex=(index+galleryImages.length)%galleryImages.length;image.src=galleryImages[currentGalleryIndex];image.alt=galleryLabels[currentGalleryIndex];counter.textContent=(currentGalleryIndex+1)+' / '+galleryImages.length;updateGalleryThumbs();lightbox.classList.add('open');lightbox.setAttribute('aria-hidden','false');document.body.style.overflow='hidden'}

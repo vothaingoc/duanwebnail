@@ -1,6 +1,19 @@
 (function () {
   const GALLERY_CONTENT_URL = "content/gallery/gallery.json";
+  const GALLERY_CATEGORIES = [
+    { key: "all", label: "All" },
+    { key: "new", label: "New" },
+    { key: "simple", label: "Simple" },
+    { key: "gel", label: "Gel" },
+    { key: "foot", label: "Foot" },
+    { key: "seasonal", label: "Seasonal" },
+    { key: "design", label: "Design" }
+  ];
+  const INITIAL_VISIBLE_COUNT = 8;
+  const LOAD_MORE_COUNT = 8;
   let contentLoaded = false;
+  let activeCategory = "all";
+  let visibleCount = INITIAL_VISIBLE_COUNT;
 
   function escapeHTML(value) {
     return String(value || "").replace(/[&<>"']/g, char => ({
@@ -15,11 +28,15 @@
   function normalizeItem(item, index) {
     const title = item.title || item.label || `Gallery ${index + 1}`;
     const image = item.image || item.src || "";
+    const category = item.category || "simple";
+    const tags = Array.isArray(item.tags) ? item.tags : (item.tags ? String(item.tags).split(",").map(tag => tag.trim()).filter(Boolean) : []);
     return {
       title,
       label: item.label || title,
       alt: item.alt || title,
       tag: item.tag || title,
+      category,
+      tags,
       image,
       src: image,
       createdAt: item.createdAt || "",
@@ -61,6 +78,45 @@
     return Array.isArray(window.GOLYN_GALLERY_ITEMS) ? window.GOLYN_GALLERY_ITEMS : [];
   }
 
+  function matchesCategory(item, category) {
+    if (category === "all") return true;
+    return item.category === category || (Array.isArray(item.tags) && item.tags.includes(category));
+  }
+
+  function filteredItems() {
+    return items().filter(item => matchesCategory(item, activeCategory));
+  }
+
+  function renderFilters() {
+    const filters = document.querySelector("[data-gallery-filters]");
+    if (!filters) return;
+    filters.innerHTML = GALLERY_CATEGORIES.map(category => `
+      <button class="gallery-filter${category.key === activeCategory ? " active" : ""}" type="button" data-gallery-filter="${category.key}" aria-pressed="${category.key === activeCategory}">
+        ${escapeHTML(category.label)}
+      </button>
+    `).join("");
+    filters.querySelectorAll("[data-gallery-filter]").forEach(button => {
+      button.addEventListener("click", () => {
+        activeCategory = button.dataset.galleryFilter || "all";
+        visibleCount = INITIAL_VISIBLE_COUNT;
+        renderGalleryPage();
+      });
+    });
+  }
+
+  function renderLoadMore(total, visibleTotal) {
+    const button = document.querySelector("[data-gallery-more]");
+    if (!button) return;
+    const wrapper = button.closest(".gallery-more");
+    const isComplete = visibleTotal >= total;
+    button.hidden = isComplete;
+    if (wrapper) wrapper.hidden = isComplete;
+    button.onclick = () => {
+      visibleCount += LOAD_MORE_COUNT;
+      renderGalleryPage();
+    };
+  }
+
   function renderHomeGallery() {
     const grid = document.querySelector(".gallery-grid[data-gallery-scope='home']");
     if (!grid) return;
@@ -76,12 +132,18 @@
   function renderGalleryPage() {
     const grid = document.querySelector(".gallery-page .gallery-grid");
     if (!grid) return;
-    grid.innerHTML = items().map((item, index) => `
-      <button class="gallery-item" type="button" data-gallery-index="${index}">
+    const selected = filteredItems();
+    const visibleItems = selected.slice(0, visibleCount);
+    window.GOLYN_ACTIVE_GALLERY_ITEMS = selected;
+    grid.innerHTML = visibleItems.map((item, index) => `
+      <button class="gallery-item" type="button" data-gallery-index="${index}" data-gallery-category="${escapeHTML(item.category)}">
         <img alt="${escapeHTML(item.alt || item.label)}" src="${escapeHTML(item.src)}"/>
         <span class="gallery-label">${escapeHTML(item.label)}</span>
       </button>
     `).join("");
+    renderFilters();
+    renderLoadMore(selected.length, visibleItems.length);
+    document.dispatchEvent(new CustomEvent("golyn:gallery-rendered"));
   }
 
   async function render() {
