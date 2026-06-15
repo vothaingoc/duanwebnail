@@ -196,19 +196,20 @@
       : "";
   }
 
-  function imageHTML(src, alt, width) {
+  function imageHTML(src, alt, width, title) {
     const safeWidth = normalizeImageWidth(width);
     const style = safeWidth ? ` style="width:${escapeHTML(safeWidth)}"` : "";
-    return `<img class="article-inline-image" src="${escapeHTML(src)}" alt="${escapeHTML(alt)}" loading="lazy"${style}>`;
+    const titleAttr = title ? ` title="${escapeHTML(title)}"` : "";
+    return `<img class="article-inline-image" src="${escapeHTML(src)}" alt="${escapeHTML(alt)}" loading="lazy"${titleAttr}${style}>`;
   }
 
   function renderInlineMarkdown(value) {
-    const imagePattern = /!\[([^\]]*)\]\(([^)\s]+)\)(?:\{width=([^}]+)\})?/g;
+    const imagePattern = /!\[([^\]]*)\]\((\S+?)(?:\s+"([^"]*)")?\)(?:\s*\{width=([^}]+)\})?/g;
     let html = "";
     let lastIndex = 0;
-    String(value || "").replace(imagePattern, (match, alt, src, width, index) => {
+    String(value || "").replace(imagePattern, (match, alt, src, title, width, index) => {
       html += escapeHTML(value.slice(lastIndex, index));
-      html += imageHTML(src, alt, width);
+      html += imageHTML(src, alt, width, title);
       lastIndex = index + match.length;
       return match;
     });
