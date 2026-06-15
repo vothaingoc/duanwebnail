@@ -194,6 +194,44 @@
     return Boolean(first && second && first === second);
   }
 
+  function previewDocuments() {
+    const docs = [document];
+    document.querySelectorAll("iframe").forEach(frame => {
+      try {
+        if (frame.contentDocument) docs.push(frame.contentDocument);
+      } catch (_) {
+        // Cross-origin frames cannot be inspected.
+      }
+    });
+    return docs;
+  }
+
+  function enhancedWidthInputs() {
+    return Array.from(document.querySelectorAll("input[data-golyn-width-enhanced='true'], textarea[data-golyn-width-enhanced='true']"));
+  }
+
+  function previewImagesFor(input, block, blockImages) {
+    const inputIndex = enhancedWidthInputs().indexOf(input);
+    const candidates = [];
+
+    previewDocuments().forEach(doc => {
+      doc.querySelectorAll("img").forEach(img => {
+        if (doc === document && block.contains(img)) return;
+        const src = img.currentSrc || img.src;
+        if (!src) return;
+        candidates.push(img);
+      });
+    });
+
+    const matching = candidates.filter(img => {
+      const src = img.currentSrc || img.src;
+      return blockImages.some(blockSrc => sameImage(blockSrc, src));
+    });
+    if (matching.length) return matching;
+
+    return inputIndex >= 0 && candidates[inputIndex] ? [candidates[inputIndex]] : [];
+  }
+
   function applyWidthToPreview(input) {
     const block = findSizedImageBlock(input);
     if (!block) return;
@@ -203,13 +241,11 @@
     if (!blockImages.length) return;
 
     const width = normalizeImageWidth(input.value);
-    document.querySelectorAll("img").forEach(img => {
-      if (block.contains(img)) return;
-      const src = img.currentSrc || img.src;
-      if (!blockImages.some(blockSrc => sameImage(blockSrc, src))) return;
+    previewImagesFor(input, block, blockImages).forEach(img => {
       img.style.maxWidth = "100%";
       img.style.height = "auto";
       img.style.display = "block";
+      img.style.objectFit = "contain";
       if (width) {
         img.style.width = width;
       } else {
