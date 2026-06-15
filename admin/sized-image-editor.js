@@ -170,6 +170,60 @@
     return null;
   }
 
+  function findSizedImageBlock(input) {
+    let node = input.parentElement;
+    for (let i = 0; node && i < 12; i += 1, node = node.parentElement) {
+      const text = clean(node.textContent).toUpperCase();
+      if (text.includes("SIZED IMAGE") && node.querySelector("img")) return node;
+    }
+    return null;
+  }
+
+  function imageKey(src) {
+    try {
+      const url = new URL(src, window.location.href);
+      return decodeURIComponent(url.pathname.split("/").filter(Boolean).pop() || url.pathname);
+    } catch (_) {
+      return String(src || "").split(/[?#]/)[0].split("/").pop();
+    }
+  }
+
+  function sameImage(a, b) {
+    const first = imageKey(a);
+    const second = imageKey(b);
+    return Boolean(first && second && first === second);
+  }
+
+  function applyWidthToPreview(input) {
+    const block = findSizedImageBlock(input);
+    if (!block) return;
+    const blockImages = Array.from(block.querySelectorAll("img"))
+      .map(img => img.currentSrc || img.src)
+      .filter(Boolean);
+    if (!blockImages.length) return;
+
+    const width = normalizeImageWidth(input.value);
+    document.querySelectorAll("img").forEach(img => {
+      if (block.contains(img)) return;
+      const src = img.currentSrc || img.src;
+      if (!blockImages.some(blockSrc => sameImage(blockSrc, src))) return;
+      img.style.maxWidth = "100%";
+      img.style.height = "auto";
+      img.style.display = "block";
+      if (width) {
+        img.style.width = width;
+      } else {
+        img.style.removeProperty("width");
+      }
+    });
+  }
+
+  function syncAllPreviewWidths() {
+    document.querySelectorAll("input[data-golyn-width-enhanced='true'], textarea[data-golyn-width-enhanced='true']").forEach(input => {
+      applyWidthToPreview(input);
+    });
+  }
+
   function makeButton(label, onClick) {
     const button = document.createElement("button");
     button.type = "button";
@@ -240,6 +294,8 @@
       const parsed = parseWidth(input.value);
       unitSelect.value = parsed.unit;
       fill.style.width = previewWidth(input.value);
+      applyWidthToPreview(input);
+      window.setTimeout(() => applyWidthToPreview(input), 120);
     };
 
     const write = value => {
@@ -286,6 +342,7 @@
     document.querySelectorAll("input, textarea").forEach(input => {
       if (findWidthField(input)) enhanceWidthInput(input);
     });
+    syncAllPreviewWidths();
   }
 
   const observer = new MutationObserver(() => enhanceSizedImageWidthControls());
