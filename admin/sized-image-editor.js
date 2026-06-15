@@ -733,76 +733,77 @@
     font.style.height = "28px";
     font.style.border = "1px solid #cbd1dc";
     font.style.borderRadius = "5px";
-      [
-        ["default", "Default"],
-        ["sans", "Sans"],
-        ["serif", "Serif"],
-        ["japanese", "JP"],
-        ["vietnamese", "VI"]
-      ].forEach(([value, label]) => {
-        const option = document.createElement("option");
-        option.value = value;
-        option.textContent = label;
-        font.appendChild(option);
-      });
+    [
+      ["default", "Default"],
+      ["sans", "Sans"],
+      ["serif", "Serif"],
+      ["japanese", "JP"],
+      ["vietnamese", "VI"]
+    ].forEach(([value, label]) => {
+      const option = document.createElement("option");
+      option.value = value;
+      option.textContent = label;
+      font.appendChild(option);
+    });
 
-      const size = document.createElement("select");
-      size.title = "Font size";
-      size.style.height = "28px";
-      size.style.border = "1px solid #cbd1dc";
-      size.style.borderRadius = "5px";
-      ["14px", "16px", "18px", "20px", "24px", "32px"].forEach(value => {
-        const option = document.createElement("option");
-        option.value = value;
-        option.textContent = value;
-        size.appendChild(option);
-      });
-      size.value = "16px";
+    const size = document.createElement("select");
+    size.title = "Font size";
+    size.style.height = "28px";
+    size.style.border = "1px solid #cbd1dc";
+    size.style.borderRadius = "5px";
+    ["14px", "16px", "18px", "20px", "24px", "32px"].forEach(value => {
+      const option = document.createElement("option");
+      option.value = value;
+      option.textContent = value;
+      size.appendChild(option);
+    });
+    size.value = "16px";
 
-      const color = document.createElement("input");
-      color.type = "color";
-      color.title = "Text color";
-      color.value = "#4A2E10";
-      color.style.width = "32px";
-      color.style.height = "28px";
-      color.style.border = "1px solid #cbd1dc";
-      color.style.borderRadius = "5px";
+    const color = document.createElement("input");
+    color.type = "color";
+    color.title = "Text color";
+    color.value = "#4A2E10";
+    color.style.width = "32px";
+    color.style.height = "28px";
+    color.style.border = "1px solid #cbd1dc";
+    color.style.borderRadius = "5px";
 
-      const apply = makeButton("A", () => insertStyledInline(font.value, size.value, color.value));
-      apply.title = "Apply text style to selected text";
-      apply.style.fontWeight = "700";
+    const apply = makeButton("A", () => insertStyledInline(font.value, size.value, color.value));
+    apply.title = "Apply text style to selected text";
+    apply.style.fontWeight = "700";
 
-      const smaller = makeButton("A-", () => {
-        const current = parseInt(size.value, 10) || 16;
-        size.value = `${Math.max(8, current - 2)}px`;
-      });
-      smaller.title = "Decrease selected text size";
-      const larger = makeButton("A+", () => {
-        const current = parseInt(size.value, 10) || 16;
-        size.value = `${Math.min(60, current + 2)}px`;
-      });
-      larger.title = "Increase selected text size";
+    const smaller = makeButton("A-", () => {
+      const current = parseInt(size.value, 10) || 16;
+      size.value = `${Math.max(8, current - 2)}px`;
+    });
+    smaller.title = "Decrease selected text size";
+    const larger = makeButton("A+", () => {
+      const current = parseInt(size.value, 10) || 16;
+      size.value = `${Math.min(60, current + 2)}px`;
+    });
+    larger.title = "Increase selected text size";
 
-      const alignLeft = makeButton("L", () => alignSelectedText("left"));
-      alignLeft.title = "Align left";
-      const alignCenter = makeButton("C", () => alignSelectedText("center"));
-      alignCenter.title = "Align center";
-      const alignRight = makeButton("R", () => alignSelectedText("right"));
-      alignRight.title = "Align right";
+    const alignLeft = makeButton("L", () => alignSelectedText("left"));
+    alignLeft.title = "Align left";
+    const alignCenter = makeButton("C", () => alignSelectedText("center"));
+    alignCenter.title = "Align center";
+    const alignRight = makeButton("R", () => alignSelectedText("right"));
+    alignRight.title = "Align right";
 
-      controls.appendChild(font);
-      controls.appendChild(smaller);
-      controls.appendChild(size);
-      controls.appendChild(larger);
-      controls.appendChild(color);
-      controls.appendChild(apply);
-      controls.appendChild(alignLeft);
-      controls.appendChild(alignCenter);
-      controls.appendChild(alignRight);
+    controls.appendChild(font);
+    controls.appendChild(smaller);
+    controls.appendChild(size);
+    controls.appendChild(larger);
+    controls.appendChild(color);
+    controls.appendChild(apply);
+    controls.appendChild(alignLeft);
+    controls.appendChild(alignCenter);
+    controls.appendChild(alignRight);
     return controls;
   }
 
   function enhanceRichTextToolbar() {
+    if (document.querySelector("[data-golyn-persistent-text-toolbar='true']")) return;
     const toolbars = editorToolbarCandidates();
     const fallback = closestToolbarFromText();
     if (!toolbars.length && fallback) toolbars.push(fallback);
@@ -818,7 +819,35 @@
     });
   }
 
+  function elementOwnText(element) {
+    return Array.from(element.childNodes)
+      .filter(node => node.nodeType === Node.TEXT_NODE)
+      .map(node => clean(node.nodeValue))
+      .join(" ")
+      .trim();
+  }
+
+  function bodyFieldHost() {
+    const labels = Array.from(document.querySelectorAll("label, span, div")).filter(element => {
+      return elementOwnText(element).toUpperCase() === "BODY";
+    });
+
+    for (const label of labels) {
+      let node = label.parentElement;
+      for (let i = 0; node && i < 10; i += 1, node = node.parentElement) {
+        const text = clean(node.textContent);
+        const hasEditor = node.querySelector("textarea, [contenteditable='true']");
+        if (hasEditor && text.includes("Rich Text") && text.includes("Markdown")) return node;
+      }
+    }
+
+    return null;
+  }
+
   function persistentToolbarHost() {
+    const bodyHost = bodyFieldHost();
+    if (bodyHost) return bodyHost;
+
     const toolbar = closestToolbarFromText() || editorToolbarCandidates()[0];
     if (!toolbar) return null;
 
@@ -840,6 +869,7 @@
     bar.style.alignItems = "center";
     bar.style.flexWrap = "wrap";
     bar.style.gap = "8px";
+    bar.style.margin = "0";
     bar.style.padding = "8px 12px";
     bar.style.borderTop = "1px solid #c4c8d2";
     bar.style.borderBottom = "1px solid #c4c8d2";
@@ -854,6 +884,17 @@
     bar.appendChild(label);
     bar.appendChild(createTextToolbarControls());
 
+    const bodyHost = bodyFieldHost();
+    if (bodyHost) {
+      const labelElement = Array.from(bodyHost.querySelectorAll("label, span, div")).find(element => elementOwnText(element).toUpperCase() === "BODY");
+      if (labelElement && labelElement.parentElement === bodyHost) {
+        labelElement.insertAdjacentElement("afterend", bar);
+      } else {
+        bodyHost.insertAdjacentElement("afterbegin", bar);
+      }
+      return;
+    }
+
     const toolbar = closestToolbarFromText() || editorToolbarCandidates()[0];
     if (toolbar && toolbar.parentElement) {
       toolbar.insertAdjacentElement("afterend", bar);
@@ -864,20 +905,20 @@
 
   const observer = new MutationObserver(() => {
     enhanceSizedImageWidthControls();
-    enhanceRichTextToolbar();
     ensurePersistentTextToolbar();
+    enhanceRichTextToolbar();
   });
   if (document.body) {
     observer.observe(document.body, { childList: true, subtree: true });
     enhanceSizedImageWidthControls();
-    enhanceRichTextToolbar();
     ensurePersistentTextToolbar();
+    enhanceRichTextToolbar();
   } else {
     document.addEventListener("DOMContentLoaded", () => {
       observer.observe(document.body, { childList: true, subtree: true });
       enhanceSizedImageWidthControls();
-      enhanceRichTextToolbar();
       ensurePersistentTextToolbar();
+      enhanceRichTextToolbar();
     });
   }
 
