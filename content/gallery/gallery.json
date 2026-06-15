@@ -190,6 +190,18 @@
       "createdAt": "2026-06-15",
       "image": "https://pub-d451e807bf39481a8d22e4210b6bfc7c.r2.dev/gallery/gan-charm-nail-11-900x1200.webp",
       "category": "simple"
+    },
+    {
+      "category": "design",
+      "featured": false,
+      "order": 999,
+      "title": "mùa hè",
+      "image": "https://pub-d451e807bf39481a8d22e4210b6bfc7c.r2.dev/gallery/335586220_1237993790464153_5082839502180131222_n.jpg",
+      "createdAt": "2026-06-15",
+      "tags": [
+        "new"
+      ],
+      "alt": "mùa đông"
     }
   ]
 }
