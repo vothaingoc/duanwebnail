@@ -21,15 +21,35 @@
     return match ? clean(match[1]) : "";
   }
 
+  function normalizeAlign(value) {
+    const align = clean(value).toLowerCase();
+    return ["left", "center", "right"].includes(align) ? align : "center";
+  }
+
+  function alignFromStyle(style) {
+    const value = String(style || "").toLowerCase();
+    if (/margin-left\s*:\s*auto/.test(value) && /margin-right\s*:\s*0/.test(value)) return "right";
+    if (/margin-left\s*:\s*auto/.test(value) && /margin-right\s*:\s*auto/.test(value)) return "center";
+    if (/margin-left\s*:\s*0/.test(value) && /margin-right\s*:\s*auto/.test(value)) return "left";
+    return "center";
+  }
+
+  function alignStyle(value) {
+    const align = normalizeAlign(value);
+    if (align === "left") return "display:block;margin-left:0;margin-right:auto;";
+    if (align === "right") return "display:block;margin-left:auto;margin-right:0;";
+    return "display:block;margin-left:auto;margin-right:auto;";
+  }
+
   function normalizeEditorWidth(value) {
     return new RegExp(`^(?:${widthPattern})$`, "i").test(clean(value)) ? clean(value) : "";
   }
 
-  function imageBlockHTML(image, alt, title, width) {
+  function imageBlockHTML(image, alt, title, width, align) {
     const safeWidth = normalizeEditorWidth(width);
     const titleAttr = title ? ` title="${escapeAttribute(title)}"` : "";
     const widthStyle = safeWidth ? `width:${escapeAttribute(safeWidth)};` : "";
-    return `<img class="article-inline-image" src="${escapeAttribute(image)}" alt="${escapeAttribute(alt)}"${titleAttr} style="${widthStyle}max-width:100%;height:auto;">`;
+    return `<img class="article-inline-image" src="${escapeAttribute(image)}" alt="${escapeAttribute(alt)}"${titleAttr} data-align="${normalizeAlign(align)}" style="${widthStyle}max-width:100%;height:auto;${alignStyle(align)}">`;
   }
 
   function parseWidth(value) {
@@ -165,7 +185,12 @@
   const widthWidget = registerImageWidthWidget() ? "image_width" : "string";
 
   function setInputValue(input, value) {
-    const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value").set;
+    const prototype = input instanceof window.HTMLSelectElement
+      ? window.HTMLSelectElement.prototype
+      : input instanceof window.HTMLTextAreaElement
+        ? window.HTMLTextAreaElement.prototype
+        : window.HTMLInputElement.prototype;
+    const setter = Object.getOwnPropertyDescriptor(prototype, "value").set;
     setter.call(input, value);
     input.dispatchEvent(new Event("input", { bubbles: true }));
     input.dispatchEvent(new Event("change", { bubbles: true }));
@@ -185,6 +210,19 @@
       const controls = node.querySelectorAll("input, textarea, select");
       const text = clean(node.textContent).toUpperCase();
       if (controls.length === 1 && controls[0] === input && text.includes("WIDTH")) {
+        return node;
+      }
+    }
+    return null;
+  }
+
+  function findFieldByLabel(control, label) {
+    let node = control.parentElement;
+    const expected = clean(label).toUpperCase();
+    for (let i = 0; node && i < 7; i += 1, node = node.parentElement) {
+      const controls = node.querySelectorAll("input, textarea, select");
+      const text = clean(node.textContent).toUpperCase();
+      if (controls.length === 1 && controls[0] === control && text.includes(expected)) {
         return node;
       }
     }
@@ -395,9 +433,39 @@
     update();
   }
 
+  function enhanceAlignControl(control) {
+    if (control.dataset.golynAlignEnhanced === "true") return;
+    const field = findFieldByLabel(control, "ALIGN");
+    if (!field) return;
+    control.dataset.golynAlignEnhanced = "true";
+
+    const controls = document.createElement("div");
+    controls.style.display = "flex";
+    controls.style.flexWrap = "wrap";
+    controls.style.gap = "8px";
+    controls.style.marginTop = "10px";
+    controls.style.padding = "12px";
+    controls.style.border = "1px solid #d5d7de";
+    controls.style.borderRadius = "6px";
+    controls.style.background = "#fff";
+
+    [
+      ["left", "Left"],
+      ["center", "Center"],
+      ["right", "Right"]
+    ].forEach(([value, label]) => {
+      controls.appendChild(makeButton(label, () => setInputValue(control, value)));
+    });
+
+    control.insertAdjacentElement("afterend", controls);
+  }
+
   function enhanceSizedImageWidthControls() {
     document.querySelectorAll("input, textarea").forEach(input => {
       if (findWidthField(input)) enhanceWidthInput(input);
+    });
+    document.querySelectorAll("input, textarea, select").forEach(control => {
+      if (findFieldByLabel(control, "ALIGN")) enhanceAlignControl(control);
     });
     syncAllPreviewWidths();
   }
@@ -442,6 +510,18 @@
         widget: widthWidget,
         required: false,
         hint: "Examples: 50%, 80%, 360px, 28rem. Leave blank for full width."
+      },
+      {
+        name: "align",
+        label: "Align",
+        widget: "select",
+        options: [
+          { label: "Left", value: "left" },
+          { label: "Center", value: "center" },
+          { label: "Right", value: "right" }
+        ],
+        default: "center",
+        required: false
       }
     ],
     pattern: new RegExp("<img\\b([^>]*)>|!\\[([^\\]]*)\\]\\((\\S+?)(?:\\s+\"([^\"]*)\")?\\)(?:\\s*\\{width=(" + widthPattern + ")\\})?", "i"),
@@ -452,14 +532,16 @@
           alt: attributeValue(attrs, "alt"),
           image: attributeValue(attrs, "src"),
           title: attributeValue(attrs, "title"),
-          width: attributeValue(attrs, "width") || widthFromStyle(attributeValue(attrs, "style"))
+          width: attributeValue(attrs, "width") || widthFromStyle(attributeValue(attrs, "style")),
+          align: attributeValue(attrs, "data-align") || alignFromStyle(attributeValue(attrs, "style"))
         };
       }
       return {
         alt: match[2] || "",
         image: match[3] || "",
         title: match[4] || "",
-        width: match[5] || ""
+        width: match[5] || "",
+        align: "center"
       };
     },
     toBlock(data) {
@@ -467,16 +549,18 @@
       const alt = clean(data.alt);
       const title = clean(data.title);
       const width = clean(data.width);
-      return imageBlockHTML(image, alt, title, width);
+      return imageBlockHTML(image, alt, title, width, data.align);
     },
     toPreview(data) {
       const image = clean(data.image);
       const alt = escapeAttribute(data.alt);
       const title = escapeAttribute(data.title);
       const width = normalizeEditorWidth(data.width);
-      const style = width ? ` style="width:${escapeAttribute(width)};max-width:100%;height:auto;"` : ' style="max-width:100%;height:auto;"';
+      const style = width
+        ? ` style="width:${escapeAttribute(width)};max-width:100%;height:auto;${alignStyle(data.align)}"`
+        : ` style="max-width:100%;height:auto;${alignStyle(data.align)}"`;
       const titleAttr = title ? ` title="${title}"` : "";
-      return `<img src="${escapeAttribute(image)}" alt="${alt}"${titleAttr}${style}>`;
+      return `<img src="${escapeAttribute(image)}" alt="${alt}"${titleAttr} data-align="${normalizeAlign(data.align)}"${style}>`;
     }
   });
 })();

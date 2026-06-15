@@ -196,11 +196,33 @@
       : "";
   }
 
-  function imageHTML(src, alt, width, title) {
+  function normalizeImageAlign(value) {
+    const align = String(value || "").trim().toLowerCase();
+    return ["left", "center", "right"].includes(align) ? align : "center";
+  }
+
+  function alignStyle(value) {
+    const align = normalizeImageAlign(value);
+    if (align === "left") return "display:block;margin-left:0;margin-right:auto;";
+    if (align === "right") return "display:block;margin-left:auto;margin-right:0;";
+    return "display:block;margin-left:auto;margin-right:auto;";
+  }
+
+  function alignFromStyle(style) {
+    const value = String(style || "").toLowerCase();
+    if (/margin-left\s*:\s*auto/.test(value) && /margin-right\s*:\s*0/.test(value)) return "right";
+    if (/margin-left\s*:\s*auto/.test(value) && /margin-right\s*:\s*auto/.test(value)) return "center";
+    if (/margin-left\s*:\s*0/.test(value) && /margin-right\s*:\s*auto/.test(value)) return "left";
+    return "center";
+  }
+
+  function imageHTML(src, alt, width, title, align) {
     const safeWidth = normalizeImageWidth(width);
-    const style = safeWidth ? ` style="width:${escapeHTML(safeWidth)}"` : "";
+    const style = safeWidth
+      ? ` style="width:${escapeHTML(safeWidth)};${alignStyle(align)}"`
+      : ` style="${alignStyle(align)}"`;
     const titleAttr = title ? ` title="${escapeHTML(title)}"` : "";
-    return `<img class="article-inline-image" src="${escapeHTML(src)}" alt="${escapeHTML(alt)}" loading="lazy"${titleAttr}${style}>`;
+    return `<img class="article-inline-image" src="${escapeHTML(src)}" alt="${escapeHTML(alt)}" loading="lazy"${titleAttr} data-align="${normalizeImageAlign(align)}"${style}>`;
   }
 
   function readAttribute(attrs, name) {
@@ -224,7 +246,8 @@
     const src = readAttribute(attrs, "src");
     if (!safeImageSrc(src)) return "";
     const width = readAttribute(attrs, "width") || widthFromStyle(readAttribute(attrs, "style"));
-    return imageHTML(src, readAttribute(attrs, "alt"), width, readAttribute(attrs, "title"));
+    const align = readAttribute(attrs, "data-align") || alignFromStyle(readAttribute(attrs, "style"));
+    return imageHTML(src, readAttribute(attrs, "alt"), width, readAttribute(attrs, "title"), align);
   }
 
   function renderInlineMarkdown(value) {
