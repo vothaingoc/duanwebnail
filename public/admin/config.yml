@@ -1,0 +1,95 @@
+backend:
+  name: github
+  repo: vothaingoc/duanwebnail
+  branch: main
+  base_url: https://golyn-decap-oauth.vothaingoc1991.workers.dev
+  auth_endpoint: auth
+
+local_backend: true
+
+site_url: https://duanwebnail.pages.dev
+display_url: https://duanwebnail.pages.dev
+logo_url: /images/nail1.jpg
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "blog"
+    label: "Blog Markdown"
+    label_singular: "Blog Post"
+    folder: "content/blog"
+    create: true
+    slug: "{{fields.lang}}-{{fields.slug}}"
+    extension: "md"
+    format: "frontmatter"
+    summary: "{{title}} [{{lang}}]"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Slug", name: "slug", widget: "string", hint: "Example: first-nail-salon-guide" }
+      - { label: "ID", name: "id", widget: "string", hint: "Use a unique value, for example first-nail-salon-guide-ja" }
+      - label: "Language"
+        name: "lang"
+        widget: "select"
+        options: ["ja", "en", "vi", "zh", "ko", "my", "id"]
+      - { label: "Date", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
+      - { label: "Tag", name: "tag", widget: "string", required: false }
+      - { label: "Excerpt", name: "excerpt", widget: "text", required: false }
+      - { label: "Featured Image URL", name: "featuredImage", widget: "string", required: false, hint: "Use a Cloudflare R2 public URL such as https://pub-xxxxx.r2.dev/gallery/example.jpg" }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  - name: "blog_runtime_data"
+    label: "Blog Runtime Data"
+    files:
+      - label: "Articles JSON"
+        name: "articles"
+        file: "content/blog/articles.json"
+        fields:
+          - label: "Articles"
+            name: "articles"
+            widget: "list"
+            summary: "{{fields.title}} [{{fields.lang}}]"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Slug", name: "slug", widget: "string" }
+              - { label: "ID", name: "id", widget: "string" }
+              - label: "Language"
+                name: "lang"
+                widget: "select"
+                options: ["ja", "en", "vi", "zh", "ko", "my", "id"]
+              - { label: "Date", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
+              - { label: "Tag", name: "tag", widget: "string", required: false }
+              - { label: "Excerpt", name: "excerpt", widget: "text", required: false }
+              - { label: "Featured Image URL", name: "featuredImage", widget: "string", required: false }
+              - { label: "Body", name: "body", widget: "markdown" }
+
+  - name: "gallery"
+    label: "Gallery"
+    files:
+      - label: "Gallery Images"
+        name: "gallery"
+        file: "content/gallery/gallery.json"
+        fields:
+          - label: "Images"
+            name: "images"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Alt Text", name: "alt", widget: "string" }
+              - { label: "Tag", name: "tag", widget: "string", required: false }
+              - { label: "Category", name: "category", widget: "select", options: ["simple", "gel", "foot", "seasonal", "design"], default: "simple" }
+              - { label: "Tags", name: "tags", widget: "list", required: false, hint: "Use values such as new, simple, gel, foot, seasonal, design" }
+              - { label: "Image URL", name: "image", widget: "string", hint: "Paste a Cloudflare R2 public URL, e.g. https://pub-xxxxx.r2.dev/gallery/xxx.jpg" }
+              - { label: "Created At", name: "createdAt", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD", required: false }
+              - { label: "Featured", name: "featured", widget: "boolean", default: false }
+              - { label: "Order", name: "order", widget: "number", value_type: "int", default: 999 }
+
+  - name: "pricing"
+    label: "Pricing Notes"
+    files:
+      - label: "Pricing README"
+        name: "pricing_readme"
+        file: "content/pricing/README.md"
+        fields:
+          - { label: "Body", name: "body", widget: "markdown" }
