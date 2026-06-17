@@ -1,4 +1,9 @@
-﻿﻿<!DOCTYPE html>
+---
+import { getGalleryWithFallback } from '../lib/sanity';
+
+const golynGalleryItems = await getGalleryWithFallback();
+---
+<!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta charset="utf-8"/>
@@ -742,6 +747,9 @@ html[lang="vi"] { --serif: 'Cormorant Garamond', serif; --sans: 'Be Vietnam Pro'
 </div>
 </div>
 </footer>
+<script is:inline define:vars={{ golynGalleryItems }}>
+window.GOLYN_CONTENT_GALLERY_ITEMS = golynGalleryItems;
+</script>
 <script is:inline src="/assets/js/gallery-data.js"></script>
 <script is:inline src="/assets/js/gallery-render.js"></script>
 <script is:inline>

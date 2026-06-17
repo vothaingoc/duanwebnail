@@ -2,10 +2,17 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "sanity:dev": "sanity dev",
+    "sanity:build": "sanity build sanity-dist"
   },
   "dependencies": {
-    "astro": "latest"
-  },
-  "devDependencies": {}
+    "@portabletext/to-html": "^5.0.2",
+    "@sanity/client": "^7.23.0",
+    "astro": "latest",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "sanity": "^6.1.0",
+    "styled-components": "^6.4.2"
+  }
 }

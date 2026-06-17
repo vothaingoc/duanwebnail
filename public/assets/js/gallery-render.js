@@ -67,6 +67,10 @@
   async function loadContent() {
     if (contentLoaded) return;
     contentLoaded = true;
+    if (Array.isArray(window.GOLYN_CONTENT_GALLERY_ITEMS) && window.GOLYN_CONTENT_GALLERY_ITEMS.length) {
+      setItems(window.GOLYN_CONTENT_GALLERY_ITEMS);
+      return;
+    }
     try {
       const response = await fetch(GALLERY_CONTENT_URL, { cache: "no-store" });
       if (!response.ok) throw new Error(`Gallery content ${response.status}`);

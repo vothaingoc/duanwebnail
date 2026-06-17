@@ -2,3 +2,6 @@ node_modules/
 dist/
 .astro/
 .wrangler/
+.env
+.env.local
+sanity-dist/

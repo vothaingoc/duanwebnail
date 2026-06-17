@@ -1,0 +1,210 @@
+import { createClient } from '@sanity/client';
+import { toHTML } from '@portabletext/to-html';
+import blogData from '../../content/blog/articles.json';
+import galleryData from '../../content/gallery/gallery.json';
+
+const projectId = import.meta.env.PUBLIC_SANITY_PROJECT_ID;
+const dataset = import.meta.env.PUBLIC_SANITY_DATASET || 'production';
+const apiVersion = import.meta.env.PUBLIC_SANITY_API_VERSION || '2026-06-17';
+
+export function isSanityConfigured() {
+  return Boolean(projectId && dataset && apiVersion);
+}
+
+export const sanityClient = isSanityConfigured()
+  ? createClient({
+      projectId,
+      dataset,
+      apiVersion,
+      useCdn: false,
+      perspective: 'published'
+    })
+  : null;
+
+const blogListQuery = `*[_type == "blogPost"] | order(publishedAt desc) {
+  _id,
+  title,
+  "slug": slug.current,
+  excerpt,
+  "mainImageUrl": mainImage.asset->url,
+  publishedAt,
+  tag,
+  tags,
+  body,
+  seoTitle,
+  seoDescription
+}`;
+
+const blogDetailQuery = `*[_type == "blogPost" && slug.current == $slug][0] {
+  _id,
+  title,
+  "slug": slug.current,
+  excerpt,
+  "mainImageUrl": mainImage.asset->url,
+  publishedAt,
+  tag,
+  tags,
+  body,
+  seoTitle,
+  seoDescription
+}`;
+
+const galleryQuery = `*[_type == "galleryImage" && published != false] | order(order asc, _createdAt desc) {
+  _id,
+  title,
+  "imageUrl": image.asset->url,
+  alt,
+  category,
+  tags,
+  description,
+  order,
+  published
+}`;
+
+type LegacyBlogPost = {
+  id?: string;
+  slug?: string;
+  lang?: string;
+  date?: string;
+  tag?: string;
+  title?: string;
+  desc?: string;
+  excerpt?: string;
+  image?: string;
+  featuredImage?: string;
+  content?: string;
+  body?: string;
+  html?: string;
+  seoTitle?: string;
+  seoDescription?: string;
+};
+
+type LegacyGalleryImage = {
+  src?: string;
+  image?: string;
+  label?: string;
+  title?: string;
+  alt?: string;
+  tag?: string;
+  category?: string;
+  tags?: string[];
+  description?: string;
+  order?: number;
+  featured?: boolean;
+  createdAt?: string;
+};
+
+function legacyBlogPosts(): LegacyBlogPost[] {
+  const articles = Array.isArray(blogData) ? blogData : blogData.articles;
+  return Array.isArray(articles) ? articles : [];
+}
+
+function legacyGalleryImages(): LegacyGalleryImage[] {
+  const images = Array.isArray(galleryData) ? galleryData : galleryData.images;
+  return Array.isArray(images) ? images : [];
+}
+
+function portableTextToHtml(body: unknown) {
+  if (!Array.isArray(body) || body.length === 0) return '';
+  return toHTML(body);
+}
+
+function formatDate(value: string | undefined) {
+  return value ? value.slice(0, 10) : '';
+}
+
+function toLegacyBlogPost(post: any): LegacyBlogPost {
+  const slug = post.slug || post._id || '';
+  return {
+    id: slug,
+    slug,
+    lang: 'ja',
+    date: formatDate(post.publishedAt),
+    tag: post.tag || (Array.isArray(post.tags) ? post.tags[0] : '') || 'Blog',
+    title: post.title || '',
+    desc: post.excerpt || post.seoDescription || '',
+    excerpt: post.excerpt || post.seoDescription || '',
+    image: post.mainImageUrl || '',
+    featuredImage: post.mainImageUrl || '',
+    body: '',
+    content: '',
+    html: portableTextToHtml(post.body),
+    seoTitle: post.seoTitle || '',
+    seoDescription: post.seoDescription || ''
+  };
+}
+
+function toLegacyGalleryImage(item: any): LegacyGalleryImage {
+  const title = item.title || '';
+  const image = item.imageUrl || '';
+  return {
+    title,
+    label: title,
+    alt: item.alt || title,
+    tag: Array.isArray(item.tags) ? item.tags[0] : '',
+    category: item.category || 'simple',
+    tags: Array.isArray(item.tags) ? item.tags : [],
+    description: item.description || '',
+    order: typeof item.order === 'number' ? item.order : 999,
+    featured: false,
+    image,
+    src: image
+  };
+}
+
+export async function getSanityBlogPosts(): Promise<LegacyBlogPost[]> {
+  if (!sanityClient) {
+    console.log('[Sanity] Blog: ENV not configured, using JSON fallback.');
+    return [];
+  }
+  const posts = await sanityClient.fetch(blogListQuery);
+  console.log(`[Sanity] Blog: fetched ${Array.isArray(posts) ? posts.length : 0} post(s).`);
+  return Array.isArray(posts) ? posts.map(toLegacyBlogPost) : [];
+}
+
+export async function getSanityBlogPostBySlug(slug: string): Promise<LegacyBlogPost | null> {
+  if (!sanityClient || !slug) {
+    console.log(`[Sanity] Blog detail: ENV not configured or empty slug "${slug}", using JSON fallback.`);
+    return null;
+  }
+  const post = await sanityClient.fetch(blogDetailQuery, { slug });
+  console.log(`[Sanity] Blog detail: slug "${slug}" ${post ? 'found' : 'not found'}.`);
+  return post ? toLegacyBlogPost(post) : null;
+}
+
+export async function getSanityGallery(): Promise<LegacyGalleryImage[]> {
+  if (!sanityClient) return [];
+  const items = await sanityClient.fetch(galleryQuery);
+  return Array.isArray(items) ? items.map(toLegacyGalleryImage) : [];
+}
+
+export async function getBlogPostsWithFallback() {
+  try {
+    const posts = await getSanityBlogPosts();
+    if (posts.length) return posts;
+    console.log(`[Sanity] Blog: no Sanity posts, using ${legacyBlogPosts().length} JSON fallback post(s).`);
+  } catch (error) {
+    console.warn('Sanity blog fallback:', error);
+  }
+  return legacyBlogPosts();
+}
+
+export async function getBlogPostBySlugWithFallback(slug: string) {
+  try {
+    const post = await getSanityBlogPostBySlug(slug);
+    if (post) return post;
+  } catch (error) {
+    console.warn('Sanity blog detail fallback:', error);
+  }
+  return legacyBlogPosts().find(post => post.slug === slug || post.id === slug) || null;
+}
+
+export async function getGalleryWithFallback() {
+  try {
+    const items = await getSanityGallery();
+    if (items.length) return items;
+  } catch (error) {
+    console.warn('Sanity gallery fallback:', error);
+  }
+  return legacyGalleryImages();
+}

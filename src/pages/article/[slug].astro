@@ -1,8 +1,10 @@
 ---
-import articlesData from '../../../content/blog/articles.json';
+import { getBlogPostsWithFallback } from '../../lib/sanity';
 
-export function getStaticPaths() {
-  const articles = Array.isArray(articlesData) ? articlesData : articlesData.articles || [];
+const golynArticles = await getBlogPostsWithFallback();
+
+export async function getStaticPaths() {
+  const articles = await getBlogPostsWithFallback();
   const seen = new Set();
   return articles
     .map((article) => String(article.slug || article.id || '').trim())
@@ -586,6 +588,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 })();
+</script>
+<script is:inline define:vars={{ golynArticles }}>
+window.GOLYN_CONTENT_ARTICLES = golynArticles;
 </script>
 <script is:inline src="/assets/js/articles-data.js"></script>
 <script is:inline src="/assets/js/blog-shared.js"></script>

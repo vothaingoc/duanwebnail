@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+---
+import { getBlogPostsWithFallback } from '../lib/sanity';
+
+const golynArticles = await getBlogPostsWithFallback();
+---
+<!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta charset="utf-8"/>
@@ -1216,6 +1221,9 @@ function initPagination() {
 
 document.addEventListener('DOMContentLoaded',()=>{resetNewsScroll();setLang(localStorage.getItem('golynLang')||'ja');redirectHeaderHashLinks();setupNewsTopLinks();setupBlogLinkListener()});
 document.addEventListener('click',event=>{if(!event.target.closest('.lang-picker'))closeLangMenus()});</script>
+<script is:inline define:vars={{ golynArticles }}>
+window.GOLYN_CONTENT_ARTICLES = golynArticles;
+</script>
 <script is:inline src="/assets/js/articles-data.js"></script>
 <script is:inline src="/assets/js/blog-shared.js"></script>
 </body>

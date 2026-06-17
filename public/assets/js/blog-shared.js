@@ -22,7 +22,7 @@
 
   function assetURL(value) {
     const url = String(value || '').trim();
-    return /^(?:https?:\\/\\/|\\/|data:|blob:)/i.test(url) ? url : '/' + url.replace(/^\\.\\//, '');
+    return /^(?:https?:\/\/|\/|data:|blob:)/i.test(url) ? url : '/' + url.replace(/^\.\//, '');
   }
 
   function escapeHTML(value) {
@@ -61,13 +61,18 @@
       image: assetURL(article.image || article.featuredImage || ""),
       featuredImage: assetURL(article.featuredImage || article.image || ""),
       content: article.content || article.body || "",
-      body: article.body || article.content || ""
+      body: article.body || article.content || "",
+      html: article.html || ""
     };
   }
 
   async function loadContent() {
     if (contentLoaded) return;
     contentLoaded = true;
+    if (Array.isArray(window.GOLYN_CONTENT_ARTICLES) && window.GOLYN_CONTENT_ARTICLES.length) {
+      contentArticles = window.GOLYN_CONTENT_ARTICLES.map(normalizeArticle);
+      return;
+    }
     try {
       const response = await fetch(BLOG_CONTENT_URL, { cache: "no-store" });
       if (!response.ok) throw new Error(`Blog content ${response.status}`);
@@ -81,7 +86,9 @@
   }
 
   function allArticles() {
-    const source = contentArticles.length ? contentArticles : (window.GOLYN_ARTICLES || []);
+    const source = contentArticles.length
+      ? contentArticles
+      : (Array.isArray(window.GOLYN_CONTENT_ARTICLES) && window.GOLYN_CONTENT_ARTICLES.length ? window.GOLYN_CONTENT_ARTICLES : (window.GOLYN_ARTICLES || []));
     return [...source.map(normalizeArticle), ...readLocalArticles().map(normalizeArticle)]
       .filter(article => article.id && article.title)
       .sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
@@ -428,7 +435,7 @@
       image.style.display = "block";
     }
 
-    body.innerHTML = renderBody(article.content || article.body);
+    body.innerHTML = article.html || renderBody(article.content || article.body);
   }
 
   function rerender() {
@@ -438,7 +445,11 @@
   }
 
   window.GolynBlog = { allArticles, articlesForCurrentLang, loadContent, rerender, renderNewsList };
-  document.addEventListener("DOMContentLoaded", rerender);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", rerender);
+  } else {
+    rerender();
+  }
   window.addEventListener("storage", rerender);
 
   const originalChooseLang = window.chooseLang;
