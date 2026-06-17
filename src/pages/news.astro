@@ -323,17 +323,17 @@ nav {
 .gallery-item:hover .overlay { opacity: 1; }
 .gallery-item .overlay span { font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--cream); }
 .gallery-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
-.g1 { background: url('images/nail1.jpg') center/cover no-repeat; }
-.g2 { background: url('images/nail2.jpg') center/cover no-repeat; }
-.g3 { background: url('images/nail3.jpg') center/cover no-repeat; }
-.g4 { background: url('images/nail4.jpg') center/cover no-repeat; }
-.g5 { background: url('images/nail5.jpg') center/cover no-repeat; }
-.g6 { background: url('images/nail6.jpg') center/cover no-repeat; }
-.g7 { background: url('images/nail7.jpg') center/cover no-repeat; }
-.g8 { background: url('images/nail8.jpg') center/cover no-repeat; }
-.g9 { background: url('images/nail9.jpg') center/cover no-repeat; }
-.g10 { background: url('images/nail10.jpg') center/cover no-repeat; }
-.g11 { background: url('images/nail11.jpg') center/cover no-repeat; }
+.g1 { background: url('/images/nail1.jpg') center/cover no-repeat; }
+.g2 { background: url('/images/nail2.jpg') center/cover no-repeat; }
+.g3 { background: url('/images/nail3.jpg') center/cover no-repeat; }
+.g4 { background: url('/images/nail4.jpg') center/cover no-repeat; }
+.g5 { background: url('/images/nail5.jpg') center/cover no-repeat; }
+.g6 { background: url('/images/nail6.jpg') center/cover no-repeat; }
+.g7 { background: url('/images/nail7.jpg') center/cover no-repeat; }
+.g8 { background: url('/images/nail8.jpg') center/cover no-repeat; }
+.g9 { background: url('/images/nail9.jpg') center/cover no-repeat; }
+.g10 { background: url('/images/nail10.jpg') center/cover no-repeat; }
+.g11 { background: url('/images/nail11.jpg') center/cover no-repeat; }
 .gallery-label { font-family: var(--serif); font-size: 16px; font-style: italic; color: var(--brown-deep); text-align: center; opacity: .6; }
 .gallery-more { text-align: center; }
 
@@ -882,7 +882,7 @@ html[lang="vi"] { --serif: 'Cormorant Garamond', serif; --sans: 'Be Vietnam Pro'
 </div>
 </div>
 </footer>
-<script is:inline>
+<script>
 const blogI18n={
 ja:{nav_gallery:'ギャラリー',price_eyebrow:'料金表',nav_services:'サービス',nav_reviews:'口コミ',acc_eyebrow:'アクセス',staff_eyebrow:'スタッフ',nav_news:'コラム',nav_reserve:'ご予約',footer_desc:'大阪中心部の高品質ネイルアトリエ。日本の技術と国際的なスタイルの融合。',footer_svc:'サービス',footer_info:'インフォ',footer_about:'私たちについて',footer_price:'料金表',footer_contact:'お問い合わせ'},
 en:{nav_gallery:'Gallery',price_eyebrow:'Pricing',nav_services:'Services',nav_reviews:'Reviews',acc_eyebrow:'Access',staff_eyebrow:'Staff',nav_news:'Blog',nav_reserve:'Reserve',footer_desc:'Premium nail atelier in central Osaka. Japanese technique, international style.',footer_svc:'Services',footer_info:'Information',footer_about:'About Us',footer_price:'Pricing',footer_contact:'Contact'},
@@ -900,7 +900,7 @@ function toggleLangMenu(button){const picker=button.closest('.lang-picker');cons
 function updateLangPickers(lang){document.querySelectorAll('.lang-picker').forEach(picker=>{const flag=picker.querySelector('.lang-current .flag');const label=picker.querySelector('.lang-current-label');if(flag)flag.className='flag '+(langFlagClasses[lang]||langFlagClasses.ja);if(label)label.textContent=langLabels[lang]||langLabels.ja;picker.querySelectorAll('[data-lang-option]').forEach(option=>option.classList.toggle('active',option.dataset.langOption===lang))})}
 function setLang(lang){if(!blogI18n[lang])lang='ja';document.documentElement.lang=lang;const dict=blogI18n[lang];document.querySelectorAll('header [data-i18n], nav [data-i18n], footer [data-i18n], .mobile-nav [data-i18n]').forEach(el=>{const key=el.getAttribute('data-i18n');if(dict[key])el.innerHTML=dict[key]});updateLangPickers(lang);localStorage.setItem('golynLang',lang)}
 function chooseLang(lang){setLang(lang);closeLangMenus()}
-function redirectHeaderHashLinks(){document.querySelectorAll('#navbar a[href^="#"], .mobile-nav a[href^="#"]').forEach(link=>{link.addEventListener('click',event=>{const hash=link.getAttribute('href');if(hash&&hash!=='#'){event.preventDefault();window.location.href='/'+hash}})})}
+function redirectHeaderHashLinks(){document.querySelectorAll('#navbar a[href^="#"], .mobile-nav a[href^="#"]').forEach(link=>{link.addEventListener('click',event=>{const hash=link.getAttribute('href');if(hash&&hash!=='#'){event.preventDefault();window.location.href='/' + hash}})})}
 
 /* ── PAGINATION LOGIC ── */
 const ITEMS_PER_PAGE = 6;
@@ -1074,7 +1074,7 @@ function loadArticlesList() {
 
 function showArticleDetail(id) {
   // Redirect to article detail page
-  window.location.href = 'article.html?id=' + id;
+  window.location.href = '/article/' + encodeURIComponent(id) + '/';
 }
 
 // Admin shortcut
@@ -1086,7 +1086,7 @@ function resetNewsScroll() {
 function setupNewsTopLinks() {
   document.querySelectorAll('a[href="/news/"]').forEach(link => {
     link.addEventListener('click', event => {
-      if (window.location.pathname.split('/').pop() !== 'news.html') return;
+      if (window.location.pathname.split('/').pop() !== '/news/') return;
       event.preventDefault();
       closeLangMenus();
       document.getElementById('mobileNav')?.classList.remove('open');
