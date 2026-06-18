@@ -746,10 +746,10 @@ html[lang="vi"] { --serif: 'Cormorant Garamond', serif; --sans: 'Be Vietnam Pro'
 </nav>
 <main class="blog-page">
   <section class="blog-hero fade-up visible">
-    <div class="sec-eyebrow">Golyn Nail Journal</div>
-    <h1 class="sec-title">ネイルをもっと楽しむ<em>コラム</em></h1>
+    <div class="sec-eyebrow" data-i18n="blog_eyebrow">Golyn Nail Journal</div>
+    <h1 class="sec-title" data-i18n="blog_title">ネイルをもっと楽しむ<em>コラム</em></h1>
     <div class="sec-line"></div>
-    <p class="blog-lead">デザイン選び、ネイルケア、トレンド、初めてのサロン利用ガイドなどを発信していくブログページです。</p>
+    <p class="blog-lead" data-i18n="blog_lead">デザイン選び、ネイルケア、トレンド、初めてのサロン利用ガイドなどを発信していくブログページです。</p>
   </section>
 
   <section class="blog-grid" aria-label="Blog articles" aria-live="polite"></section>
@@ -882,15 +882,15 @@ html[lang="vi"] { --serif: 'Cormorant Garamond', serif; --sans: 'Be Vietnam Pro'
 </div>
 </div>
 </footer>
-<script>
+<script is:inline>
 const blogI18n={
-ja:{nav_gallery:'ギャラリー',price_eyebrow:'料金表',nav_services:'サービス',nav_reviews:'口コミ',acc_eyebrow:'アクセス',staff_eyebrow:'スタッフ',nav_news:'コラム',nav_reserve:'ご予約',footer_desc:'大阪中心部の高品質ネイルアトリエ。日本の技術と国際的なスタイルの融合。',footer_svc:'サービス',footer_info:'インフォ',footer_about:'私たちについて',footer_price:'料金表',footer_contact:'お問い合わせ'},
-en:{nav_gallery:'Gallery',price_eyebrow:'Pricing',nav_services:'Services',nav_reviews:'Reviews',acc_eyebrow:'Access',staff_eyebrow:'Staff',nav_news:'Blog',nav_reserve:'Reserve',footer_desc:'Premium nail atelier in central Osaka. Japanese technique, international style.',footer_svc:'Services',footer_info:'Information',footer_about:'About Us',footer_price:'Pricing',footer_contact:'Contact'},
-vi:{nav_gallery:'Mẫu nail',price_eyebrow:'Bảng giá',nav_services:'Dịch vụ',nav_reviews:'Đánh giá',acc_eyebrow:'Địa chỉ',staff_eyebrow:'Nhân viên',nav_news:'Bài viết',nav_reserve:'Đặt lịch',footer_desc:'Nghệ thuật nail cao cấp tại trung tâm Osaka. Kỹ thuật Nhật Bản, phong cách quốc tế.',footer_svc:'Dịch vụ',footer_info:'Thông tin',footer_about:'Về chúng tôi',footer_price:'Bảng giá',footer_contact:'Liên hệ'},
-zh:{nav_gallery:'作品集',price_eyebrow:'价格表',nav_services:'服务',nav_reviews:'评价',acc_eyebrow:'交通方式',staff_eyebrow:'员工',nav_news:'专栏',nav_reserve:'预约',footer_desc:'位于大阪市中心的高品质美甲工作室。日本技术，国际风格。',footer_svc:'服务',footer_info:'信息',footer_about:'关于我们',footer_price:'价格表',footer_contact:'联系我们'},
-ko:{nav_gallery:'갤러리',price_eyebrow:'가격표',nav_services:'서비스',nav_reviews:'후기',acc_eyebrow:'오시는 길',staff_eyebrow:'스태프',nav_news:'칼럼',nav_reserve:'예약',footer_desc:'오사카 중심부의 프리미엄 네일 아틀리에. 일본 기술과 국제적인 스타일.',footer_svc:'서비스',footer_info:'정보',footer_about:'소개',footer_price:'가격표',footer_contact:'문의'},
-my:{nav_gallery:'ဒီဇိုင်းများ',price_eyebrow:'စျေးနှုန်း',nav_services:'ဝန်ဆောင်မှုများ',nav_reviews:'သုံးသပ်ချက်များ',acc_eyebrow:'လမ်းညွှန်',staff_eyebrow:'ဝန်ထမ်းများ',nav_news:'ဆောင်းပါး',nav_reserve:'ဘိုကင်လုပ်ရန်',footer_desc:'အိုဆာကာမြို့လယ်ရှိ အဆင့်မြင့် လက်သည်း Atelier။ ဂျပန်နည်းပညာနှင့် နိုင်ငံတကာစတိုင်။',footer_svc:'ဝန်ဆောင်မှုများ',footer_info:'အချက်အလက်',footer_about:'ကျွန်ုပ်တို့အကြောင်း',footer_price:'စျေးနှုန်း',footer_contact:'ဆက်သွယ်ရန်'},
-id:{nav_gallery:'Galeri',price_eyebrow:'Harga',nav_services:'Layanan',nav_reviews:'Ulasan',acc_eyebrow:'Akses',staff_eyebrow:'Staf',nav_news:'Artikel',nav_reserve:'Reservasi',footer_desc:'Atelier nail premium di pusat Osaka. Teknik Jepang, gaya internasional.',footer_svc:'Layanan',footer_info:'Informasi',footer_about:'Tentang Kami',footer_price:'Harga',footer_contact:'Kontak'}
+ja:{nav_gallery:'ギャラリー',price_eyebrow:'料金表',nav_services:'サービス',nav_reviews:'口コミ',acc_eyebrow:'アクセス',staff_eyebrow:'スタッフ',nav_news:'コラム',nav_reserve:'ご予約',blog_eyebrow:'Golyn Nail Journal',blog_title:'ネイルをもっと楽しむ<em>コラム</em>',blog_lead:'デザイン選び、ネイルケア、トレンド、初めてのサロン利用ガイドなどを発信していくブログページです。',footer_desc:'大阪中心部の高品質ネイルアトリエ。日本の技術と国際的なスタイルの融合。',footer_svc:'サービス',footer_info:'インフォ',footer_about:'私たちについて',footer_price:'料金表',footer_contact:'お問い合わせ'},
+en:{nav_gallery:'Gallery',price_eyebrow:'Pricing',nav_services:'Services',nav_reviews:'Reviews',acc_eyebrow:'Access',staff_eyebrow:'Staff',nav_news:'Blog',nav_reserve:'Reserve',blog_eyebrow:'Golyn Nail Journal',blog_title:'Nail care tips & <em>inspiration</em>',blog_lead:'Articles on choosing designs, nail care, trends, and first-time salon visits.',footer_desc:'Premium nail atelier in central Osaka. Japanese technique, international style.',footer_svc:'Services',footer_info:'Information',footer_about:'About Us',footer_price:'Pricing',footer_contact:'Contact'},
+vi:{nav_gallery:'Mẫu nail',price_eyebrow:'Bảng giá',nav_services:'Dịch vụ',nav_reviews:'Đánh giá',acc_eyebrow:'Địa chỉ',staff_eyebrow:'Nhân viên',nav_news:'Bài viết',nav_reserve:'Đặt lịch',blog_eyebrow:'Nhật ký Golyn Nail',blog_title:'Cẩm nang <em>nail</em>',blog_lead:'Nơi chia sẻ cách chọn mẫu, chăm sóc móng, xu hướng nail và hướng dẫn cho khách lần đầu đến salon.',footer_desc:'Nghệ thuật nail cao cấp tại trung tâm Osaka. Kỹ thuật Nhật Bản, phong cách quốc tế.',footer_svc:'Dịch vụ',footer_info:'Thông tin',footer_about:'Về chúng tôi',footer_price:'Bảng giá',footer_contact:'Liên hệ'},
+zh:{nav_gallery:'作品集',price_eyebrow:'价格表',nav_services:'服务',nav_reviews:'评价',acc_eyebrow:'交通方式',staff_eyebrow:'员工',nav_news:'专栏',nav_reserve:'预约',blog_eyebrow:'Golyn Nail 专栏',blog_title:'美甲灵感与<em>护理指南</em>',blog_lead:'分享款式选择、美甲护理、流行趋势，以及首次到店的实用指南。',footer_desc:'位于大阪市中心的高品质美甲工作室。日本技术，国际风格。',footer_svc:'服务',footer_info:'信息',footer_about:'关于我们',footer_price:'价格表',footer_contact:'联系我们'},
+ko:{nav_gallery:'갤러리',price_eyebrow:'가격표',nav_services:'서비스',nav_reviews:'후기',acc_eyebrow:'오시는 길',staff_eyebrow:'스태프',nav_news:'칼럼',nav_reserve:'예약',blog_eyebrow:'Golyn Nail Journal',blog_title:'네일을 더 즐기는 <em>칼럼</em>',blog_lead:'디자인 선택, 네일 케어, 트렌드, 첫 방문 가이드 등 유용한 정보를 전합니다.',footer_desc:'오사카 중심부의 프리미엄 네일 아틀리에. 일본 기술과 국제적인 스타일.',footer_svc:'서비스',footer_info:'정보',footer_about:'소개',footer_price:'가격표',footer_contact:'문의'},
+my:{nav_gallery:'ဒီဇိုင်းများ',price_eyebrow:'စျေးနှုန်း',nav_services:'ဝန်ဆောင်မှုများ',nav_reviews:'သုံးသပ်ချက်များ',acc_eyebrow:'လမ်းညွှန်',staff_eyebrow:'ဝန်ထမ်းများ',nav_news:'ဆောင်းပါး',nav_reserve:'ဘိုကင်လုပ်ရန်',blog_eyebrow:'Golyn Nail Journal',blog_title:'<em>လက်သည်း</em> အကြံပြုဆောင်းပါးများ',blog_lead:'ဒီဇိုင်းရွေးချယ်ခြင်း၊ လက်သည်းထိန်းသိမ်းခြင်း၊ trend များနှင့် salon ပထမဆုံးလာရောက်သူများအတွက် လမ်းညွှန်ချက်များကို မျှဝေပါသည်။',footer_desc:'အိုဆာကာမြို့လယ်ရှိ အဆင့်မြင့် လက်သည်း Atelier။ ဂျပန်နည်းပညာနှင့် နိုင်ငံတကာစတိုင်။',footer_svc:'ဝန်ဆောင်မှုများ',footer_info:'အချက်အလက်',footer_about:'ကျွန်ုပ်တို့အကြောင်း',footer_price:'စျေးနှုန်း',footer_contact:'ဆက်သွယ်ရန်'},
+id:{nav_gallery:'Galeri',price_eyebrow:'Harga',nav_services:'Layanan',nav_reviews:'Ulasan',acc_eyebrow:'Akses',staff_eyebrow:'Staf',nav_news:'Artikel',nav_reserve:'Reservasi',blog_eyebrow:'Jurnal Golyn Nail',blog_title:'Inspirasi & <em>tips nail</em>',blog_lead:'Artikel tentang pilihan desain, perawatan nail, tren, dan panduan untuk kunjungan salon pertama.',footer_desc:'Atelier nail premium di pusat Osaka. Teknik Jepang, gaya internasional.',footer_svc:'Layanan',footer_info:'Informasi',footer_about:'Tentang Kami',footer_price:'Harga',footer_contact:'Kontak'}
 };
 const langLabels={ja:'日本語',en:'English',vi:'Tiếng Việt',zh:'中文',ko:'한국어',my:'မြန်မာ',id:'Bahasa Indonesia'};
 const langFlagClasses={ja:'flag-ja',en:'flag-uk',vi:'flag-vi',zh:'flag-cn',ko:'flag-ko',my:'flag-my',id:'flag-id'};
@@ -898,9 +898,12 @@ function toggleMenu(){const menu=document.getElementById('mobileNav');if(!menu)r
 function closeLangMenus(){document.querySelectorAll('.lang-picker.open').forEach(picker=>{picker.classList.remove('open');const button=picker.querySelector('.lang-current');if(button)button.setAttribute('aria-expanded','false')})}
 function toggleLangMenu(button){const picker=button.closest('.lang-picker');const shouldOpen=!picker.classList.contains('open');closeLangMenus();picker.classList.toggle('open',shouldOpen);button.setAttribute('aria-expanded',String(shouldOpen))}
 function updateLangPickers(lang){document.querySelectorAll('.lang-picker').forEach(picker=>{const flag=picker.querySelector('.lang-current .flag');const label=picker.querySelector('.lang-current-label');if(flag)flag.className='flag '+(langFlagClasses[lang]||langFlagClasses.ja);if(label)label.textContent=langLabels[lang]||langLabels.ja;picker.querySelectorAll('[data-lang-option]').forEach(option=>option.classList.toggle('active',option.dataset.langOption===lang))})}
-function setLang(lang){if(!blogI18n[lang])lang='ja';document.documentElement.lang=lang;const dict=blogI18n[lang];document.querySelectorAll('header [data-i18n], nav [data-i18n], footer [data-i18n], .mobile-nav [data-i18n]').forEach(el=>{const key=el.getAttribute('data-i18n');if(dict[key])el.innerHTML=dict[key]});updateLangPickers(lang);localStorage.setItem('golynLang',lang)}
+function setLang(lang){if(!blogI18n[lang])lang='ja';document.documentElement.lang=lang;const dict=blogI18n[lang];document.querySelectorAll('[data-i18n]').forEach(el=>{const key=el.getAttribute('data-i18n');if(dict[key])el.innerHTML=dict[key]});updateLangPickers(lang);localStorage.setItem('golynLang',lang)}
 function chooseLang(lang){setLang(lang);closeLangMenus()}
 function redirectHeaderHashLinks(){document.querySelectorAll('#navbar a[href^="#"], .mobile-nav a[href^="#"]').forEach(link=>{link.addEventListener('click',event=>{const hash=link.getAttribute('href');if(hash&&hash!=='#'){event.preventDefault();window.location.href='/' + hash}})})}
+window.toggleMenu=toggleMenu;
+window.toggleLangMenu=toggleLangMenu;
+window.chooseLang=chooseLang;
 
 /* ── PAGINATION LOGIC ── */
 const ITEMS_PER_PAGE = 6;
