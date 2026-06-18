@@ -17,7 +17,7 @@
 
   function assetURL(value) {
     const url = String(value || '').trim();
-    return /^(?:https?:\\/\\/|\\/|data:|blob:)/i.test(url) ? url : '/' + url.replace(/^\\.\\//, '');
+    return /^(?:https?:\/\/|\/|data:|blob:)/i.test(url) ? url : '/' + url.replace(/^\.\//, '');
   }
 
   function escapeHTML(value) {
