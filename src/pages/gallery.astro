@@ -683,9 +683,12 @@ html[lang="vi"] { --serif: 'Cormorant Garamond', serif; --sans: 'Be Vietnam Pro'
   height: auto;
   aspect-ratio: 3 / 4;
   border: 0;
+  padding: 0;
+  appearance: none;
   border-radius: 4px;
   overflow: hidden;
   background: var(--beige);
+  box-shadow: none;
   cursor: zoom-in;
   transition: transform .3s, box-shadow .3s;
   grid-column: auto;
@@ -698,7 +701,7 @@ html[lang="vi"] { --serif: 'Cormorant Garamond', serif; --sans: 'Be Vietnam Pro'
 }
 .gallery-page .gallery-item:hover {
   transform: translateY(-4px);
-  box-shadow: 0 18px 42px rgba(74,55,40,.16);
+  box-shadow: none;
 }
 .gallery-page .gallery-item img {
   width: 100%;
