@@ -616,6 +616,34 @@ html[lang="vi"] { --serif: 'Cormorant Garamond', serif; --sans: 'Be Vietnam Pro'
 .pricing-note { font-size: 11px; color: var(--text-light); letter-spacing: .04em; border-top: 1px solid var(--cream-deep); padding-top: 14px; }
 .pricing-card.featured .pricing-note { color: rgba(250,247,242,.4); border-color: rgba(250,247,242,.12); }
 @media (max-width: 1100px) { .pricing-grid { grid-template-columns: 1fr; } }
+.gallery-grid[data-gallery-scope="home"] {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  max-width: 1180px;
+  margin: 0 auto 44px;
+}
+.gallery-grid[data-gallery-scope="home"] .gallery-item {
+  aspect-ratio: 1 / 1;
+  min-height: 0;
+  background-color: var(--beige);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  transition: transform .35s, box-shadow .3s;
+}
+.gallery-grid[data-gallery-scope="home"] .gallery-item:hover { transform: translateY(-5px); box-shadow: 0 12px 24px rgba(74,55,40,.15); z-index: 2; }
+.gallery-grid[data-gallery-scope="home"] .gallery-placeholder { display: none; }
+.gallery-grid[data-gallery-scope="home"] .gallery-label { font-family: var(--serif); font-size: 16px; font-style: italic; color: var(--brown-deep); text-align: center; opacity: .6; }
+.gallery-grid[data-gallery-scope="home"] .overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(74,55,40,.6) 0%, transparent 50%); opacity: 0; transition: .3s; display: flex; align-items: flex-end; padding: 20px; }
+.gallery-grid[data-gallery-scope="home"] .gallery-item:hover .overlay { opacity: 1; }
+.gallery-grid[data-gallery-scope="home"] .overlay span { font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--cream); }
+@media (max-width: 900px) { .gallery-grid[data-gallery-scope="home"] { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .gallery-grid[data-gallery-scope="home"] { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
@@ -1223,8 +1251,7 @@ let touchStartX = 0;
 let touchStartY = 0;
 
 function refreshHomeGalleryImages() {
-  galleryImages = (window.GOLYN_GALLERY_ITEMS || [])
-    .filter(item => item.featured)
+  galleryImages = (window.GOLYN_HOME_GALLERY_ITEMS || window.GOLYN_GALLERY_ITEMS || [])
     .slice(0, 8)
     .map(item => item.src);
 }

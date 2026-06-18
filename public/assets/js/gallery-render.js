@@ -96,6 +96,26 @@
     return items().filter(item => matchesCategory(item, activeCategory));
   }
 
+  function shuffle(items) {
+    const copy = items.slice();
+    for (let index = copy.length - 1; index > 0; index -= 1) {
+      const randomIndex = Math.floor(Math.random() * (index + 1));
+      [copy[index], copy[randomIndex]] = [copy[randomIndex], copy[index]];
+    }
+    return copy;
+  }
+
+  function homeItems() {
+    const allItems = items();
+    if (!allItems.length) return [];
+    const recentPool = allItems.slice(0, Math.min(24, allItems.length));
+    const selected = shuffle(recentPool).slice(0, 8);
+    if (selected.length >= 8) return selected;
+    const selectedSources = new Set(selected.map(item => item.src));
+    const fallback = allItems.filter(item => !selectedSources.has(item.src));
+    return selected.concat(fallback).slice(0, 8);
+  }
+
   function renderFilters() {
     const filters = document.querySelector("[data-gallery-filters]");
     if (!filters) return;
@@ -129,7 +149,8 @@
   function renderHomeGallery() {
     const grid = document.querySelector(".gallery-grid[data-gallery-scope='home']");
     if (!grid) return;
-    const selected = items().filter(item => item.featured).slice(0, 8);
+    const selected = homeItems();
+    window.GOLYN_HOME_GALLERY_ITEMS = selected;
     grid.innerHTML = selected.map((item, index) => `
       <div class="gallery-item g${index + 1}" data-gallery-index="${index}" style="background-image:url('${escapeHTML(item.src)}')">
         <div class="gallery-placeholder"><div class="gallery-label">${escapeHTML(item.label)}</div></div>
