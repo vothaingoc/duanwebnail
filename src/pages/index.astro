@@ -593,6 +593,30 @@ section[id] { scroll-margin-top: var(--nav-h); }
 html[lang="zh"] .hero-title, html[lang="ko"] .hero-title, html[lang="my"] .hero-title, html[lang="id"] .hero-title, html[lang="zh"] h1, html[lang="zh"] h2, html[lang="ko"] h1, html[lang="ko"] h2, html[lang="my"] h1, html[lang="my"] h2, html[lang="id"] h1, html[lang="id"] h2 { font-family: var(--sans); }
 html[lang="vi"] { --serif: 'Cormorant Garamond', serif; --sans: 'Be Vietnam Pro', sans-serif; }
 </style>
+<style is:global>
+.pricing-card { background: var(--white); padding: 40px 32px; position: relative; transition: .3s; }
+.pricing-card.featured { background: var(--brown-deep); border-top: 2px solid var(--gold); box-shadow: 0 0 0 1px rgba(201,150,60,.15) inset; }
+.pricing-card::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--gold); transition: width .4s; }
+.pricing-card:hover::after { width: 100%; }
+.pricing-card-label { font-size: 10px; letter-spacing: .26em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+.pricing-card.featured .pricing-card-label { color: var(--gold-light); }
+.pricing-name { font-family: var(--serif); font-size: 26px; font-weight: 400; color: var(--brown-deep); margin-bottom: 6px; line-height: 1.2; }
+.pricing-card.featured .pricing-name { color: var(--cream); }
+.pricing-desc { font-size: 13px; color: var(--text-light); line-height: 1.7; margin-bottom: 24px; min-height: 56px; }
+.pricing-card.featured .pricing-desc { color: rgba(250,247,242,.6); }
+.pricing-list { list-style: none; display: flex; flex-direction: column; gap: 0; margin-bottom: 28px; padding: 0; }
+.pricing-list li { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; font-size: 14px; color: var(--text-mid); padding: 10px 0; border-bottom: 1px solid var(--cream-deep); }
+.pricing-list li:last-child { border-bottom: none; }
+.pricing-card.featured .pricing-list li { color: rgba(250,247,242,.75); border-color: rgba(250,247,242,.12); }
+.pricing-list li span { font-family: var(--serif); font-size: 16px; font-style: italic; color: var(--brown); white-space: nowrap; }
+.pricing-card.featured .pricing-list li span { color: var(--gold-light); }
+.price-old { font-family: var(--serif); font-size: 13px; font-style: italic; color: #cc2200; text-decoration: line-through; margin-right: 6px; white-space: nowrap; opacity: .85; }
+.pricing-card.featured .price-old { color: #ff9980; }
+.price-wrap { display: flex; align-items: baseline; gap: 4px; white-space: nowrap; }
+.pricing-note { font-size: 11px; color: var(--text-light); letter-spacing: .04em; border-top: 1px solid var(--cream-deep); padding-top: 14px; }
+.pricing-card.featured .pricing-note { color: rgba(250,247,242,.4); border-color: rgba(250,247,242,.12); }
+@media (max-width: 1100px) { .pricing-grid { grid-template-columns: 1fr; } }
+</style>
 </head>
 <body>
 <!-- Mobile Nav Overlay -->

@@ -115,6 +115,34 @@ body.mobile-nav-open { overflow:hidden; touch-action:none; }
 html[lang="zh"] .detail-title, html[lang="ko"] .detail-title, html[lang="my"] .detail-title, html[lang="id"] .detail-title, html[lang="zh"] h1, html[lang="zh"] h2, html[lang="ko"] h1, html[lang="ko"] h2, html[lang="my"] h1, html[lang="my"] h2, html[lang="id"] h1, html[lang="id"] h2 { font-family: var(--sans); }
 html[lang="vi"] { --serif:'Cormorant Garamond', serif; --sans:'Be Vietnam Pro', sans-serif; }
 </style>
+<style is:global>
+.menu-wrap { max-width:1100px; margin:0 auto; display:flex; flex-direction:column; gap:34px; }
+.menu-section { background:var(--white); border-radius:6px; overflow:hidden; border-bottom:2px solid var(--cream-deep); box-shadow:0 8px 32px rgba(74,55,40,.06); }
+.menu-section.featured { background:var(--brown-deep); border-top:2px solid var(--gold); box-shadow:0 0 0 1px rgba(201,150,60,.15) inset; }
+.menu-head { padding:30px 34px 18px; border-bottom:1px solid var(--cream-deep); }
+.menu-section.featured .menu-head { border-color:rgba(250,247,242,.12); }
+.menu-label { font-size:10px; letter-spacing:.26em; text-transform:uppercase; color:var(--gold); margin-bottom:8px; font-weight:500; }
+.menu-title { font-family:var(--serif); font-size:30px; color:var(--brown-deep); font-weight:400; }
+.menu-section.featured .menu-title { color:var(--cream); }
+.menu-section.featured .menu-label { color:var(--gold-light); }
+.menu-list { list-style:none; padding:0; margin:0; }
+.menu-item { display:grid; grid-template-columns:1fr auto; gap:18px; align-items:start; padding:22px 34px; border-bottom:1px solid var(--cream-deep); }
+.menu-section.featured .menu-item { border-color:rgba(250,247,242,.12); }
+.menu-item:last-child { border-bottom:none; }
+.item-name { font-size:15px; color:var(--brown-deep); font-weight:500; line-height:1.65; }
+.menu-section.featured .item-name { color:var(--cream); }
+.item-desc { font-size:13px; color:var(--text-light); margin-top:6px; line-height:1.75; }
+.menu-section.featured .item-desc { color:rgba(250,247,242,.62); }
+.price-box { text-align:right; white-space:nowrap; padding-top:2px; }
+.price-old { font-family:var(--serif); font-size:14px; font-style:italic; color:#cc2200; text-decoration:line-through; margin-right:8px; opacity:.88; }
+.menu-section.featured .price-old { color:#ff9980; }
+.price-new { font-family:var(--serif); font-size:22px; color:var(--brown); font-style:italic; }
+.menu-section.featured .price-new { color:var(--gold-light); }
+.item-note { font-size:12px; color:var(--text-light); margin-top:6px; }
+.menu-section.featured .item-note { color:rgba(250,247,242,.46); }
+.campaign-note { display:block; margin-top:2px; }
+@media (max-width:900px) { .menu-item { grid-template-columns:1fr; gap:8px; padding:22px 24px; } .price-box { text-align:left; } .menu-head { padding:28px 24px 16px; } }
+</style>
 </head>
 <body>
 <div class="mobile-nav" id="mobileNav" aria-hidden="true">
