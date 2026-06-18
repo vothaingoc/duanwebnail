@@ -1,7 +1,8 @@
 ---
-import { getGalleryWithFallback } from '../lib/sanity';
+import { getGalleryWithFallback, getPricingCampaignOverride } from '../lib/sanity';
 
 const golynGalleryItems = await getGalleryWithFallback();
+const sanityPricingCampaign = await getPricingCampaignOverride();
 ---
 <!DOCTYPE html>
 
@@ -913,6 +914,11 @@ window.GOLYN_CONTENT_GALLERY_ITEMS = golynGalleryItems;
 <script is:inline src="/assets/js/gallery-data.js"></script>
 <script is:inline src="/assets/js/gallery-render.js"></script>
 <script is:inline src="/assets/js/pricing-data.js"></script>
+<script is:inline define:vars={{ sanityPricingCampaign }}>
+if (sanityPricingCampaign) {
+  window.GOLYN_PRICING_CAMPAIGN = sanityPricingCampaign;
+}
+</script>
 <script is:inline src="/assets/js/pricing-render.js"></script>
 <script is:inline>
 /* ═══════════════════════════════

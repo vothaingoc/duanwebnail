@@ -3,9 +3,15 @@
   const True = true;
   const False = false;
 
-  // Tat/bat toan bo campaign tai day: true = dang giam gia, false = tat giam gia.
+  // Sanity-compatible campaign settings.
+  // For now, Astro still reads this file as the fallback source.
+  // Toggle all sale prices here: true = show campaign prices, false = hide campaign prices.
   const campaign = {
     active: false,
+    source: 'pricing-data',
+    name: 'Limited-time campaign',
+    startsAt: null,
+    endsAt: null,
   };
 
   const categoryTranslations = {

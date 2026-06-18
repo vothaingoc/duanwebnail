@@ -1,3 +1,8 @@
+---
+import { getPricingCampaignOverride } from '../lib/sanity';
+
+const sanityPricingCampaign = await getPricingCampaignOverride();
+---
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -193,7 +198,7 @@ html[lang="vi"] { --serif:'Cormorant Garamond', serif; --sans:'Be Vietnam Pro', 
   <h1 class="sec-title" data-i18n="hero_title">詳しい<em>料金表</em></h1>
   <div class="sec-line"></div>
   <p class="hero-desc" data-i18n="hero_desc">シンプル・上品・トレンドデザインまで。丁寧なカウンセリングでお客様一人ひとりに合ったデザインをご提案いたします。</p>
-  <div class="campaign-badge" data-i18n="campaign_badge">※ 期間限定キャンペーン価格</div>
+  <div class="campaign-badge" data-i18n="campaign_badge" hidden>※ 期間限定キャンペーン価格</div>
 </header>
 <main class="price-detail">
 <div class="menu-wrap" data-pricing-detail></div>
@@ -203,13 +208,18 @@ html[lang="vi"] { --serif:'Cormorant Garamond', serif; --sans:'Be Vietnam Pro', 
 <p data-i18n="notice3">※PRE OPENキャンペーン：Instagramフォロー＆Google口コミ投稿で次回 ¥500 OFF</p>
 <p data-i18n="notice4">※ご紹介特典：ご紹介者様・お友達ともに ¥500 OFF</p>
 <p data-i18n="notice5">※平日限定クーポン：全メニュー20％OFF（毎月30名様限定）</p>
-<p data-i18n="notice6">※上記各種割引・キャンペーンは期間限定となります</p>
+<p data-i18n="notice6" hidden>※上記各種割引・キャンペーンは期間限定となります</p>
 <p data-i18n="notice7">※複雑アート・3D・キャラクターネイルは別料金となります</p>
 </div>
 <div class="back-actions"><a class="btn-primary" data-i18n="back_btn" href="/#pricing">料金表へ戻る</a></div>
 </main>
 <footer><span class="footer-copy">© 2025 Golyn Nail, Namba Osaka. All rights reserved.</span></footer>
 <script is:inline src="/assets/js/pricing-data.js"></script>
+<script is:inline define:vars={{ sanityPricingCampaign }}>
+if (sanityPricingCampaign) {
+  window.GOLYN_PRICING_CAMPAIGN = sanityPricingCampaign;
+}
+</script>
 <script is:inline src="/assets/js/pricing-render.js"></script>
 <script is:inline>
 const detailI18n = {

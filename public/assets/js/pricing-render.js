@@ -37,7 +37,11 @@
 
   function campaignActive() {
     const campaign = window.GOLYN_PRICING_CAMPAIGN;
-    return !campaign || campaign.active !== false;
+    if (!campaign || campaign.active !== true) return false;
+    const now = new Date();
+    if (campaign.startsAt && new Date(campaign.startsAt) > now) return false;
+    if (campaign.endsAt && new Date(campaign.endsAt) < now) return false;
+    return true;
   }
 
   function itemSaleActive(item) {

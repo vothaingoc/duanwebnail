@@ -61,6 +61,14 @@ const galleryQuery = `*[_type == "galleryImage" && published != false] | order(o
   published
 }`;
 
+const pricingCampaignQuery = `*[_type == "pricingCampaign"] | order(_updatedAt desc)[0] {
+  _id,
+  name,
+  active,
+  startsAt,
+  endsAt
+}`;
+
 type LegacyBlogPost = {
   id?: string;
   slug?: string;
@@ -92,6 +100,14 @@ type LegacyGalleryImage = {
   order?: number;
   featured?: boolean;
   createdAt?: string;
+};
+
+export type PricingCampaign = {
+  active: boolean;
+  source: 'sanity';
+  name: string;
+  startsAt: string | null;
+  endsAt: string | null;
 };
 
 function legacyBlogPosts(): LegacyBlogPost[] {
@@ -152,6 +168,17 @@ function toLegacyGalleryImage(item: any): LegacyGalleryImage {
   };
 }
 
+function toPricingCampaign(item: any): PricingCampaign | null {
+  if (!item || typeof item.active !== 'boolean') return null;
+  return {
+    active: item.active,
+    source: 'sanity',
+    name: item.name || 'Limited-time campaign',
+    startsAt: item.startsAt || null,
+    endsAt: item.endsAt || null
+  };
+}
+
 export async function getSanityBlogPosts(): Promise<LegacyBlogPost[]> {
   if (!sanityClient) {
     console.log('[Sanity] Blog: ENV not configured, using JSON fallback.');
@@ -176,6 +203,17 @@ export async function getSanityGallery(): Promise<LegacyGalleryImage[]> {
   if (!sanityClient) return [];
   const items = await sanityClient.fetch(galleryQuery);
   return Array.isArray(items) ? items.map(toLegacyGalleryImage) : [];
+}
+
+export async function getSanityPricingCampaign(): Promise<PricingCampaign | null> {
+  if (!sanityClient) {
+    console.log('[Sanity] Pricing campaign: ENV not configured, using JS fallback.');
+    return null;
+  }
+  const campaign = await sanityClient.fetch(pricingCampaignQuery);
+  const normalized = toPricingCampaign(campaign);
+  console.log(`[Sanity] Pricing campaign: ${normalized ? `fetched active=${normalized.active}` : 'no document found'}.`);
+  return normalized;
 }
 
 export async function getBlogPostsWithFallback() {
@@ -207,4 +245,13 @@ export async function getGalleryWithFallback() {
     console.warn('Sanity gallery fallback:', error);
   }
   return legacyGalleryImages();
+}
+
+export async function getPricingCampaignOverride() {
+  try {
+    return await getSanityPricingCampaign();
+  } catch (error) {
+    console.warn('Sanity pricing campaign fallback:', error);
+  }
+  return null;
 }
