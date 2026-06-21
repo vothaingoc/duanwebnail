@@ -16,7 +16,6 @@ const { staff } = Astro.props;
     <p class="staff-position">{staff.position}</p>
     <h2>{staff.name}</h2>
     <p class="staff-intro">{staff.introduction}</p>
-    <a class="staff-button" href={`/staff/${staff.slug}/`}>詳細を見る</a>
+    <a class="staff-button" data-i18n="staff_detail" href={`/staff/${staff.slug}/`}>詳細を見る</a>
   </div>
 </article>
-

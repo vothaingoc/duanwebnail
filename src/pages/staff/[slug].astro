@@ -1,6 +1,6 @@
 ---
 import StaffDetail from '../../components/StaffDetail.astro';
-import StaffLayout from '../../components/StaffLayout.astro';
+import SiteLayout from '../../components/SiteLayout.astro';
 import { getStaffBySlug, staffMembers } from '../../data/staff';
 
 export function getStaticPaths() {
@@ -20,16 +20,16 @@ const title = `${staff.name} | スタッフ紹介 | Golyn Nail`;
 const description = `${staff.name}（${staff.position}）のプロフィール。経験年数、得意分野、資格、担当デザインをご紹介します。`;
 ---
 
-<StaffLayout title={title} description={description}>
+<SiteLayout title={title} description={description}>
   <main>
     <section class="detail-hero">
       <StaffDetail staff={staff} />
       <div class="back-actions">
-        <a class="btn-primary" href="/staff/">スタッフ一覧へ戻る</a>
+        <a class="btn-primary" data-i18n="staff_back" href="/staff/">スタッフ一覧へ戻る</a>
       </div>
     </section>
   </main>
-</StaffLayout>
+</SiteLayout>
 
 <style>
   .detail-hero {

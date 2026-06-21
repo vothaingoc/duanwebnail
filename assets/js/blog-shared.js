@@ -112,14 +112,17 @@
   function cardHTML(article, className) {
     const text = labels[currentLang()] || labels.ja;
     const isHomeCard = className === "news-card";
+    const url = articleURL(article);
     return `
-      <a class="${className}" href="${articleURL(article)}">
-        <time class="${isHomeCard ? "news-date" : ""}" datetime="${escapeHTML(article.date)}">${escapeHTML(article.date)}</time>
-        <span class="${isHomeCard ? "news-tag" : "blog-tag"}">${escapeHTML(article.tag || article.lang || "Blog")}</span>
-        <h2 class="${isHomeCard ? "news-title" : ""}">${escapeHTML(article.title)}</h2>
+      <article class="${className}">
+        <div class="${isHomeCard ? "news-meta" : "blog-meta"}">
+          <span class="${isHomeCard ? "news-tag" : "blog-tag"}">${escapeHTML(article.tag || article.lang || "Blog")}</span>
+          <time class="${isHomeCard ? "news-date" : "blog-date"}" datetime="${escapeHTML(article.date)}">${escapeHTML(article.date)}</time>
+        </div>
+        <h2 class="${isHomeCard ? "news-title" : ""}"><a href="${url}">${escapeHTML(article.title)}</a></h2>
         <p class="${isHomeCard ? "news-desc" : ""}">${escapeHTML(article.desc || article.excerpt)}</p>
-        <span class="news-more">${escapeHTML(text.read)}</span>
-      </a>`;
+        <a class="news-more" href="${url}">${escapeHTML(text.read)}</a>
+      </article>`;
   }
 
   function renderPagination(totalPages, page) {

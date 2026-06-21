@@ -1,0 +1,557 @@
+---
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+const isStaff = Astro.url.pathname.startsWith('/staff');
+---
+
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site ?? 'https://duanwebnail.pages.dev').toString()} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@200;300;400;500&family=Noto+Sans+JP:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style is:global>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      :root {
+        --cream: #F5EFE6;
+        --cream-mid: #EDE0CC;
+        --cream-deep: #D9C5A0;
+        --beige: #C4975A;
+        --beige-dark: #A0722A;
+        --brown: #5C3D1E;
+        --brown-deep: #2E1A08;
+        --gold: #C9963C;
+        --gold-light: #E8C97A;
+        --text: #1C1008;
+        --text-mid: #4A2E10;
+        --text-light: #8B6830;
+        --white: #FBF6EE;
+        --serif: 'Cormorant Garamond', serif;
+        --sans: 'Jost', 'Noto Sans JP', 'Noto Sans SC', 'Noto Sans KR', 'Noto Sans Myanmar', 'Myanmar Text', 'Microsoft YaHei', 'Malgun Gothic', sans-serif;
+        --nav-h: 74px;
+      }
+      html { scroll-behavior: smooth; }
+      body {
+        background: var(--cream);
+        color: var(--text);
+        font-family: var(--sans);
+        font-weight: 300;
+        line-height: 1.7;
+        overflow-x: hidden;
+      }
+      a { color: inherit; }
+      img { max-width: 100%; display: block; }
+      [data-i18n] { transition: opacity .16s ease; }
+      .lang-switching [data-i18n] { opacity: 0; }
+      .lang-switcher {
+        display: flex;
+        gap: 3px;
+        align-items: center;
+        background: var(--cream-mid);
+        border: 1px solid var(--cream-deep);
+        border-radius: 20px;
+        padding: 3px;
+        flex-shrink: 0;
+      }
+      .lang-picker { position: relative; }
+      .lang-current,
+      .lang-option {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-family: var(--sans);
+        color: var(--text-light);
+        cursor: pointer;
+        white-space: nowrap;
+      }
+      .lang-current {
+        min-width: 132px;
+        padding: 6px 12px;
+        border: 0;
+        outline: 0;
+        border-radius: 16px;
+        background: var(--cream);
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: .08em;
+      }
+      .lang-caret { margin-left: auto; color: var(--gold); font-size: 10px; }
+      .lang-menu {
+        position: absolute;
+        right: 0;
+        top: calc(100% + 8px);
+        display: none;
+        min-width: 190px;
+        padding: 8px;
+        background: var(--white);
+        border: 1px solid var(--cream-deep);
+        border-radius: 14px;
+        box-shadow: 0 16px 38px rgba(46,26,8,.16);
+        z-index: 220;
+      }
+      .lang-picker.open .lang-menu { display: grid; gap: 3px; }
+      .lang-option {
+        width: 100%;
+        border: 0;
+        background: transparent;
+        padding: 8px 9px;
+        border-radius: 10px;
+        font-size: 12px;
+        text-align: left;
+      }
+      .lang-option:hover,
+      .lang-option.active { background: var(--cream); color: var(--brown-deep); }
+      .flag {
+        position: relative;
+        display: inline-block;
+        flex: 0 0 auto;
+        width: 22px;
+        height: 15px;
+        overflow: hidden;
+        border-radius: 3px;
+        background: #fff;
+        box-shadow: 0 0 0 1px rgba(46,26,8,.16), 0 1px 2px rgba(46,26,8,.16);
+      }
+      .flag-ja::after { content: ""; position: absolute; width: 8px; height: 8px; border-radius: 50%; background: #bc002d; left: 7px; top: 3.5px; }
+      .flag-uk {
+        background-color: #012169;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 30'%3E%3CclipPath id='a'%3E%3Cpath d='M0 0v30h60V0z'/%3E%3C/clipPath%3E%3Cg clip-path='url(%23a)'%3E%3Cpath d='M0 0v30h60V0z' fill='%23012169'/%3E%3Cpath d='M0 0l60 30M60 0L0 30' stroke='%23fff' stroke-width='6'/%3E%3Cpath d='M0 0l60 30M60 0L0 30' stroke='%23C8102E' stroke-width='4'/%3E%3Cpath d='M30 0v30M0 15h60' stroke='%23fff' stroke-width='10'/%3E%3Cpath d='M30 0v30M0 15h60' stroke='%23C8102E' stroke-width='6'/%3E%3C/g%3E%3C/svg%3E");
+        background-size: cover;
+        background-position: center;
+      }
+      .flag-vi { background: #da251d; }
+      .flag-vi::after { content: "★"; position: absolute; inset: 0; color: #ffde00; font-size: 10px; line-height: 15px; text-align: center; }
+      .flag-cn {
+        background-color: #de2910;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 40'%3E%3Crect width='60' height='40' fill='%23de2910'/%3E%3Cg fill='%23ffde00'%3E%3Cpolygon points='10,5 11.76,10.43 17.46,10.43 12.85,13.79 14.61,19.22 10,15.86 5.39,19.22 7.15,13.79 2.54,10.43 8.24,10.43'/%3E%3Cpolygon points='22,4 22.82,6.54 25.5,6.54 23.34,8.11 24.16,10.66 22,9.09 19.84,10.66 20.66,8.11 18.5,6.54 21.18,6.54'/%3E%3Cpolygon points='27,8 27.82,10.54 30.5,10.54 28.34,12.11 29.16,14.66 27,13.09 24.84,14.66 25.66,12.11 23.5,10.54 26.18,10.54'/%3E%3Cpolygon points='27,15 27.82,17.54 30.5,17.54 28.34,19.11 29.16,21.66 27,20.09 24.84,21.66 25.66,19.11 23.5,17.54 26.18,17.54'/%3E%3Cpolygon points='22,19 22.82,21.54 25.5,21.54 23.34,23.11 24.16,25.66 22,24.09 19.84,25.66 20.66,23.11 18.5,21.54 21.18,21.54'/%3E%3C/g%3E%3C/svg%3E");
+        background-size: cover;
+        background-position: center;
+      }
+      .flag-ko::before { content: ""; position: absolute; width: 9px; height: 9px; border-radius: 50%; left: 6.5px; top: 3px; background: linear-gradient(to bottom,#c60c30 0 50%,#003478 50%); transform: rotate(-28deg); }
+      .flag-ko::after { content: ""; position: absolute; left: 3px; top: 3px; width: 3px; height: 1px; background: #111; box-shadow: 0 3px #111, 13px 0 #111, 13px 3px #111, 0 6px #111, 13px 6px #111; }
+      .flag-my { background: linear-gradient(to bottom,#fecb00 0 33.33%,#34b233 33.33% 66.66%,#ea2839 66.66%); }
+      .flag-my::after { content: "★"; position: absolute; inset: 0; color: #fff; font-size: 10px; line-height: 15px; text-align: center; }
+      .flag-id { background: linear-gradient(to bottom,#ce1126 0 50%,#fff 50%); }
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        height: var(--nav-h);
+        background: rgba(245,239,230,.96);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--cream-deep);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 40px;
+        gap: 16px;
+        transition: box-shadow .3s;
+      }
+      .nav-logo {
+        font-family: var(--serif);
+        font-size: 23px;
+        letter-spacing: .12em;
+        color: var(--brown-deep);
+        text-decoration: none;
+        white-space: nowrap;
+      }
+      .nav-logo span { color: var(--gold); font-style: italic; }
+      .nav-links {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+        gap: 26px;
+        list-style: none;
+      }
+      .nav-links a {
+        display: inline-block;
+        font-size: 14px;
+        font-weight: 400;
+        letter-spacing: .12em;
+        color: var(--text-mid);
+        text-decoration: none;
+        white-space: nowrap;
+        transition: color .25s, transform .25s, text-shadow .25s;
+      }
+      .nav-links a:hover,
+      .nav-links a[aria-current="page"] {
+        color: var(--gold);
+        transform: translateY(-2px) scale(1.06);
+        text-shadow: 0 4px 10px rgba(201,150,60,.25);
+      }
+      .nav-right { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+      .nav-cta,
+      .btn-primary {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 14px 34px;
+        background: var(--brown-deep);
+        color: var(--cream);
+        border-radius: 2px;
+        text-decoration: none;
+        font-size: 13px;
+        letter-spacing: .14em;
+        transition: background .25s, transform .25s, box-shadow .25s;
+      }
+      .nav-cta { border-radius: 999px; padding: 9px 22px; white-space: nowrap; }
+      .nav-cta:hover,
+      .btn-primary:hover {
+        background: var(--brown);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 18px rgba(201,150,60,.3);
+      }
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        padding: 4px;
+        background: transparent;
+        border: 0;
+        cursor: pointer;
+      }
+      .hamburger span { width: 22px; height: 1.5px; background: var(--text); display: block; transition: .3s; }
+      .mobile-nav {
+        display: flex;
+        position: fixed;
+        inset: 0;
+        z-index: 999;
+        background: rgba(250,247,242,.98);
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 18px;
+        height: 100vh;
+        height: 100dvh;
+        padding: calc(env(safe-area-inset-top, 0px) + 76px) 24px calc(env(safe-area-inset-bottom, 0px) + 30px);
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: translateY(-8px);
+        transition: opacity .22s ease, transform .22s ease, visibility .22s ease;
+      }
+      .mobile-nav.open { opacity: 1; visibility: visible; pointer-events: auto; transform: none; }
+      .mobile-nav a {
+        font-family: var(--serif);
+        font-size: clamp(21px, 7vw, 32px);
+        line-height: 1.16;
+        font-weight: 300;
+        color: var(--brown-deep);
+        text-decoration: none;
+        letter-spacing: .06em;
+        text-align: center;
+        overflow-wrap: anywhere;
+        transition: color .2s;
+      }
+      .mobile-nav a:hover { color: var(--gold); }
+      .mobile-nav a.btn-primary {
+        color: var(--cream) !important;
+        font-family: var(--serif);
+        font-size: clamp(20px, 6.5vw, 32px);
+        font-weight: 300;
+        letter-spacing: .06em;
+        padding: 14px 36px;
+        max-width: min(100%, 320px);
+      }
+      .mobile-nav-close {
+        position: fixed;
+        top: calc(env(safe-area-inset-top, 0px) + 18px);
+        right: 22px;
+        font-size: 22px;
+        cursor: pointer;
+        color: var(--text-mid);
+        background: none;
+        border: none;
+        z-index: 1000;
+      }
+      .mobile-nav .lang-switcher { max-width: 100%; margin-top: 18px; }
+      .mobile-nav .lang-menu { position: static; margin-top: 10px; max-height: 230px; overflow-y: auto; }
+      body.mobile-nav-open { overflow: hidden; touch-action: none; }
+      .page-hero {
+        padding: calc(var(--nav-h) + 80px) 20px 58px;
+        background: var(--white);
+        text-align: center;
+      }
+      .hero-eyebrow {
+        color: var(--gold);
+        font-size: 12px;
+        letter-spacing: .28em;
+        text-transform: uppercase;
+        margin-bottom: 14px;
+      }
+      .page-hero h1 {
+        font-family: var(--serif);
+        font-size: clamp(40px, 8vw, 68px);
+        font-weight: 300;
+        line-height: 1.12;
+        color: var(--brown-deep);
+      }
+      .page-hero p {
+        max-width: 660px;
+        margin: 20px auto 0;
+        color: var(--text-mid);
+        font-size: 15px;
+        letter-spacing: .04em;
+      }
+      .sec-line {
+        width: 56px;
+        height: 1.5px;
+        background: var(--gold);
+        margin: 22px auto 0;
+        box-shadow: 0 0 8px rgba(201,150,60,.35);
+      }
+      main { min-height: 100vh; }
+      footer { background: #2E1A08; padding: 60px 80px 26px; color: var(--cream); }
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr;
+        gap: 42px;
+        margin-bottom: 42px;
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .footer-logo {
+        font-family: var(--serif);
+        font-size: 24px;
+        letter-spacing: .12em;
+        color: var(--cream);
+      }
+      .footer-logo span { color: var(--gold-light); font-style: italic; }
+      .footer-desc { font-size: 15px; color: rgba(245,239,230,.65); margin-top: 14px; max-width: 260px; line-height: 1.8; }
+      .footer-col-title { font-size: 17px; letter-spacing: .08em; color: var(--gold); margin-bottom: 16px; font-weight: 500; }
+      .footer-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+      .footer-links a { font-size: 15px; color: rgba(245,239,230,.6); text-decoration: none; transition: color .2s; }
+      .footer-links a:hover { color: var(--gold); }
+      .footer-bottom {
+        border-top: 1px solid rgba(201,150,60,.25);
+        padding-top: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 14px;
+        flex-wrap: wrap;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      .footer-copy { font-size: 13px; color: rgba(245,239,230,.35); letter-spacing: .03em; }
+      .footer-social { display: flex; gap: 9px; }
+      .footer-social a {
+        width: 34px;
+        height: 34px;
+        background: rgba(201,150,60,.15);
+        border-radius: 50%;
+        border: 1px solid rgba(201,150,60,.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+        text-decoration: none;
+        color: var(--gold-light);
+        transition: .2s;
+      }
+      .footer-social a:hover { background: var(--gold); color: var(--brown-deep); }
+      @media (max-width: 1100px) {
+        nav { padding: 0 22px; }
+        .nav-links, .nav-cta { display: none; }
+        .hamburger { display: flex; }
+        footer { padding: 42px 28px 20px; }
+        .footer-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
+        .footer-bottom { flex-direction: column; text-align: center; }
+      }
+      @media (max-width: 600px) {
+        nav { padding: 0 16px; }
+        .nav-logo { font-size: 20px; }
+        .page-hero { padding: calc(var(--nav-h) + 54px) 20px 42px; }
+        footer { padding: 36px 20px 18px; }
+        .footer-grid { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="mobile-nav" id="mobileNav" aria-hidden="true">
+      <button class="mobile-nav-close" onclick="toggleMenu()" type="button">×</button>
+      <a data-i18n="nav_gallery" href="/#gallery" onclick="toggleMenu()">ギャラリー</a>
+      <a data-i18n="price_eyebrow" href="/#pricing" onclick="toggleMenu()">料金表</a>
+      <a data-i18n="nav_services" href="/#services" onclick="toggleMenu()">サービス</a>
+      <a data-i18n="nav_reviews" href="/#testimonials" onclick="toggleMenu()">口コミ</a>
+      <a data-i18n="acc_eyebrow" href="/#access" onclick="toggleMenu()">アクセス</a>
+      <a data-i18n="staff_eyebrow" href="/staff/" onclick="toggleMenu()">スタッフ</a>
+      <a data-i18n="nav_news" href="/news/" onclick="toggleMenu()">コラム</a>
+      <a class="btn-primary" data-i18n="nav_reserve" href="/#access" onclick="toggleMenu()">ご予約</a>
+      <div class="lang-switcher">
+        <div class="lang-picker">
+          <button aria-expanded="false" aria-haspopup="listbox" class="lang-current" onclick="toggleLangMenu(this)" type="button"><span class="flag flag-ja"></span><span class="lang-current-label">日本語</span><span class="lang-caret">▾</span></button>
+          <div class="lang-menu" role="listbox">
+            <button class="lang-option active" data-lang-option="ja" onclick="chooseLang('ja')" type="button"><span class="flag flag-ja"></span><span>日本語</span></button>
+            <button class="lang-option" data-lang-option="en" onclick="chooseLang('en')" type="button"><span class="flag flag-uk"></span><span>English</span></button>
+            <button class="lang-option" data-lang-option="vi" onclick="chooseLang('vi')" type="button"><span class="flag flag-vi"></span><span>Tiếng Việt</span></button>
+            <button class="lang-option" data-lang-option="zh" onclick="chooseLang('zh')" type="button"><span class="flag flag-cn"></span><span>中文</span></button>
+            <button class="lang-option" data-lang-option="ko" onclick="chooseLang('ko')" type="button"><span class="flag flag-ko"></span><span>한국어</span></button>
+            <button class="lang-option" data-lang-option="my" onclick="chooseLang('my')" type="button"><span class="flag flag-my"></span><span>မြန်မာ</span></button>
+            <button class="lang-option" data-lang-option="id" onclick="chooseLang('id')" type="button"><span class="flag flag-id"></span><span>Bahasa Indonesia</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <nav id="navbar">
+      <a class="nav-logo" href="/">Golyn <span>Nail</span></a>
+      <ul class="nav-links">
+        <li><a data-i18n="nav_gallery" href="/#gallery">ギャラリー</a></li>
+        <li><a data-i18n="price_eyebrow" href="/#pricing">料金表</a></li>
+        <li><a data-i18n="nav_services" href="/#services">サービス</a></li>
+        <li><a data-i18n="nav_reviews" href="/#testimonials">口コミ</a></li>
+        <li><a data-i18n="acc_eyebrow" href="/#access">アクセス</a></li>
+        <li><a data-i18n="staff_eyebrow" href="/staff/" aria-current={isStaff ? 'page' : undefined}>スタッフ</a></li>
+        <li><a data-i18n="nav_news" href="/news/">コラム</a></li>
+      </ul>
+      <div class="nav-right">
+        <div class="lang-switcher">
+          <div class="lang-picker">
+            <button aria-expanded="false" aria-haspopup="listbox" class="lang-current" onclick="toggleLangMenu(this)" type="button"><span class="flag flag-ja"></span><span class="lang-current-label">日本語</span><span class="lang-caret">▾</span></button>
+            <div class="lang-menu" role="listbox">
+              <button class="lang-option active" data-lang-option="ja" onclick="chooseLang('ja')" type="button"><span class="flag flag-ja"></span><span>日本語</span></button>
+              <button class="lang-option" data-lang-option="en" onclick="chooseLang('en')" type="button"><span class="flag flag-uk"></span><span>English</span></button>
+              <button class="lang-option" data-lang-option="vi" onclick="chooseLang('vi')" type="button"><span class="flag flag-vi"></span><span>Tiếng Việt</span></button>
+              <button class="lang-option" data-lang-option="zh" onclick="chooseLang('zh')" type="button"><span class="flag flag-cn"></span><span>中文</span></button>
+              <button class="lang-option" data-lang-option="ko" onclick="chooseLang('ko')" type="button"><span class="flag flag-ko"></span><span>한국어</span></button>
+              <button class="lang-option" data-lang-option="my" onclick="chooseLang('my')" type="button"><span class="flag flag-my"></span><span>မြန်မာ</span></button>
+              <button class="lang-option" data-lang-option="id" onclick="chooseLang('id')" type="button"><span class="flag flag-id"></span><span>Bahasa Indonesia</span></button>
+            </div>
+          </div>
+        </div>
+        <a class="nav-cta" data-i18n="nav_reserve" href="/#access">ご予約</a>
+        <button class="hamburger" type="button" onclick="toggleMenu()" aria-label="メニューを開く">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+    <slot />
+    <footer>
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo">Golyn <span>Nail</span></div>
+          <p class="footer-desc" data-i18n="footer_desc">大阪中心部の高品質ネイルアトリエ。日本の技術と国際的なスタイルの融合。</p>
+        </div>
+        <div>
+          <div class="footer-col-title" data-i18n="footer_info">インフォ</div>
+          <ul class="footer-links">
+            <li><a data-i18n="footer_about" href="/#services">私たちについて</a></li>
+            <li><a data-i18n="footer_price" href="/#pricing">料金表</a></li>
+            <li><a href="/news/">Blog</a></li>
+            <li><a data-i18n="staff_eyebrow" href="/staff/">スタッフ</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title" data-i18n="footer_contact">お問い合わせ</div>
+          <ul class="footer-links">
+            <li><a href="#">LINE Official</a></li>
+            <li><a href="https://www.facebook.com/people/Golyn-Nail/61585820682024/" rel="noopener noreferrer" target="_blank">Facebook</a></li>
+            <li><a href="https://www.instagram.com/golynnail?igsh=MWhoNmR1NXV1dnFmcg%3D%3D&utm_source=qr" rel="noopener noreferrer" target="_blank">Instagram</a></li>
+            <li><a href="https://www.tiktok.com/@golynnail?_r=1&_t=ZS-96ekqoueQVg" rel="noopener noreferrer" target="_blank">Tiktok</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2026 Golyn Nail. All rights reserved.</p>
+        <div class="footer-social">
+          <a href="https://www.instagram.com/golynnail?igsh=MWhoNmR1NXV1dnFmcg%3D%3D&utm_source=qr" rel="noopener noreferrer" target="_blank">IG</a>
+          <a href="https://www.tiktok.com/@golynnail?_r=1&_t=ZS-96ekqoueQVg" rel="noopener noreferrer" target="_blank">TT</a>
+          <a href="https://www.facebook.com/people/Golyn-Nail/61585820682024/" rel="noopener noreferrer" target="_blank">FB</a>
+        </div>
+      </div>
+    </footer>
+    <script is:inline>
+      const siteI18n = {
+        ja: { nav_gallery:'ギャラリー', price_eyebrow:'料金表', nav_services:'サービス', nav_reviews:'口コミ', acc_eyebrow:'アクセス', staff_eyebrow:'スタッフ', nav_news:'コラム', nav_reserve:'ご予約', footer_desc:'大阪中心部の高品質ネイルアトリエ。日本の技術と国際的なスタイルの融合。', footer_info:'インフォ', footer_about:'私たちについて', footer_price:'料金表', footer_contact:'お問い合わせ', staff_title:'スタッフ紹介', staff_subtitle:'Golyn Nailで働くスタッフをご紹介します。', staff_members:'ネイリスト一覧', staff_detail:'詳細を見る', staff_experience:'経験年数', staff_specialty:'得意分野', staff_certifications:'資格', staff_gallery:'担当デザイン', staff_back:'スタッフ一覧へ戻る' },
+        en: { nav_gallery:'Gallery', price_eyebrow:'Pricing', nav_services:'Services', nav_reviews:'Reviews', acc_eyebrow:'Access', staff_eyebrow:'Staff', nav_news:'Blog', nav_reserve:'Reserve', footer_desc:'Premium nail atelier in central Osaka. Japanese technique, international style.', footer_info:'Information', footer_about:'About Us', footer_price:'Pricing', footer_contact:'Contact', staff_title:'Staff', staff_subtitle:'Meet the staff working at Golyn Nail.', staff_members:'Nail Artists', staff_detail:'View Details', staff_experience:'Experience', staff_specialty:'Specialty', staff_certifications:'Certifications', staff_gallery:'Design Gallery', staff_back:'Back to Staff' },
+        vi: { nav_gallery:'Mẫu nail', price_eyebrow:'Bảng giá', nav_services:'Dịch vụ', nav_reviews:'Đánh giá', acc_eyebrow:'Địa chỉ', staff_eyebrow:'Nhân viên', nav_news:'Bài viết', nav_reserve:'Đặt lịch', footer_desc:'Nghệ thuật nail cao cấp tại trung tâm Osaka. Kỹ thuật Nhật Bản, phong cách quốc tế.', footer_info:'Thông tin', footer_about:'Về chúng tôi', footer_price:'Bảng giá', footer_contact:'Liên hệ', staff_title:'Giới thiệu nhân viên', staff_subtitle:'Gặp gỡ đội ngũ đang làm việc tại Golyn Nail.', staff_members:'Nail Artist', staff_detail:'Xem chi tiết', staff_experience:'Kinh nghiệm', staff_specialty:'Sở trường', staff_certifications:'Chứng chỉ', staff_gallery:'Mẫu thiết kế', staff_back:'Quay lại danh sách' },
+        zh: { nav_gallery:'作品集', price_eyebrow:'价格表', nav_services:'服务', nav_reviews:'评价', acc_eyebrow:'交通方式', staff_eyebrow:'员工', nav_news:'专栏', nav_reserve:'预约', footer_desc:'位于大阪市中心的高品质美甲工作室。日本技术，国际风格。', footer_info:'信息', footer_about:'关于我们', footer_price:'价格表', footer_contact:'联系我们', staff_title:'员工介绍', staff_subtitle:'为您介绍在 Golyn Nail 工作的员工。', staff_members:'美甲师列表', staff_detail:'查看详情', staff_experience:'经验', staff_specialty:'擅长', staff_certifications:'资格', staff_gallery:'作品集', staff_back:'返回员工列表' },
+        ko: { nav_gallery:'갤러리', price_eyebrow:'가격표', nav_services:'서비스', nav_reviews:'후기', acc_eyebrow:'오시는 길', staff_eyebrow:'스태프', nav_news:'칼럼', nav_reserve:'예약', footer_desc:'오사카 중심부의 프리미엄 네일 아틀리에. 일본 기술과 국제적인 스타일.', footer_info:'정보', footer_about:'소개', footer_price:'가격표', footer_contact:'문의', staff_title:'스태프 소개', staff_subtitle:'Golyn Nail에서 일하는 스태프를 소개합니다.', staff_members:'네일 아티스트', staff_detail:'자세히 보기', staff_experience:'경력', staff_specialty:'전문 분야', staff_certifications:'자격', staff_gallery:'담당 디자인', staff_back:'스태프 목록으로' },
+        my: { nav_gallery:'ဒီဇိုင်းများ', price_eyebrow:'စျေးနှုန်း', nav_services:'ဝန်ဆောင်မှုများ', nav_reviews:'သုံးသပ်ချက်များ', acc_eyebrow:'လမ်းညွှန်', staff_eyebrow:'ဝန်ထမ်းများ', nav_news:'ဆောင်းပါး', nav_reserve:'ဘိုကင်လုပ်ရန်', footer_desc:'အိုဆာကာမြို့လယ်ရှိ အဆင့်မြင့် လက်သည်း Atelier။ ဂျပန်နည်းပညာနှင့် နိုင်ငံတကာစတိုင်။', footer_info:'အချက်အလက်', footer_about:'ကျွန်ုပ်တို့အကြောင်း', footer_price:'စျေးနှုန်း', footer_contact:'ဆက်သွယ်ရန်', staff_title:'ဝန်ထမ်း မိတ်ဆက်', staff_subtitle:'Golyn Nail တွင် အလုပ်လုပ်နေသော ဝန်ထမ်းများကို မိတ်ဆက်ပါသည်။', staff_members:'Nail Artists', staff_detail:'အသေးစိတ်ကြည့်ရန်', staff_experience:'အတွေ့အကြုံ', staff_specialty:'ကျွမ်းကျင်မှု', staff_certifications:'လက်မှတ်များ', staff_gallery:'ဒီဇိုင်းများ', staff_back:'ဝန်ထမ်းစာရင်းသို့' },
+        id: { nav_gallery:'Galeri', price_eyebrow:'Harga', nav_services:'Layanan', nav_reviews:'Ulasan', acc_eyebrow:'Akses', staff_eyebrow:'Staf', nav_news:'Artikel', nav_reserve:'Reservasi', footer_desc:'Atelier nail premium di pusat Osaka. Teknik Jepang, gaya internasional.', footer_info:'Informasi', footer_about:'Tentang Kami', footer_price:'Harga', footer_contact:'Kontak', staff_title:'Profil Staf', staff_subtitle:'Kenali staf yang bekerja di Golyn Nail.', staff_members:'Nail Artist', staff_detail:'Lihat Detail', staff_experience:'Pengalaman', staff_specialty:'Keahlian', staff_certifications:'Sertifikasi', staff_gallery:'Galeri Desain', staff_back:'Kembali ke Staf' }
+      };
+      const langLabels = { ja:'日本語', en:'English', vi:'Tiếng Việt', zh:'中文', ko:'한국어', my:'မြန်မာ', id:'Bahasa Indonesia' };
+      const langFlagClasses = { ja:'flag-ja', en:'flag-uk', vi:'flag-vi', zh:'flag-cn', ko:'flag-ko', my:'flag-my', id:'flag-id' };
+      function toggleMenu() {
+        const menu = document.getElementById('mobileNav');
+        if (!menu) return;
+        const isOpen = menu.classList.toggle('open');
+        menu.setAttribute('aria-hidden', String(!isOpen));
+        document.body.classList.toggle('mobile-nav-open', isOpen);
+      }
+      function closeLangMenus() {
+        document.querySelectorAll('.lang-picker.open').forEach(picker => {
+          picker.classList.remove('open');
+          const button = picker.querySelector('.lang-current');
+          if (button) button.setAttribute('aria-expanded', 'false');
+        });
+      }
+      function toggleLangMenu(button) {
+        const picker = button.closest('.lang-picker');
+        const shouldOpen = picker && !picker.classList.contains('open');
+        closeLangMenus();
+        if (picker) picker.classList.toggle('open', shouldOpen);
+        button.setAttribute('aria-expanded', String(shouldOpen));
+      }
+      function updateLangPickers(lang) {
+        document.querySelectorAll('.lang-picker').forEach(picker => {
+          const flag = picker.querySelector('.lang-current .flag');
+          const label = picker.querySelector('.lang-current-label');
+          if (flag) flag.className = `flag ${langFlagClasses[lang] || langFlagClasses.ja}`;
+          if (label) label.textContent = langLabels[lang] || langLabels.ja;
+          picker.querySelectorAll('[data-lang-option]').forEach(option => {
+            option.classList.toggle('active', option.dataset.langOption === lang);
+          });
+        });
+      }
+      function setLang(lang) {
+        if (!siteI18n[lang]) lang = 'ja';
+        localStorage.setItem('golynLang', lang);
+        document.documentElement.lang = { ja:'ja', en:'en', vi:'vi', zh:'zh', ko:'ko', my:'my', id:'id' }[lang] || 'ja';
+        document.body.classList.add('lang-switching');
+        setTimeout(() => {
+          const dict = siteI18n[lang] || siteI18n.ja;
+          document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (dict[key] !== undefined) el.innerHTML = dict[key];
+          });
+          updateLangPickers(lang);
+          document.body.classList.remove('lang-switching');
+        }, 120);
+      }
+      function chooseLang(lang) {
+        setLang(lang);
+        closeLangMenus();
+      }
+      window.toggleMenu = toggleMenu;
+      window.toggleLangMenu = toggleLangMenu;
+      window.chooseLang = chooseLang;
+      window.addEventListener('scroll', () => {
+        const nav = document.getElementById('navbar');
+        if (!nav) return;
+        nav.style.boxShadow = window.scrollY > 40 ? '0 2px 24px rgba(74,55,40,.08)' : 'none';
+      });
+      document.addEventListener('DOMContentLoaded', () => setLang(localStorage.getItem('golynLang') || 'ja'));
+      document.addEventListener('click', event => {
+        if (!event.target.closest('.lang-picker')) closeLangMenus();
+      });
+    </script>
+  </body>
+</html>

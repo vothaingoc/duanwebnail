@@ -17,15 +17,15 @@ const { staff } = Astro.props;
     <h1>{staff.name}</h1>
     <dl class="profile-facts">
       <div>
-        <dt>経験年数</dt>
+        <dt data-i18n="staff_experience">経験年数</dt>
         <dd>{staff.experience}</dd>
       </div>
       <div>
-        <dt>得意分野</dt>
+        <dt data-i18n="staff_specialty">得意分野</dt>
         <dd>{staff.specialty}</dd>
       </div>
       <div>
-        <dt>資格</dt>
+        <dt data-i18n="staff_certifications">資格</dt>
         <dd>{staff.certifications.join(' / ')}</dd>
       </div>
     </dl>
@@ -36,7 +36,7 @@ const { staff } = Astro.props;
 <section class="staff-gallery" aria-labelledby="gallery-title">
   <div class="section-heading">
     <p>Gallery</p>
-    <h2 id="gallery-title">担当デザイン</h2>
+    <h2 id="gallery-title" data-i18n="staff_gallery">担当デザイン</h2>
     <div class="sec-line"></div>
   </div>
   <div class="gallery-grid">
@@ -45,4 +45,3 @@ const { staff } = Astro.props;
     ))}
   </div>
 </section>
-

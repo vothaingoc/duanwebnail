@@ -680,6 +680,145 @@ html[lang="vi"] { --serif: 'Cormorant Garamond', serif; --sans: 'Be Vietnam Pro'
   .blog-feed-intro h3 { font-size: 14px; }
   .blog-feed-intro p { font-size: 12px; }
 }
+/* Refined article card grid */
+.news-grid,
+.blog-grid {
+  align-items: stretch;
+  grid-auto-rows: 1fr;
+}
+.news-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.news-card,
+.blog-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  color: inherit;
+  border: 1px solid rgba(217,197,160,.72);
+  border-bottom: 2px solid var(--cream-deep);
+  box-shadow: 0 10px 32px rgba(74,55,40,.07);
+}
+.news-card { border-radius: 6px; }
+.blog-card {
+  min-height: 360px;
+  padding: 34px 30px;
+  border-radius: 8px;
+  background: rgba(255,252,247,.92);
+}
+.news-card:hover,
+.blog-card:hover {
+  border-color: rgba(201,150,60,.5);
+  box-shadow: 0 16px 38px rgba(74,55,40,.13);
+}
+.news-meta,
+.blog-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 14px;
+  margin-bottom: 18px;
+}
+.news-tag,
+.blog-tag {
+  display: inline-block;
+  width: max-content;
+  margin: 0;
+  padding: 7px 13px;
+  border-radius: 999px;
+  background: var(--cream-mid);
+  color: var(--brown);
+  font-family: var(--sans);
+  font-size: 10px;
+  letter-spacing: .12em;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+.news-date,
+.blog-date {
+  display: block;
+  margin: 0;
+  color: var(--text-light);
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.news-title,
+.blog-card h2 {
+  font-family: var(--serif) !important;
+  font-weight: 400;
+  line-height: 1.28;
+  letter-spacing: 0;
+  color: var(--brown-deep);
+}
+.blog-card h2 {
+  font-size: clamp(25px, 2.5vw, 31px);
+  margin: 0 0 16px;
+}
+.news-title a,
+.blog-card h2 a {
+  display: inline;
+  margin: 0;
+  color: inherit;
+  text-decoration: none;
+  transition: color .2s ease;
+}
+.news-title a:hover,
+.blog-card h2 a:hover { color: var(--gold); }
+.news-title a::after,
+.blog-card h2 a::after { content: none; }
+.news-desc,
+.blog-card p {
+  color: var(--text-mid);
+  line-height: 1.85;
+  margin-bottom: 28px;
+}
+.news-more,
+.blog-card .news-more {
+  margin-top: auto;
+  display: inline-flex;
+  align-self: flex-start;
+  align-items: center;
+  padding: 11px 18px;
+  border: 1px solid rgba(201,150,60,.45);
+  border-radius: 999px;
+  color: var(--brown-deep);
+  font-family: var(--sans);
+  font-size: 12px;
+  letter-spacing: .1em;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color .2s ease, background .2s ease, border-color .2s ease;
+}
+.news-more::after,
+.blog-card .news-more::after {
+  content: ' →';
+  color: var(--gold);
+  transition: transform .2s ease;
+  margin-left: 4px;
+}
+.news-more:hover,
+.blog-card .news-more:hover {
+  background: var(--brown-deep);
+  border-color: var(--brown-deep);
+  color: var(--cream);
+}
+.news-more:hover::after,
+.blog-card .news-more:hover::after {
+  transform: translateX(3px);
+  color: var(--gold-light);
+}
+@media (max-width: 1100px) {
+  .news-grid,
+  .blog-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 700px) {
+  .news-grid,
+  .blog-grid { grid-template-columns: 1fr; }
+}
 </style>
 <meta name="description" content="Golyn Nail blog with multilingual nail design guides, care tips, salon news, and SEO articles for customers in Osaka."/>
 <link rel="canonical" href="/news/"/>
