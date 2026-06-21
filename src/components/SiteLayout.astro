@@ -169,6 +169,43 @@ const isStaff = Astro.url.pathname.startsWith('/staff');
         white-space: nowrap;
       }
       .nav-logo span { color: var(--gold); font-style: italic; }
+      .nav-logo-wrap {
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+        background: var(--cream);
+        padding: 0 3px;
+        border-radius: 6px;
+        border: 1.5px solid transparent;
+        background-clip: padding-box;
+        position: relative;
+        text-decoration: none;
+        transition: all .28s ease;
+        box-shadow:
+          0 0 0 1px #B8860B,
+          0 0 0 2px #E8C97A,
+          0 0 0 3px #A0722A,
+          0 0 8px rgba(201,150,60,.2);
+      }
+      .nav-logo-wrap:hover {
+        box-shadow:
+          0 0 0 1px #C9963C,
+          0 0 0 2px #F0DC8A,
+          0 0 0 3px #B8860B,
+          0 0 14px rgba(201,150,60,.35);
+        transform: translateY(-1px);
+      }
+      .nav-logo-img {
+        height: 56px;
+        width: auto;
+        object-fit: contain;
+        object-position: center;
+        display: block;
+        mix-blend-mode: multiply;
+        filter: contrast(1.05);
+        transition: opacity .2s;
+      }
+      .nav-logo-img:hover { opacity: .8; }
       .nav-links {
         display: flex;
         align-items: center;
@@ -334,6 +371,21 @@ const isStaff = Astro.url.pathname.startsWith('/staff');
         color: var(--cream);
       }
       .footer-logo span { color: var(--gold-light); font-style: italic; }
+      .footer-logo-wrap {
+        display: inline-flex;
+        align-items: center;
+        background: var(--cream);
+        padding: 4px 8px;
+        border-radius: 4px;
+      }
+      .footer-logo-img {
+        height: 44px;
+        width: auto;
+        object-fit: contain;
+        display: block;
+        mix-blend-mode: multiply;
+        filter: contrast(1.05);
+      }
       .footer-desc { font-size: 15px; color: rgba(245,239,230,.65); margin-top: 14px; max-width: 260px; line-height: 1.8; }
       .footer-col-title { font-size: 17px; letter-spacing: .08em; color: var(--gold); margin-bottom: 16px; font-weight: 500; }
       .footer-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
@@ -378,6 +430,7 @@ const isStaff = Astro.url.pathname.startsWith('/staff');
       @media (max-width: 600px) {
         nav { padding: 0 16px; }
         .nav-logo { font-size: 20px; }
+        .nav-logo-img { height: 48px; }
         .page-hero { padding: calc(var(--nav-h) + 54px) 20px 42px; }
         footer { padding: 36px 20px 18px; }
         .footer-grid { grid-template-columns: 1fr; }
@@ -411,7 +464,7 @@ const isStaff = Astro.url.pathname.startsWith('/staff');
       </div>
     </div>
     <nav id="navbar">
-      <a class="nav-logo" href="/">Golyn <span>Nail</span></a>
+      <a class="nav-logo-wrap" href="/"><img alt="Golyn Nail" class="nav-logo-img" src="/images/golyn-logo.jpg" /></a>
       <ul class="nav-links">
         <li><a data-i18n="nav_gallery" href="/#gallery">ギャラリー</a></li>
         <li><a data-i18n="price_eyebrow" href="/#pricing">料金表</a></li>
@@ -446,7 +499,7 @@ const isStaff = Astro.url.pathname.startsWith('/staff');
     <footer>
       <div class="footer-grid">
         <div>
-          <div class="footer-logo">Golyn <span>Nail</span></div>
+          <div class="footer-logo-wrap"><img alt="Golyn Nail" class="footer-logo-img" src="/images/golyn-logo.jpg" /></div>
           <p class="footer-desc" data-i18n="footer_desc">大阪中心部の高品質ネイルアトリエ。日本の技術と国際的なスタイルの融合。</p>
         </div>
         <div>

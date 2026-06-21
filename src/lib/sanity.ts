@@ -69,6 +69,38 @@ const pricingCampaignQuery = `*[_type == "pricingCampaign"] | order(_updatedAt d
   endsAt
 }`;
 
+const staffListQuery = `*[_type == "staffMember" && published == true] | order(coalesce(order, 999) asc, _createdAt asc) {
+  _id,
+  name,
+  "slug": slug.current,
+  position,
+  experience,
+  specialty,
+  certifications,
+  "photo": photo.asset->url,
+  introduction,
+  selfIntroduction,
+  "gallery": gallery[].asset->url,
+  order,
+  published
+}`;
+
+const staffDetailQuery = `*[_type == "staffMember" && published == true && slug.current == $slug][0] {
+  _id,
+  name,
+  "slug": slug.current,
+  position,
+  experience,
+  specialty,
+  certifications,
+  "photo": photo.asset->url,
+  introduction,
+  selfIntroduction,
+  "gallery": gallery[].asset->url,
+  order,
+  published
+}`;
+
 type LegacyBlogPost = {
   id?: string;
   slug?: string;
@@ -108,6 +140,20 @@ export type PricingCampaign = {
   name: string;
   startsAt: string | null;
   endsAt: string | null;
+};
+
+export type StaffMember = {
+  slug: string;
+  name: string;
+  position: string;
+  experience: string;
+  specialty: string;
+  certifications: string[];
+  photo: string;
+  introduction: string;
+  selfIntroduction: string;
+  gallery: string[];
+  order: number;
 };
 
 function legacyBlogPosts(): LegacyBlogPost[] {
@@ -179,6 +225,26 @@ function toPricingCampaign(item: any): PricingCampaign | null {
   };
 }
 
+function toStaffMember(item: any): StaffMember | null {
+  const slug = item?.slug || '';
+  const name = item?.name || '';
+  const photo = item?.photo || '';
+  if (!slug || !name || !photo) return null;
+  return {
+    slug,
+    name,
+    position: item.position || '',
+    experience: item.experience || '',
+    specialty: item.specialty || '',
+    certifications: Array.isArray(item.certifications) ? item.certifications.filter(Boolean) : [],
+    photo,
+    introduction: item.introduction || '',
+    selfIntroduction: item.selfIntroduction || item.introduction || '',
+    gallery: Array.isArray(item.gallery) ? item.gallery.filter(Boolean) : [],
+    order: typeof item.order === 'number' ? item.order : 999
+  };
+}
+
 export async function getSanityBlogPosts(): Promise<LegacyBlogPost[]> {
   if (!sanityClient) {
     console.log('[Sanity] Blog: ENV not configured, using JSON fallback.');
@@ -214,6 +280,21 @@ export async function getSanityPricingCampaign(): Promise<PricingCampaign | null
   const normalized = toPricingCampaign(campaign);
   console.log(`[Sanity] Pricing campaign: ${normalized ? `fetched active=${normalized.active}` : 'no document found'}.`);
   return normalized;
+}
+
+export async function getSanityStaffMembers(): Promise<StaffMember[]> {
+  if (!sanityClient) {
+    console.log('[Sanity] Staff: ENV not configured.');
+    return [];
+  }
+  const items = await sanityClient.fetch(staffListQuery);
+  return Array.isArray(items) ? items.map(toStaffMember).filter(Boolean) : [];
+}
+
+export async function getSanityStaffMemberBySlug(slug: string): Promise<StaffMember | null> {
+  if (!sanityClient || !slug) return null;
+  const item = await sanityClient.fetch(staffDetailQuery, { slug });
+  return toStaffMember(item);
 }
 
 export async function getBlogPostsWithFallback() {
@@ -252,6 +333,24 @@ export async function getPricingCampaignOverride() {
     return await getSanityPricingCampaign();
   } catch (error) {
     console.warn('Sanity pricing campaign fallback:', error);
+  }
+  return null;
+}
+
+export async function getStaffMembers() {
+  try {
+    return await getSanityStaffMembers();
+  } catch (error) {
+    console.warn('Sanity staff fallback:', error);
+  }
+  return [];
+}
+
+export async function getStaffMemberBySlug(slug: string) {
+  try {
+    return await getSanityStaffMemberBySlug(slug);
+  } catch (error) {
+    console.warn('Sanity staff detail fallback:', error);
   }
   return null;
 }

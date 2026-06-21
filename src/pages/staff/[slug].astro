@@ -1,16 +1,18 @@
 ---
 import StaffDetail from '../../components/StaffDetail.astro';
 import SiteLayout from '../../components/SiteLayout.astro';
-import { getStaffBySlug, staffMembers } from '../../data/staff';
+import { getStaffMemberBySlug, getStaffMembers } from '../../lib/sanity';
 
-export function getStaticPaths() {
+export async function getStaticPaths() {
+  const staffMembers = await getStaffMembers();
   return staffMembers.map((staff) => ({
     params: { slug: staff.slug },
+    props: { staff },
   }));
 }
 
 const { slug } = Astro.params;
-const staff = getStaffBySlug(String(slug));
+const staff = Astro.props.staff || await getStaffMemberBySlug(String(slug));
 
 if (!staff) {
   return Astro.redirect('/staff/');
