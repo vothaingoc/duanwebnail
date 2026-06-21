@@ -103,7 +103,7 @@
       const campaign = itemSaleActive(item)
         ? `<span class="service-campaign">${escapeHtml(campaignText(lang))}</span>`
         : '';
-      el.innerHTML = `${escapeHtml(servicePriceText(lang, price))}${campaign}`;
+      el.innerHTML = `<span class="service-price-value">${escapeHtml(servicePriceText(lang, price))}</span>${campaign}`;
     });
   }
 
