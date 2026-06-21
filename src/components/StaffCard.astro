@@ -1,0 +1,22 @@
+---
+import type { StaffMember } from '../data/staff';
+
+interface Props {
+  staff: StaffMember;
+}
+
+const { staff } = Astro.props;
+---
+
+<article class="staff-card">
+  <a class="staff-card-image" href={`/staff/${staff.slug}/`} aria-label={`${staff.name}の詳細を見る`}>
+    <img src={staff.photo} alt={`${staff.name}のプロフィール写真`} loading="lazy" />
+  </a>
+  <div class="staff-card-body">
+    <p class="staff-position">{staff.position}</p>
+    <h2>{staff.name}</h2>
+    <p class="staff-intro">{staff.introduction}</p>
+    <a class="staff-button" href={`/staff/${staff.slug}/`}>詳細を見る</a>
+  </div>
+</article>
+

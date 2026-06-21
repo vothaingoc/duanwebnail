@@ -1,0 +1,48 @@
+---
+import type { StaffMember } from '../data/staff';
+
+interface Props {
+  staff: StaffMember;
+}
+
+const { staff } = Astro.props;
+---
+
+<article class="profile">
+  <div class="profile-image">
+    <img src={staff.photo} alt={`${staff.name}のプロフィール写真`} />
+  </div>
+  <div class="profile-content">
+    <p class="profile-position">{staff.position}</p>
+    <h1>{staff.name}</h1>
+    <dl class="profile-facts">
+      <div>
+        <dt>経験年数</dt>
+        <dd>{staff.experience}</dd>
+      </div>
+      <div>
+        <dt>得意分野</dt>
+        <dd>{staff.specialty}</dd>
+      </div>
+      <div>
+        <dt>資格</dt>
+        <dd>{staff.certifications.join(' / ')}</dd>
+      </div>
+    </dl>
+    <p class="profile-text">{staff.selfIntroduction}</p>
+  </div>
+</article>
+
+<section class="staff-gallery" aria-labelledby="gallery-title">
+  <div class="section-heading">
+    <p>Gallery</p>
+    <h2 id="gallery-title">担当デザイン</h2>
+    <div class="sec-line"></div>
+  </div>
+  <div class="gallery-grid">
+    {staff.gallery.map((image, index) => (
+      <img src={image} alt={`${staff.name}の施術ギャラリー ${index + 1}`} loading="lazy" />
+    ))}
+  </div>
+</section>
+

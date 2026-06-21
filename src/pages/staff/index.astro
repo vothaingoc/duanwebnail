@@ -1,0 +1,128 @@
+---
+import StaffCard from '../../components/StaffCard.astro';
+import StaffLayout from '../../components/StaffLayout.astro';
+import { staffMembers } from '../../data/staff';
+
+const title = 'スタッフ紹介 | Golyn Nail';
+const description = 'Golyn Nailで働くスタッフをご紹介します。経験豊富なネイリストのプロフィール、得意なデザイン、資格をご覧いただけます。';
+---
+
+<StaffLayout title={title} description={description}>
+  <main>
+    <section class="page-hero">
+      <div class="hero-eyebrow">Staff</div>
+      <h1>スタッフ紹介</h1>
+      <p>Golyn Nailで働くスタッフをご紹介します。</p>
+      <div class="sec-line"></div>
+    </section>
+
+    <section class="staff-list" aria-labelledby="staff-list-title">
+      <div class="section-heading">
+        <p>Members</p>
+        <h2 id="staff-list-title">ネイリスト一覧</h2>
+      </div>
+      <div class="staff-grid">
+        {staffMembers.map((staff) => <StaffCard staff={staff} />)}
+      </div>
+    </section>
+  </main>
+</StaffLayout>
+
+<style>
+  .staff-list {
+    padding: 72px 20px 96px;
+  }
+  .section-heading {
+    max-width: 1100px;
+    margin: 0 auto 30px;
+    text-align: center;
+  }
+  .section-heading p {
+    color: var(--gold);
+    font-size: 12px;
+    letter-spacing: .26em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .section-heading h2 {
+    font-family: var(--serif);
+    font-size: clamp(32px, 5vw, 48px);
+    font-weight: 300;
+    color: var(--brown-deep);
+  }
+  .staff-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .staff-card {
+    background: var(--white);
+    border-bottom: 2px solid var(--cream-deep);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(74,55,40,.06);
+  }
+  .staff-card-image {
+    display: block;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    background: var(--cream-mid);
+  }
+  .staff-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .45s;
+  }
+  .staff-card:hover .staff-card-image img {
+    transform: scale(1.04);
+  }
+  .staff-card-body {
+    padding: 26px 24px 28px;
+  }
+  .staff-position {
+    color: var(--gold);
+    font-size: 11px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .staff-card h2 {
+    margin-top: 6px;
+    font-family: var(--serif);
+    font-size: 32px;
+    font-weight: 400;
+    color: var(--brown-deep);
+  }
+  .staff-intro {
+    min-height: 84px;
+    margin-top: 12px;
+    color: var(--text-mid);
+    font-size: 14px;
+    line-height: 1.9;
+  }
+  .staff-button {
+    display: inline-flex;
+    margin-top: 22px;
+    padding: 11px 22px;
+    background: var(--brown-deep);
+    color: var(--cream);
+    border-radius: 2px;
+    text-decoration: none;
+    font-size: 13px;
+    letter-spacing: .12em;
+    transition: background .25s, transform .25s, box-shadow .25s;
+  }
+  .staff-button:hover {
+    background: var(--brown);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 18px rgba(201,150,60,.3);
+  }
+  @media (max-width: 900px) {
+    .staff-list { padding: 56px 20px 72px; }
+    .staff-grid { grid-template-columns: 1fr; max-width: 520px; }
+    .staff-intro { min-height: 0; }
+  }
+</style>
