@@ -10,7 +10,7 @@
     my: { read: "ပိုမိုဖတ်ရန်", empty: "ဆောင်းပါးမတွေ့ပါ", prev: "နောက်သို့", next: "ရှေ့သို့" },
     id: { read: "Baca artikel", empty: "Artikel tidak ditemukan", prev: "Sebelumnya", next: "Berikutnya" }
   };
-  const PAGE_SIZE = window.GOLYN_BLOG_PAGE_SIZE || 6;
+  const PAGE_SIZE = window.GOLYN_BLOG_PAGE_SIZE || 12;
   let contentArticles = [];
   let contentLoaded = false;
   let currentPage = 1;
@@ -113,6 +113,25 @@
     const text = labels[currentLang()] || labels.ja;
     const isHomeCard = className === "news-card";
     const url = articleURL(article);
+    const image = article.featuredImage || article.image || "";
+    if (!isHomeCard) {
+      const media = image
+        ? `<a class="blog-card-media" href="${url}" aria-label="${escapeHTML(article.title)}"><img src="${escapeHTML(image)}" alt="${escapeHTML(article.title)}" loading="lazy"></a>`
+        : `<a class="blog-card-media blog-card-placeholder" href="${url}" aria-label="${escapeHTML(article.title)}"><span>${escapeHTML(article.tag || "Blog")}</span></a>`;
+      return `
+      <article class="${className}">
+        ${media}
+        <div class="blog-card-body">
+          <div class="blog-meta">
+            <span class="blog-tag">${escapeHTML(article.tag || article.lang || "Blog")}</span>
+            <time class="blog-date" datetime="${escapeHTML(article.date)}">${escapeHTML(article.date)}</time>
+          </div>
+          <h2><a href="${url}">${escapeHTML(article.title)}</a></h2>
+          <p>${escapeHTML(article.desc || article.excerpt)}</p>
+          <a class="news-more" href="${url}">${escapeHTML(text.read)}</a>
+        </div>
+      </article>`;
+    }
     return `
       <article class="${className}">
         <div class="${isHomeCard ? "news-meta" : "blog-meta"}">
@@ -148,8 +167,36 @@
     };
 
     addButton("← " + text.prev, page - 1, "prev", page === 1);
-    for (let i = 1; i <= totalPages; i += 1) {
+    const maxVisiblePages = 5;
+    const halfVisible = Math.floor(maxVisiblePages / 2);
+    let startPage = Math.max(1, page - halfVisible);
+    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+    if (endPage - startPage < maxVisiblePages - 1) {
+      startPage = Math.max(1, endPage - maxVisiblePages + 1);
+    }
+
+    if (startPage > 1) {
+      addButton("1", 1, "", false);
+      if (startPage > 2) {
+        const dots = document.createElement("span");
+        dots.className = "pagination-dots";
+        dots.textContent = "...";
+        container.appendChild(dots);
+      }
+    }
+
+    for (let i = startPage; i <= endPage; i += 1) {
       addButton(String(i), i, i === page ? "active" : "", false);
+    }
+
+    if (endPage < totalPages) {
+      if (endPage < totalPages - 1) {
+        const dots = document.createElement("span");
+        dots.className = "pagination-dots";
+        dots.textContent = "...";
+        container.appendChild(dots);
+      }
+      addButton(String(totalPages), totalPages, "", false);
     }
     addButton(text.next + " →", page + 1, "next", page === totalPages);
   }

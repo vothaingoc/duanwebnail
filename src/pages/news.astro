@@ -819,6 +819,115 @@ html[lang="vi"] { --serif: 'Cormorant Garamond', serif; --sans: 'Be Vietnam Pro'
   .news-grid,
   .blog-grid { grid-template-columns: 1fr; }
 }
+
+/* Blog archive: dense, scalable list layout */
+.blog-grid {
+  max-width: 1040px;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  grid-auto-rows: auto;
+}
+.blog-card {
+  display: grid;
+  grid-template-columns: minmax(190px, 240px) minmax(0, 1fr);
+  min-height: 0;
+  height: auto;
+  padding: 0;
+  overflow: hidden;
+  background: rgba(255,252,247,.94);
+}
+.blog-card:hover {
+  transform: translateY(-3px);
+}
+.blog-card-media {
+  display: block;
+  min-height: 190px;
+  margin: 0;
+  background: linear-gradient(135deg, rgba(238,226,212,.88), rgba(250,247,242,.92));
+  border-right: 1px solid rgba(217,197,160,.62);
+  overflow: hidden;
+}
+.blog-card-media::after {
+  content: none;
+}
+.blog-card-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.blog-card-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(74,55,40,.42);
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+.blog-card-body {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 26px 30px 28px;
+}
+.blog-card h2 {
+  font-size: clamp(22px, 2vw, 30px);
+  margin-bottom: 12px;
+}
+.blog-card p {
+  max-width: 680px;
+  margin-bottom: 20px;
+}
+.blog-card .news-more {
+  padding: 9px 16px;
+}
+.blog-card.is-empty {
+  display: flex;
+  padding: 34px 30px;
+}
+.pagination {
+  max-width: 1040px;
+  margin-top: 36px;
+  gap: 8px;
+}
+.pagination-btn {
+  min-width: 40px;
+  height: 40px;
+}
+@media (max-width: 760px) {
+  .blog-page { padding-left: 20px; padding-right: 20px; }
+  .blog-grid { gap: 16px; }
+  .blog-card {
+    grid-template-columns: 1fr;
+  }
+  .blog-card-media {
+    min-height: 0;
+    aspect-ratio: 16 / 9;
+    border-right: 0;
+    border-bottom: 1px solid rgba(217,197,160,.62);
+  }
+  .blog-card-body {
+    padding: 22px 20px 24px;
+  }
+  .blog-meta {
+    margin-bottom: 14px;
+  }
+  .blog-card h2 {
+    font-size: 22px;
+  }
+  .pagination {
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 6px;
+  }
+  .pagination-btn,
+  .pagination-dots {
+    flex: 0 0 auto;
+  }
+}
 </style>
 <meta name="description" content="Golyn Nail blog with multilingual nail design guides, care tips, salon news, and SEO articles for customers in Osaka."/>
 <link rel="canonical" href="/news/"/>
@@ -1045,7 +1154,7 @@ window.toggleLangMenu=toggleLangMenu;
 window.chooseLang=chooseLang;
 
 /* ── PAGINATION LOGIC ── */
-const ITEMS_PER_PAGE = 6;
+const ITEMS_PER_PAGE = 12;
 let currentPage = 1;
 const ADMIN_PASSWORD = '';
 let isAdminLoggedIn = false;
