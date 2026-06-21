@@ -214,12 +214,13 @@ html[lang="vi"] { --serif:'Cormorant Garamond', serif; --sans:'Be Vietnam Pro', 
 <div class="back-actions"><a class="btn-primary" data-i18n="back_btn" href="/#pricing">料金表へ戻る</a></div>
 </main>
 <footer><span class="footer-copy">© 2025 Golyn Nail, Namba Osaka. All rights reserved.</span></footer>
-<script is:inline src="/assets/js/pricing-data.js"></script>
 <script is:inline define:vars={{ sanityPricingCampaign }}>
+window.GOLYN_SANITY_PRICING_CAMPAIGN = sanityPricingCampaign || null;
 if (sanityPricingCampaign) {
   window.GOLYN_PRICING_CAMPAIGN = sanityPricingCampaign;
 }
 </script>
+<script is:inline src="/assets/js/pricing-data.js"></script>
 <script is:inline src="/assets/js/pricing-render.js"></script>
 <script is:inline>
 const detailI18n = {

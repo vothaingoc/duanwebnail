@@ -312,5 +312,5 @@
   window.GOLYN_PRICING_CATEGORIES = categoryTranslations;
   window.GOLYN_PRICING_HOME_CARDS = homeCards;
   window.GOLYN_PRICING_ITEMS = items;
-  window.GOLYN_PRICING_CAMPAIGN = campaign;
+  window.GOLYN_PRICING_CAMPAIGN = window.GOLYN_SANITY_PRICING_CAMPAIGN || window.GOLYN_PRICING_CAMPAIGN || campaign;
 })();

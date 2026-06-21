@@ -109,7 +109,7 @@
 
   function noteHtml(item, text, lang) {
     const showSale = itemSaleActive(item);
-    if (!item.note) return '';
+    if (!item.note) return showSale ? escapeHtml(campaignText(lang)) : '';
     if (item.note === 'campaign_only') return showSale ? escapeHtml(campaignText(lang)) : '';
     const note = text.note || '';
     if (!note && !showSale) return '';

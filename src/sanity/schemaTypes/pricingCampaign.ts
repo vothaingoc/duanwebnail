@@ -13,9 +13,9 @@ export const pricingCampaign = defineType({
     }),
     defineField({
       name: 'active',
-      title: 'Active',
+      title: 'Show Campaign Prices',
       type: 'boolean',
-      description: 'Turn on to show sale prices and campaign text.',
+      description: 'Turn on to show sale prices and the limited-time campaign text on the home pricing cards and detailed price table.',
       initialValue: false
     }),
     defineField({
