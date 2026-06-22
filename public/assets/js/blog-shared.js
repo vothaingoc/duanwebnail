@@ -22,7 +22,43 @@
 
   function assetURL(value) {
     const url = String(value || '').trim();
+    if (!url) return "";
     return /^(?:https?:\/\/|\/|data:|blob:)/i.test(url) ? url : '/' + url.replace(/^\.\//, '');
+  }
+
+  function slugify(value) {
+    return String(value || "")
+      .normalize("NFKD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 96);
+  }
+
+  function plainText(value) {
+    return String(value || "")
+      .replace(/<img\b[^>]*>/gi, " ")
+      .replace(/<[^>]*>/g, " ")
+      .replace(/!\[[^\]]*\]\([^)]+\)/g, " ")
+      .replace(/[#*_>`~\[\](){}-]+/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  function shortExcerpt(article) {
+    const text = plainText(article.desc || article.excerpt || article.seoDescription || article.content || article.body || "");
+    return text.length > 118 ? text.slice(0, 118).replace(/\s+\S*$/, "") + "..." : text;
+  }
+
+  function firstContentImage(article) {
+    const content = String(article.html || article.content || article.body || "");
+    const htmlMatch = content.match(/<img\b[^>]*\bsrc=(?:"([^"]+)"|'([^']+)'|([^\s>]+))/i);
+    if (htmlMatch) return assetURL(htmlMatch[1] || htmlMatch[2] || htmlMatch[3] || "");
+    const markdownMatch = content.match(/!\[[^\]]*\]\((\S+?)(?:\s+"[^"]*")?\)/);
+    if (markdownMatch) return assetURL(markdownMatch[1]);
+    const urlMatch = content.match(/https?:\/\/\S+\.(?:avif|gif|jpe?g|png|webp)(?:[?#]\S*)?/i);
+    return urlMatch ? assetURL(urlMatch[0]) : "";
   }
 
   function escapeHTML(value) {
@@ -48,8 +84,8 @@
   }
 
   function normalizeArticle(article) {
-    const slug = article.slug || article.id || "";
-    return {
+    const slug = article.slug || slugify(article.title) || article.id || "";
+    const normalized = {
       id: article.id || slug,
       slug,
       lang: article.lang || "ja",
@@ -62,7 +98,16 @@
       featuredImage: assetURL(article.featuredImage || article.image || ""),
       content: article.content || article.body || "",
       body: article.body || article.content || "",
-      html: article.html || ""
+      html: article.html || "",
+      seoDescription: article.seoDescription || ""
+    };
+    const contentImage = firstContentImage(normalized);
+    if (!normalized.image) normalized.image = contentImage;
+    if (!normalized.featuredImage) normalized.featuredImage = contentImage;
+    return {
+      ...normalized,
+      desc: shortExcerpt(normalized),
+      excerpt: shortExcerpt(normalized)
     };
   }
 
@@ -123,6 +168,7 @@
 
   function cardHTML(article, className) {
     const text = labels[currentLang()] || labels.ja;
+    const readLabel = currentLang() === "ja" ? "続きを読む" : text.read;
     const isHomeCard = className === "news-card";
     const url = articleURL(article);
     const image = article.featuredImage || article.image || "";
@@ -139,8 +185,8 @@
             <time class="blog-date" datetime="${escapeHTML(article.date)}">${escapeHTML(article.date)}</time>
           </div>
           <h2><a href="${url}">${escapeHTML(article.title)}</a></h2>
-          <p>${escapeHTML(article.desc || article.excerpt)}</p>
-          <a class="news-more" href="${url}">${escapeHTML(text.read)}</a>
+          <p>${escapeHTML(shortExcerpt(article))}</p>
+          <a class="news-more" href="${url}">${escapeHTML(readLabel)}</a>
         </div>
       </article>`;
     }
@@ -151,8 +197,8 @@
           <time class="${isHomeCard ? "news-date" : "blog-date"}" datetime="${escapeHTML(article.date)}">${escapeHTML(article.date)}</time>
         </div>
         <h2 class="${isHomeCard ? "news-title" : ""}"><a href="${url}">${escapeHTML(article.title)}</a></h2>
-        <p class="${isHomeCard ? "news-desc" : ""}">${escapeHTML(article.desc || article.excerpt)}</p>
-        <a class="news-more" href="${url}">${escapeHTML(text.read)}</a>
+        <p class="${isHomeCard ? "news-desc" : ""}">${escapeHTML(shortExcerpt(article))}</p>
+        <a class="news-more" href="${url}">${escapeHTML(readLabel)}</a>
       </article>`;
   }
 
@@ -461,7 +507,8 @@
     if (!body) return;
     await loadContent();
     const params = new URLSearchParams(window.location.search);
-    const id = params.get("id");
+    const pathSlug = decodeURIComponent((window.location.pathname.split("/").filter(Boolean).pop() || "").trim());
+    const id = params.get("id") || pathSlug;
     const lang = currentLang();
     const article = findArticleById(id, lang);
     const text = labels[lang] || labels.ja;
@@ -483,6 +530,9 @@
     if (image && article.image) {
       image.src = article.image;
       image.style.display = "block";
+    } else if (image) {
+      image.removeAttribute("src");
+      image.style.display = "none";
     }
 
     body.innerHTML = article.html || renderBody(article.content || article.body);

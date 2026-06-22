@@ -175,8 +175,18 @@ function formatDate(value: string | undefined) {
   return value ? value.slice(0, 10) : '';
 }
 
+function slugify(value: string | undefined) {
+  return String(value || '')
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 96);
+}
+
 function toLegacyBlogPost(post: any): LegacyBlogPost {
-  const slug = post.slug || post._id || '';
+  const slug = post.slug || slugify(post.title) || post._id || '';
   return {
     id: slug,
     slug,

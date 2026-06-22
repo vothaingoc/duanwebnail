@@ -820,17 +820,17 @@ html[lang="vi"] { --serif: 'Cormorant Garamond', serif; --sans: 'Be Vietnam Pro'
   .blog-grid { grid-template-columns: 1fr; }
 }
 
-/* Blog archive: dense, scalable list layout */
+/* Blog archive: card grid index layout */
 .blog-grid {
-  max-width: 1040px;
-  grid-template-columns: 1fr;
-  gap: 18px;
+  max-width: 1100px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
   grid-auto-rows: auto;
 }
 .blog-card {
-  display: grid;
-  grid-template-columns: minmax(190px, 240px) minmax(0, 1fr);
-  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
   height: auto;
   padding: 0;
   overflow: hidden;
@@ -841,10 +841,11 @@ html[lang="vi"] { --serif: 'Cormorant Garamond', serif; --sans: 'Be Vietnam Pro'
 }
 .blog-card-media {
   display: block;
-  min-height: 190px;
+  aspect-ratio: 4 / 3;
+  min-height: 0;
   margin: 0;
   background: linear-gradient(135deg, rgba(238,226,212,.88), rgba(250,247,242,.92));
-  border-right: 1px solid rgba(217,197,160,.62);
+  border-bottom: 1px solid rgba(217,197,160,.62);
   overflow: hidden;
 }
 .blog-card-media::after {
@@ -867,17 +868,18 @@ html[lang="vi"] { --serif: 'Cormorant Garamond', serif; --sans: 'Be Vietnam Pro'
   text-transform: uppercase;
 }
 .blog-card-body {
+  flex: 1;
   min-width: 0;
   display: flex;
   flex-direction: column;
-  padding: 26px 30px 28px;
+  padding: 22px 22px 24px;
 }
 .blog-card h2 {
-  font-size: clamp(22px, 2vw, 30px);
+  font-size: 22px;
   margin-bottom: 12px;
 }
 .blog-card p {
-  max-width: 680px;
+  max-width: none;
   margin-bottom: 20px;
 }
 .blog-card .news-more {
@@ -888,7 +890,7 @@ html[lang="vi"] { --serif: 'Cormorant Garamond', serif; --sans: 'Be Vietnam Pro'
   padding: 34px 30px;
 }
 .pagination {
-  max-width: 1040px;
+  max-width: 1100px;
   margin-top: 36px;
   gap: 8px;
 }
@@ -896,17 +898,22 @@ html[lang="vi"] { --serif: 'Cormorant Garamond', serif; --sans: 'Be Vietnam Pro'
   min-width: 40px;
   height: 40px;
 }
+@media (max-width: 1024px) {
+  .blog-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
 @media (max-width: 760px) {
   .blog-page { padding-left: 20px; padding-right: 20px; }
-  .blog-grid { gap: 16px; }
-  .blog-card {
+  .blog-grid {
     grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .blog-card {
+    min-height: 0;
   }
   .blog-card-media {
-    min-height: 0;
     aspect-ratio: 16 / 9;
-    border-right: 0;
-    border-bottom: 1px solid rgba(217,197,160,.62);
   }
   .blog-card-body {
     padding: 22px 20px 24px;
