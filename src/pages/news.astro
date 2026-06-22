@@ -935,6 +935,114 @@ html[lang="vi"] { --serif: 'Cormorant Garamond', serif; --sans: 'Be Vietnam Pro'
     flex: 0 0 auto;
   }
 }
+
+:global(.blog-page) {
+  padding: calc(var(--nav-h) + 54px) 80px 96px;
+}
+:global(.blog-grid) {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+  align-items: stretch;
+}
+:global(.blog-card) {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 100%;
+  overflow: hidden;
+  border: 1px solid rgba(74,55,40,.1);
+  border-radius: 8px;
+  background: rgba(255,252,247,.94);
+  box-shadow: 0 2px 12px rgba(74,55,40,.06);
+  color: inherit;
+  text-decoration: none;
+}
+:global(.blog-card-media) {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  min-height: 0;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(238,226,212,.88), rgba(250,247,242,.92));
+  border-bottom: 1px solid rgba(217,197,160,.62);
+}
+:global(.blog-card-media img),
+:global(.blog-grid > img),
+:global(.blog-card img:not(.article-inline-image)) {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  max-height: 100%;
+  object-fit: cover;
+}
+:global(.blog-card-placeholder) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(74,55,40,.42);
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+:global(.blog-card-body) {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 22px 22px 24px;
+}
+:global(.blog-meta) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+:global(.blog-tag) {
+  display: inline-flex;
+  width: auto;
+  margin: 0;
+}
+:global(.blog-card h2) {
+  font-size: 22px;
+  line-height: 1.35;
+  margin: 0 0 12px;
+}
+:global(.blog-card h2 a) {
+  color: var(--brown-deep);
+  text-decoration: none;
+}
+:global(.blog-card p) {
+  display: -webkit-box;
+  margin: 0 0 20px;
+  color: var(--text-mid);
+  font-size: 14px;
+  line-height: 1.8;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+:global(.blog-card .news-more) {
+  margin-top: auto;
+}
+:global(.pagination) {
+  max-width: 1100px;
+  margin: 36px auto 0;
+}
+@media (max-width: 1024px) {
+  :global(.blog-page) { padding-left: 40px; padding-right: 40px; }
+  :global(.blog-grid) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 760px) {
+  :global(.blog-page) { padding-left: 20px; padding-right: 20px; }
+  :global(.blog-grid) { grid-template-columns: 1fr; gap: 16px; }
+  :global(.blog-card-media) { aspect-ratio: 16 / 9; }
+  :global(.blog-card-body) { padding: 22px 20px 24px; }
+}
 </style>
 <meta name="description" content="Golyn Nail blog with multilingual nail design guides, care tips, salon news, and SEO articles for customers in Osaka."/>
 <link rel="canonical" href="/news/"/>
