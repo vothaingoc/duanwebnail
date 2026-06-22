@@ -572,7 +572,6 @@ function loadArticle() {
 
 document.addEventListener('DOMContentLoaded', () => {
   setLang(localStorage.getItem('golynLang') || 'ja');
-  loadArticle();
 });
 </script>
 <script is:inline>
@@ -593,6 +592,6 @@ document.addEventListener('DOMContentLoaded', () => {
 window.GOLYN_CONTENT_ARTICLES = golynArticles;
 </script>
 <script is:inline src="/assets/js/articles-data.js"></script>
-<script is:inline src="/assets/js/blog-shared.js"></script>
+<script is:inline src="/assets/js/blog-shared.js?v=20260622-article"></script>
 </body>
 </html>
