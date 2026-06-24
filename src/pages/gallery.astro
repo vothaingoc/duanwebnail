@@ -870,7 +870,7 @@ html[lang="vi"] { --serif: 'Cormorant Garamond', serif; --sans: 'Be Vietnam Pro'
   </section>
   <div class="gallery-filters" data-gallery-filters aria-label="Gallery categories"></div>
   <section class="gallery-grid" aria-label="Nail design gallery"></section>
-  <div class="gallery-more"><button class="btn-price-detail" type="button" data-gallery-more>Xem thêm</button></div>
+  <div class="gallery-more"><button class="btn-price-detail" type="button" data-gallery-more>もっと見る</button></div>
 </main>
 <div class="lightbox" id="galleryLightbox" aria-hidden="true">
   <button class="lightbox-close" type="button" aria-label="Close">&times;</button>
@@ -934,11 +934,13 @@ id:{nav_gallery:'Galeri',price_eyebrow:'Harga',nav_services:'Layanan',nav_review
 };
 const langLabels={ja:'日本語',en:'English',vi:'Tiếng Việt',zh:'中文',ko:'한국어',my:'မြန်မာ',id:'Bahasa Indonesia'};
 const langFlagClasses={ja:'flag-ja',en:'flag-uk',vi:'flag-vi',zh:'flag-cn',ko:'flag-ko',my:'flag-my',id:'flag-id'};
+const galleryMoreLabels={ja:'もっと見る',en:'View more',vi:'Xem thêm',zh:'查看更多',ko:'더 보기',my:'ပိုမိုကြည့်ရန်',id:'Lihat lagi'};
 function toggleMenu(){const menu=document.getElementById('mobileNav');if(!menu)return;const isOpen=menu.classList.toggle('open');menu.setAttribute('aria-hidden',String(!isOpen));document.body.classList.toggle('mobile-nav-open',isOpen)}
 function closeLangMenus(){document.querySelectorAll('.lang-picker.open').forEach(picker=>{picker.classList.remove('open');const button=picker.querySelector('.lang-current');if(button)button.setAttribute('aria-expanded','false')})}
 function toggleLangMenu(button){const picker=button.closest('.lang-picker');const shouldOpen=!picker.classList.contains('open');closeLangMenus();picker.classList.toggle('open',shouldOpen);button.setAttribute('aria-expanded',String(shouldOpen))}
 function updateLangPickers(lang){document.querySelectorAll('.lang-picker').forEach(picker=>{const flag=picker.querySelector('.lang-current .flag');const label=picker.querySelector('.lang-current-label');if(flag)flag.className='flag '+(langFlagClasses[lang]||langFlagClasses.ja);if(label)label.textContent=langLabels[lang]||langLabels.ja;picker.querySelectorAll('[data-lang-option]').forEach(option=>option.classList.toggle('active',option.dataset.langOption===lang))})}
-function setLang(lang){if(!galleryI18n[lang])lang='ja';document.documentElement.lang=lang;const dict=galleryI18n[lang];document.querySelectorAll('[data-i18n]').forEach(el=>{const key=el.getAttribute('data-i18n');if(dict[key])el.innerHTML=dict[key]});updateLangPickers(lang);localStorage.setItem('golynLang',lang)}
+function updateGalleryMoreLabel(lang){const button=document.querySelector('[data-gallery-more]');if(button)button.textContent=galleryMoreLabels[lang]||galleryMoreLabels.ja}
+function setLang(lang){if(!galleryI18n[lang])lang='ja';document.documentElement.lang=lang;const dict=galleryI18n[lang];document.querySelectorAll('[data-i18n]').forEach(el=>{const key=el.getAttribute('data-i18n');if(dict[key])el.innerHTML=dict[key]});updateLangPickers(lang);updateGalleryMoreLabel(lang);localStorage.setItem('golynLang',lang)}
 function chooseLang(lang){setLang(lang);closeLangMenus()}
 function refreshGalleryLightboxData(){galleryItems=window.GOLYN_ACTIVE_GALLERY_ITEMS||window.GOLYN_GALLERY_ITEMS||[];galleryImages=galleryItems.map(item=>item.src);galleryLabels=galleryItems.map(item=>item.label);buildGalleryThumbs();document.querySelectorAll('[data-gallery-index]').forEach(item=>{if(item.dataset.previewBound==='true')return;item.dataset.previewBound='true';item.addEventListener('click',()=>showGalleryImage(Number(item.dataset.galleryIndex)))})}
 function updateGalleryThumbs(){document.querySelectorAll('.gallery-thumb').forEach((thumb,index)=>{thumb.classList.toggle('active',index===currentGalleryIndex)})}
