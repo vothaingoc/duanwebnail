@@ -1309,6 +1309,37 @@ function bindHomeGalleryPreview() {
 bindHomeGalleryPreview();
 document.addEventListener('golyn:gallery-rendered', bindHomeGalleryPreview);
 
+function scrollToCurrentHash(behavior = 'auto') {
+  if (!window.location.hash || window.location.hash === '#') return;
+  const id = decodeURIComponent(window.location.hash.slice(1));
+  const target = document.getElementById(id);
+  if (!target) return;
+  const navHeight = Number.parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 74;
+  const top = Math.max(0, target.getBoundingClientRect().top + window.pageYOffset - navHeight);
+  window.scrollTo({ top, left: 0, behavior });
+}
+
+function stabilizeInitialHashScroll() {
+  const startedAt = Date.now();
+  const refresh = () => {
+    if (window.location.hash) requestAnimationFrame(() => scrollToCurrentHash('auto'));
+  };
+  refresh();
+  setTimeout(refresh, 0);
+  window.addEventListener('load', () => {
+    refresh();
+    setTimeout(refresh, 120);
+    setTimeout(refresh, 450);
+  }, { once: true });
+  document.addEventListener('golyn:gallery-rendered', () => {
+    if (Date.now() - startedAt < 2500) refresh();
+  });
+}
+
+window.addEventListener('hashchange', () => {
+  requestAnimationFrame(() => scrollToCurrentHash('smooth'));
+});
+
 function closeGalleryLightbox() {
   if (!lightbox || !lightboxImage) return;
   lightbox.classList.remove('open');
@@ -1353,10 +1384,17 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowRight') showNextGalleryImage();
 });
 
-document.addEventListener('DOMContentLoaded', () => {
+function initHomePage() {
   const savedLang = localStorage.getItem('golynLang');
   setLang(i18n[savedLang] ? savedLang : 'ja');
-});
+  stabilizeInitialHashScroll();
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initHomePage);
+} else {
+  initHomePage();
+}
 
 </script>
 </body>
