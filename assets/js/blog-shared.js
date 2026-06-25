@@ -1,5 +1,6 @@
 (function () {
   const BLOG_CONTENT_URL = "content/blog/articles.json";
+  const BLOG_FALLBACK_IMAGE = "/images/golyn-logo-transparent.png";
   const supportedLangs = ["ja", "en", "vi", "zh", "ko", "my", "id"];
   const labels = {
     ja: { read: "記事を読む", empty: "記事が見つかりません", prev: "前へ", next: "次へ" },
@@ -169,7 +170,7 @@
     if (!isHomeCard) {
       const media = image
         ? `<a class="blog-card-media" href="${url}" aria-label="${escapeHTML(article.title)}"><img src="${escapeHTML(image)}" alt="${escapeHTML(article.title)}" loading="lazy"></a>`
-        : `<a class="blog-card-media blog-card-placeholder" href="${url}" aria-label="${escapeHTML(article.title)}"><span>${escapeHTML(article.tag || "Blog")}</span></a>`;
+        : `<a class="blog-card-media blog-card-placeholder" href="${url}" aria-label="${escapeHTML(article.title)}"><img src="${escapeHTML(BLOG_FALLBACK_IMAGE)}" alt="Golyn Nail" loading="lazy"></a>`;
       return `
       <article class="${className}">
         ${media}
