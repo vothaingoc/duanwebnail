@@ -15,6 +15,7 @@ const isStaff = Astro.url.pathname.startsWith('/staff');
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <title>{title}</title>
+    <script is:inline src="/assets/js/language-detect.js"></script>
     <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site ?? 'https://duanwebnail.pages.dev').toString()} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
@@ -590,6 +591,7 @@ const isStaff = Astro.url.pathname.startsWith('/staff');
         }, 120);
       }
       function chooseLang(lang) {
+        localStorage.setItem('golynLangUserSet', 'true');
         setLang(lang);
         closeLangMenus();
       }

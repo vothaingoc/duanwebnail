@@ -9,6 +9,7 @@ const golynArticles = await getBlogPostsWithFallback();
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Blog | Golyn Nail</title>
+<script is:inline src="/assets/js/language-detect.js"></script>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500&amp;family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&amp;family=Jost:wght@200;300;400;500&amp;family=Noto+Sans+JP:wght@300;400;500&amp;display=swap" rel="stylesheet"/>
 <style>
@@ -1262,7 +1263,7 @@ function closeLangMenus(){document.querySelectorAll('.lang-picker.open').forEach
 function toggleLangMenu(button){const picker=button.closest('.lang-picker');const shouldOpen=!picker.classList.contains('open');closeLangMenus();picker.classList.toggle('open',shouldOpen);button.setAttribute('aria-expanded',String(shouldOpen))}
 function updateLangPickers(lang){document.querySelectorAll('.lang-picker').forEach(picker=>{const flag=picker.querySelector('.lang-current .flag');const label=picker.querySelector('.lang-current-label');if(flag)flag.className='flag '+(langFlagClasses[lang]||langFlagClasses.ja);if(label)label.textContent=langLabels[lang]||langLabels.ja;picker.querySelectorAll('[data-lang-option]').forEach(option=>option.classList.toggle('active',option.dataset.langOption===lang))})}
 function setLang(lang){if(!blogI18n[lang])lang='ja';document.documentElement.lang=lang;const dict=blogI18n[lang];document.querySelectorAll('[data-i18n]').forEach(el=>{const key=el.getAttribute('data-i18n');if(dict[key])el.innerHTML=dict[key]});updateLangPickers(lang);localStorage.setItem('golynLang',lang)}
-function chooseLang(lang){setLang(lang);closeLangMenus()}
+function chooseLang(lang){localStorage.setItem('golynLangUserSet','true');setLang(lang);closeLangMenus()}
 function redirectHeaderHashLinks(){document.querySelectorAll('#navbar a[href^="#"], .mobile-nav a[href^="#"]').forEach(link=>{link.addEventListener('click',event=>{const hash=link.getAttribute('href');if(hash&&hash!=='#'){event.preventDefault();window.location.href='/' + hash}})})}
 window.toggleMenu=toggleMenu;
 window.toggleLangMenu=toggleLangMenu;

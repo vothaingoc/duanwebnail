@@ -18,6 +18,7 @@ export async function getStaticPaths() {
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Article | Golyn Nail — Osaka | ネイルアトリエ</title>
+<script is:inline src="/assets/js/language-detect.js"></script>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500&amp;family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&amp;family=Jost:wght@200;300;400;500&amp;family=Noto+Sans+JP:wght@300;400;500&amp;display=swap" rel="stylesheet"/>
 <style>
@@ -420,6 +421,7 @@ function toggleLangMenu(event) {
 }
 
 function chooseLang(lang) {
+  localStorage.setItem('golynLangUserSet', 'true');
   setLang(lang);
   closeLangMenus();
 }

@@ -9,6 +9,7 @@ const golynGalleryItems = await getGalleryWithFallback();
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>&#12462;&#12515;&#12521;&#12522;&#12540; | Golyn Nail</title>
+<script is:inline src="/assets/js/language-detect.js"></script>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500&amp;family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&amp;family=Jost:wght@200;300;400;500&amp;family=Noto+Sans+JP:wght@300;400;500&amp;display=swap" rel="stylesheet"/>
 <style>
@@ -941,7 +942,7 @@ function toggleLangMenu(button){const picker=button.closest('.lang-picker');cons
 function updateLangPickers(lang){document.querySelectorAll('.lang-picker').forEach(picker=>{const flag=picker.querySelector('.lang-current .flag');const label=picker.querySelector('.lang-current-label');if(flag)flag.className='flag '+(langFlagClasses[lang]||langFlagClasses.ja);if(label)label.textContent=langLabels[lang]||langLabels.ja;picker.querySelectorAll('[data-lang-option]').forEach(option=>option.classList.toggle('active',option.dataset.langOption===lang))})}
 function updateGalleryMoreLabel(lang){const button=document.querySelector('[data-gallery-more]');if(button)button.textContent=galleryMoreLabels[lang]||galleryMoreLabels.ja}
 function setLang(lang){if(!galleryI18n[lang])lang='ja';document.documentElement.lang=lang;const dict=galleryI18n[lang];document.querySelectorAll('[data-i18n]').forEach(el=>{const key=el.getAttribute('data-i18n');if(dict[key])el.innerHTML=dict[key]});updateLangPickers(lang);updateGalleryMoreLabel(lang);localStorage.setItem('golynLang',lang)}
-function chooseLang(lang){setLang(lang);closeLangMenus()}
+function chooseLang(lang){localStorage.setItem('golynLangUserSet','true');setLang(lang);closeLangMenus()}
 function refreshGalleryLightboxData(){galleryItems=window.GOLYN_ACTIVE_GALLERY_ITEMS||window.GOLYN_GALLERY_ITEMS||[];galleryImages=galleryItems.map(item=>item.src);galleryLabels=galleryItems.map(item=>item.label);buildGalleryThumbs();document.querySelectorAll('[data-gallery-index]').forEach(item=>{if(item.dataset.previewBound==='true')return;item.dataset.previewBound='true';item.addEventListener('click',()=>showGalleryImage(Number(item.dataset.galleryIndex)))})}
 function updateGalleryThumbs(){document.querySelectorAll('.gallery-thumb').forEach((thumb,index)=>{thumb.classList.toggle('active',index===currentGalleryIndex)})}
 function buildGalleryThumbs(){const thumbs=document.getElementById('galleryThumbs');if(!thumbs)return;thumbs.innerHTML=galleryImages.map((src,index)=>'<button class="gallery-thumb" type="button" data-thumb-index="'+index+'" aria-label="View image '+(index+1)+'"><img src="'+src+'" alt=""/></button>').join('');thumbs.querySelectorAll('[data-thumb-index]').forEach(thumb=>{thumb.addEventListener('click',event=>{event.stopPropagation();showGalleryImage(Number(thumb.dataset.thumbIndex))})})}
