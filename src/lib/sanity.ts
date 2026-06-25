@@ -294,6 +294,24 @@ function localizedPricingObject(translations: any, fallback: any = {}) {
   }, {});
 }
 
+function localizedPricingItemObject(translations: any, fallback: any = {}) {
+  const source = translations || {};
+  return pricingLangs.reduce<Record<string, any>>((acc, lang) => {
+    const ja = source.ja || {};
+    const current = source[lang] || {};
+    const merged = {
+      ...(fallback || {}),
+      ...ja,
+      ...current
+    };
+    if (current.name && (!current.summaryName || (lang !== 'ja' && current.summaryName === ja.summaryName))) {
+      merged.summaryName = current.name;
+    }
+    acc[lang] = merged;
+    return acc;
+  }, {});
+}
+
 function toPricingData(categories: any[], items: any[]): PricingData | null {
   const validCategories = Array.isArray(categories) ? categories.filter(item => item?.key) : [];
   const validItems = Array.isArray(items) ? items.filter(item => item?.id && item?.category) : [];
@@ -309,7 +327,7 @@ function toPricingData(categories: any[], items: any[]): PricingData | null {
     duration: item.duration || '',
     note: item.noteType || '',
     home: item.showOnHome === true,
-    translations: localizedPricingObject(item.translations, {
+    translations: localizedPricingItemObject(item.translations, {
       duration: item.duration || '',
       originalPrice: priceValue(item.regularPriceText, item.regularPrice),
       salePrice: priceValue(item.campaignPriceText, item.campaignPrice)

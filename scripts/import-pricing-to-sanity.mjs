@@ -120,7 +120,7 @@ function localizedItemTranslations(item) {
 
     const translation = {
       name: merged.name || '',
-      summaryName: merged.summaryName || '',
+      summaryName: current.summaryName || current.name || (lang === 'ja' ? ja.summaryName : ''),
       duration: merged.duration || item.duration || '',
       description: merged.description || '',
       note: merged.note || '',

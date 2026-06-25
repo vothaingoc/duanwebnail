@@ -589,42 +589,49 @@
     "translations": {
       "ja": {
         "name": "【長さ出し】10本アート・マグネット・フレンチ・グラデーション等",
+        "summaryName": "【長さ出し】10本アート・マグネット・フレンチ・グラデーション等",
         "duration": "160分",
         "description": "韓国・ワンホン・ガーリーデザイン対応 / 持ち込みデザイン対応",
         "note": "※ 7日以内お直し無料"
       },
       "en": {
         "name": "[Extension] 10-nail art, magnet, French, gradation, etc.",
+        "summaryName": "[Extension] 10-nail art, magnet, French, gradation, etc.",
         "duration": "160 min",
         "description": "Korean, Wanghong and girly designs available / Bring-in designs OK",
         "note": "※ Free fix within 7 days of visit"
       },
       "vi": {
         "name": "[Nối móng] 10 móng art, magnet, French, Ombre...",
+        "summaryName": "[Nối móng] 10 móng art, magnet, French, Ombre...",
         "duration": "160 phút",
         "description": "Hỗ trợ phong cách Hàn, Wanghong, girly / Có thể mang mẫu",
         "note": "※ Sửa miễn phí trong vòng 7 ngày sau khi đến tiệm"
       },
       "zh": {
         "name": "[延长] 10指艺术、猫眼、法式、渐变等",
+        "summaryName": "[延长] 10指艺术、猫眼、法式、渐变等",
         "duration": "160分钟",
         "description": "支持韩系、网红与少女风 / 可持图定制",
         "note": "※ 到店后7天内免费修补"
       },
       "ko": {
         "name": "[연장] 10개 아트, 마그넷, 프렌치, 그라데이션 등",
+        "summaryName": "[연장] 10개 아트, 마그넷, 프렌치, 그라데이션 등",
         "duration": "160분",
         "description": "한국·왕홍·걸리 디자인 가능 / 디자인 지참 가능",
         "note": "※ 방문 후 7일 이내 무료 보수"
       },
       "my": {
         "name": "[Extension] 10 ချောင်း art, magnet, French, gradation စသည်",
+        "summaryName": "[Extension] 10 ချောင်း art, magnet, French, gradation စသည်",
         "duration": "160 မိနစ်",
         "description": "Korean, Wanghong, girly စတိုင်များ ရနိုင် / Design ယူလာနိုင်",
         "note": "※ လာရောက်ပြီး ၇ ရက်အတွင်း အခမဲ့ပြင်ဆင်ပေးပါသည်"
       },
       "id": {
         "name": "[Extension] 10 kuku art, magnet, French, gradasi, dll.",
+        "summaryName": "[Extension] 10 kuku art, magnet, French, gradasi, dll.",
         "duration": "160 menit",
         "description": "Tersedia gaya Korea, Wanghong, dan girly / Boleh bawa referensi desain",
         "note": "※ Perbaikan gratis dalam 7 hari setelah kunjungan"
@@ -653,42 +660,49 @@
     "translations": {
       "ja": {
         "name": "【スカルプ / 40〜75MM】ジェルチップ長さ出し10本コース",
+        "summaryName": "【スカルプ / 40〜75MM】ジェルチップ長さ出し10本コース",
         "duration": "250分",
         "description": "超ロングOK / 10本フルアート・ストーン・人気パーツ込み / 持ち込みデザインOK",
         "note": "※ 7日以内お直し無料"
       },
       "en": {
         "name": "[Sculpt / 40–75MM] Gel-tip extension 10-nail course",
+        "summaryName": "[Sculpt / 40–75MM] Gel-tip extension 10-nail course",
         "duration": "250 min",
         "description": "Extra-long OK / 10 full-art nails, stones and popular parts included / Bring-in designs OK",
         "note": "※ Free fix within 7 days of visit"
       },
       "vi": {
         "name": "[Sculpt / 40–75MM] Course nối gel tip 10 móng",
+        "summaryName": "[Sculpt / 40–75MM] Course nối gel tip 10 móng",
         "duration": "250 phút",
         "description": "Có thể làm móng siêu dài / Bao gồm full art 10 móng, đá và phụ kiện phổ biến / Có thể mang mẫu",
         "note": "※ Sửa miễn phí trong vòng 7 ngày sau khi đến tiệm"
       },
       "zh": {
         "name": "[雕花 / 40–75MM] 凝胶甲片延长10指套餐",
+        "summaryName": "[雕花 / 40–75MM] 凝胶甲片延长10指套餐",
         "duration": "250分钟",
         "description": "可做超长 / 含10指全艺术、钻饰与热门配件 / 可持图定制",
         "note": "※ 到店后7天内免费修补"
       },
       "ko": {
         "name": "[스컬프 / 40–75MM] 젤 팁 연장 10개 코스",
+        "summaryName": "[스컬프 / 40–75MM] 젤 팁 연장 10개 코스",
         "duration": "250분",
         "description": "초롱 길이 가능 / 10손가락 풀아트, 스톤, 인기 파츠 포함 / 디자인 지참 가능",
         "note": "※ 방문 후 7일 이내 무료 보수"
       },
       "my": {
         "name": "[Sculpt / 40–75MM] Gel-tip extension 10 ချောင်း course",
+        "summaryName": "[Sculpt / 40–75MM] Gel-tip extension 10 ချောင်း course",
         "duration": "250 မိနစ်",
         "description": "အလွန်ရှည်ပုံစံ ရနိုင် / 10 ချောင်း full art, stone နှင့် လူကြိုက်များ parts ပါဝင် / Design ယူလာနိုင်",
         "note": "※ လာရောက်ပြီး ၇ ရက်အတွင်း အခမဲ့ပြင်ဆင်ပေးပါသည်"
       },
       "id": {
         "name": "[Sculpt / 40–75MM] Course extension gel-tip 10 kuku",
+        "summaryName": "[Sculpt / 40–75MM] Course extension gel-tip 10 kuku",
         "duration": "250 menit",
         "description": "Bisa ekstra panjang / 10 kuku full art, stone, dan part populer termasuk / Boleh bawa referensi desain",
         "note": "※ Perbaikan gratis dalam 7 hari setelah kunjungan"
@@ -717,42 +731,49 @@
     "translations": {
       "ja": {
         "name": "ジェルチップ（長さ出し40〜75MM）アート2本・ストーン6本",
+        "summaryName": "ジェルチップ（長さ出し40〜75MM）アート2本・ストーン6本",
         "duration": "220分",
         "description": "ロングネイル人気 / 韓国・ワンホンネイル対応",
         "note": "※ 7日以内お直し無料"
       },
       "en": {
         "name": "Gel tips (40–75MM extension), 2 art nails & 6 stone nails",
+        "summaryName": "Gel tips (40–75MM extension), 2 art nails & 6 stone nails",
         "duration": "220 min",
         "description": "Popular long nails / Korean and Wanghong nail styles available",
         "note": "※ Free fix within 7 days of visit"
       },
       "vi": {
         "name": "Gel tip nối dài 40–75MM, 2 móng art & 6 móng đá",
+        "summaryName": "Gel tip nối dài 40–75MM, 2 móng art & 6 móng đá",
         "duration": "220 phút",
         "description": "Móng dài được yêu thích / Hỗ trợ phong cách Hàn và Wanghong",
         "note": "※ Sửa miễn phí trong vòng 7 ngày sau khi đến tiệm"
       },
       "zh": {
         "name": "凝胶甲片延长40–75MM、2指艺术与6指钻饰",
+        "summaryName": "凝胶甲片延长40–75MM、2指艺术与6指钻饰",
         "duration": "220分钟",
         "description": "人气长甲款 / 支持韩系与网红风",
         "note": "※ 到店后7天内免费修补"
       },
       "ko": {
         "name": "젤 팁 연장 40–75MM, 2개 아트 & 6개 스톤",
+        "summaryName": "젤 팁 연장 40–75MM, 2개 아트 & 6개 스톤",
         "duration": "220분",
         "description": "롱네일 인기 / 한국·왕홍 스타일 가능",
         "note": "※ 방문 후 7일 이내 무료 보수"
       },
       "my": {
         "name": "Gel-tip extension 40–75MM, art 2 ချောင်း + stone 6 ချောင်း",
+        "summaryName": "Gel-tip extension 40–75MM, art 2 ချောင်း + stone 6 ချောင်း",
         "duration": "220 မိနစ်",
         "description": "Long nail လူကြိုက်များ / Korean နှင့် Wanghong စတိုင်များ ရနိုင်",
         "note": "※ လာရောက်ပြီး ၇ ရက်အတွင်း အခမဲ့ပြင်ဆင်ပေးပါသည်"
       },
       "id": {
         "name": "Gel-tip extension 40–75MM, 2 kuku art & 6 kuku stone",
+        "summaryName": "Gel-tip extension 40–75MM, 2 kuku art & 6 kuku stone",
         "duration": "220 menit",
         "description": "Long nail populer / Tersedia gaya Korea dan Wanghong",
         "note": "※ Perbaikan gratis dalam 7 hari setelah kunjungan"
@@ -923,36 +944,43 @@
     "translations": {
       "ja": {
         "name": "【フット】2本アート・ストーン・パーツ付けコース",
+        "summaryName": "【フット】2本アート・ストーン・パーツ付けコース",
         "duration": "60分",
         "description": "持ち込みOK / 人気パーツ込み / 韓国・ワンホン・ニュアンス対応 / 他8本ワンカラー"
       },
       "en": {
         "name": "[Foot] 2 art nails, stones & parts course",
+        "summaryName": "[Foot] 2 art nails, stones & parts course",
         "duration": "60 min",
         "description": "Bring-in designs OK / Popular parts included / Korean, Wanghong and nuance styles / Other 8 nails one color"
       },
       "vi": {
         "name": "[Chân] Course 2 móng art, đá & phụ kiện",
+        "summaryName": "[Chân] Course 2 móng art, đá & phụ kiện",
         "duration": "60 phút",
         "description": "Có thể mang mẫu / Bao gồm phụ kiện phổ biến / Phong cách Hàn, Wanghong, nuance / 8 móng còn lại một màu"
       },
       "zh": {
         "name": "[足部] 2指艺术、钻饰与配件套餐",
+        "summaryName": "[足部] 2指艺术、钻饰与配件套餐",
         "duration": "60分钟",
         "description": "可持图定制 / 含热门配件 / 韩系、网红、氛围款 / 其余8指纯色"
       },
       "ko": {
         "name": "[풋] 2개 아트, 스톤 & 파츠 코스",
+        "summaryName": "[풋] 2개 아트, 스톤 & 파츠 코스",
         "duration": "60분",
         "description": "디자인 지참 가능 / 인기 파츠 포함 / 한국·왕홍·누앙스 스타일 / 나머지 8손가락 원컬러"
       },
       "my": {
         "name": "[Foot] ၂ ချောင်း art, stones & parts course",
+        "summaryName": "[Foot] ၂ ချောင်း art, stones & parts course",
         "duration": "60 မိနစ်",
         "description": "Design ယူလာနိုင် / လူကြိုက်များ parts ပါဝင် / Korean, Wanghong, Nuance စတိုင် / ကျန် 8 ချောင်း တစ်ရောင်"
       },
       "id": {
         "name": "[Foot] Course 2 kuku art, stone & parts",
+        "summaryName": "[Foot] Course 2 kuku art, stone & parts",
         "duration": "60 menit",
         "description": "Boleh bawa referensi desain / Part populer termasuk / Gaya Korea, Wanghong, nuance / 8 kuku lainnya satu warna"
       }
@@ -980,42 +1008,49 @@
     "translations": {
       "ja": {
         "name": "【フット】10本アート・ストーン・パーツ付けコース",
+        "summaryName": "【フット】10本アート・ストーン・パーツ付けコース",
         "duration": "90分",
         "description": "持ち込みOK / 人気パーツ込み / 韓国・ワンホン・ニュアンス対応",
         "note": "※ 7日以内お直し無料"
       },
       "en": {
         "name": "[Foot] 10-nail art, stones & parts course",
+        "summaryName": "[Foot] 10-nail art, stones & parts course",
         "duration": "90 min",
         "description": "Bring-in designs OK / Popular parts included / Korean, Wanghong and Nuance styles",
         "note": "※ Free fix within 7 days of visit"
       },
       "vi": {
         "name": "[Chân] Course 10 móng art, đá & phụ kiện",
+        "summaryName": "[Chân] Course 10 móng art, đá & phụ kiện",
         "duration": "90 phút",
         "description": "Có thể mang mẫu / Bao gồm phụ kiện phổ biến / Phong cách Hàn, Wanghong, Nuance",
         "note": "※ Sửa miễn phí trong vòng 7 ngày sau khi đến tiệm"
       },
       "zh": {
         "name": "[足部] 10指艺术、钻饰与配件套餐",
+        "summaryName": "[足部] 10指艺术、钻饰与配件套餐",
         "duration": "90分钟",
         "description": "可持图定制 / 含热门配件 / 韩系、网红、氛围款",
         "note": "※ 到店后7天内免费修补"
       },
       "ko": {
         "name": "[풋] 10개 아트, 스톤 & 파츠 코스",
+        "summaryName": "[풋] 10개 아트, 스톤 & 파츠 코스",
         "duration": "90분",
         "description": "디자인 지참 가능 / 인기 파츠 포함 / 한국·왕홍·누앙스 스타일",
         "note": "※ 방문 후 7일 이내 무료 보수"
       },
       "my": {
         "name": "[Foot] ၁၀ ချောင်း art, stones & parts course",
+        "summaryName": "[Foot] ၁၀ ချောင်း art, stones & parts course",
         "duration": "90 မိနစ်",
         "description": "Design ယူလာနိုင် / လူကြိုက်များ parts ပါဝင် / Korean, Wanghong, Nuance စတိုင်",
         "note": "※ လာရောက်ပြီး ၇ ရက်အတွင်း အခမဲ့ပြင်ဆင်ပေးပါသည်"
       },
       "id": {
         "name": "[Foot] Course 10 kuku art, stone & parts",
+        "summaryName": "[Foot] Course 10 kuku art, stone & parts",
         "duration": "90 menit",
         "description": "Boleh bawa referensi desain / Part populer termasuk / Gaya Korea, Wanghong, Nuance",
         "note": "※ Perbaikan gratis dalam 7 hari setelah kunjungan"
@@ -1043,30 +1078,37 @@
     "translations": {
       "ja": {
         "name": "付替オフ",
+        "summaryName": "付替オフ",
         "description": "自店オフ or 初回他店オフ / オフがある場合はこちらをご選択ください"
       },
       "en": {
         "name": "Replacement removal",
+        "summaryName": "Replacement removal",
         "description": "Our salon removal or first-time other salon removal / Choose this if removal is needed"
       },
       "vi": {
         "name": "Tháo khi thay bộ mới",
+        "summaryName": "Tháo khi thay bộ mới",
         "description": "Tháo móng của tiệm hoặc lần đầu tháo từ tiệm khác / Chọn mục này nếu cần tháo móng"
       },
       "zh": {
         "name": "换新卸甲",
+        "summaryName": "换新卸甲",
         "description": "本店卸甲或首次他店卸甲 / 如需卸甲请选择此项"
       },
       "ko": {
         "name": "교체 제거",
+        "summaryName": "교체 제거",
         "description": "자점 제거 또는 첫 방문 타점 제거 / 제거가 필요한 경우 이 항목을 선택해 주세요"
       },
       "my": {
         "name": "ပြောင်းလဲတပ်ဆင်ရန် ဖယ်ရှားခြင်း",
+        "summaryName": "ပြောင်းလဲတပ်ဆင်ရန် ဖယ်ရှားခြင်း",
         "description": "မိမိဆိုင်မှ ဖယ်ရှားခြင်း သို့မဟုတ် ပထမအကြိမ် အခြားဆိုင်မှ ဖယ်ရှားခြင်း / ဖယ်ရှားရန်လိုပါက ဤရွေးချယ်မှုကို ရွေးပါ"
       },
       "id": {
         "name": "Replacement removal",
+        "summaryName": "Replacement removal",
         "description": "Lepas dari salon kami atau lepas pertama kali dari salon lain / Pilih ini jika perlu lepas"
       }
     }
@@ -1091,25 +1133,32 @@
     "noteType": "",
     "translations": {
       "ja": {
-        "name": "自店オフ（付け替え）"
+        "name": "自店オフ（付け替え）",
+        "summaryName": "自店オフ（付け替え）"
       },
       "en": {
-        "name": "Same-salon Removal"
+        "name": "Same-salon Removal",
+        "summaryName": "Same-salon Removal"
       },
       "vi": {
-        "name": "Tháo gel của tiệm khi làm bộ mới"
+        "name": "Tháo gel của tiệm khi làm bộ mới",
+        "summaryName": "Tháo gel của tiệm khi làm bộ mới"
       },
       "zh": {
-        "name": "本店卸甲（换新）"
+        "name": "本店卸甲（换新）",
+        "summaryName": "本店卸甲（换新）"
       },
       "ko": {
-        "name": "자점 제거(교체)"
+        "name": "자점 제거(교체)",
+        "summaryName": "자점 제거(교체)"
       },
       "my": {
-        "name": "မိမိဆိုင် ဖယ်ရှားခြင်း (ပြောင်းလဲတပ်ဆင်)"
+        "name": "မိမိဆိုင် ဖယ်ရှားခြင်း (ပြောင်းလဲတပ်ဆင်)",
+        "summaryName": "မိမိဆိုင် ဖယ်ရှားခြင်း (ပြောင်းလဲတပ်ဆင်)"
       },
       "id": {
-        "name": "Removal salon kami saat ganti set"
+        "name": "Removal salon kami saat ganti set",
+        "summaryName": "Removal salon kami saat ganti set"
       }
     }
   },
@@ -1133,25 +1182,32 @@
     "noteType": "",
     "translations": {
       "ja": {
-        "name": "他店オフ"
+        "name": "他店オフ",
+        "summaryName": "他店オフ"
       },
       "en": {
-        "name": "Other-salon Removal"
+        "name": "Other-salon Removal",
+        "summaryName": "Other-salon Removal"
       },
       "vi": {
-        "name": "Tháo gel tiệm khác"
+        "name": "Tháo gel tiệm khác",
+        "summaryName": "Tháo gel tiệm khác"
       },
       "zh": {
-        "name": "他店卸甲"
+        "name": "他店卸甲",
+        "summaryName": "他店卸甲"
       },
       "ko": {
-        "name": "타점 제거"
+        "name": "타점 제거",
+        "summaryName": "타점 제거"
       },
       "my": {
-        "name": "အခြားဆိုင် ဖယ်ရှားခြင်း"
+        "name": "အခြားဆိုင် ဖယ်ရှားခြင်း",
+        "summaryName": "အခြားဆိုင် ဖယ်ရှားခြင်း"
       },
       "id": {
-        "name": "Removal salon lain"
+        "name": "Removal salon lain",
+        "summaryName": "Removal salon lain"
       }
     }
   },
@@ -1175,25 +1231,32 @@
     "noteType": "",
     "translations": {
       "ja": {
-        "name": "オフのみ"
+        "name": "オフのみ",
+        "summaryName": "オフのみ"
       },
       "en": {
-        "name": "Removal Only"
+        "name": "Removal Only",
+        "summaryName": "Removal Only"
       },
       "vi": {
-        "name": "Chỉ tháo gel"
+        "name": "Chỉ tháo gel",
+        "summaryName": "Chỉ tháo gel"
       },
       "zh": {
-        "name": "仅卸甲"
+        "name": "仅卸甲",
+        "summaryName": "仅卸甲"
       },
       "ko": {
-        "name": "제거만"
+        "name": "제거만",
+        "summaryName": "제거만"
       },
       "my": {
-        "name": "ဖယ်ရှားခြင်းသာ"
+        "name": "ဖယ်ရှားခြင်းသာ",
+        "summaryName": "ဖယ်ရှားခြင်းသာ"
       },
       "id": {
-        "name": "Removal saja"
+        "name": "Removal saja",
+        "summaryName": "Removal saja"
       }
     }
   },
@@ -1217,27 +1280,34 @@
     "noteType": "",
     "translations": {
       "ja": {
-        "name": "ストーン"
+        "name": "ストーン",
+        "summaryName": "ストーン"
       },
       "en": {
         "name": "Stone",
+        "summaryName": "Stone",
         "regularPriceText": "¥50–¥200 / piece"
       },
       "vi": {
         "name": "Đá",
+        "summaryName": "Đá",
         "regularPriceText": "¥50–¥200 / viên"
       },
       "zh": {
-        "name": "水钻"
+        "name": "水钻",
+        "summaryName": "水钻"
       },
       "ko": {
-        "name": "스톤"
+        "name": "스톤",
+        "summaryName": "스톤"
       },
       "my": {
-        "name": "စတုန်း"
+        "name": "စတုန်း",
+        "summaryName": "စတုန်း"
       },
       "id": {
-        "name": "Stone"
+        "name": "Stone",
+        "summaryName": "Stone"
       }
     }
   },
@@ -1261,27 +1331,34 @@
     "noteType": "",
     "translations": {
       "ja": {
-        "name": "シンプルアート"
+        "name": "シンプルアート",
+        "summaryName": "シンプルアート"
       },
       "en": {
         "name": "Simple Art",
+        "summaryName": "Simple Art",
         "regularPriceText": "¥300–¥600"
       },
       "vi": {
         "name": "Art đơn giản",
+        "summaryName": "Art đơn giản",
         "regularPriceText": "¥300–¥600"
       },
       "zh": {
-        "name": "简约艺术"
+        "name": "简约艺术",
+        "summaryName": "简约艺术"
       },
       "ko": {
-        "name": "심플 아트"
+        "name": "심플 아트",
+        "summaryName": "심플 아트"
       },
       "my": {
-        "name": "ရိုးရှင်း art"
+        "name": "ရိုးရှင်း art",
+        "summaryName": "ရိုးရှင်း art"
       },
       "id": {
-        "name": "Art sederhana"
+        "name": "Art sederhana",
+        "summaryName": "Art sederhana"
       }
     }
   },
@@ -1305,27 +1382,34 @@
     "noteType": "",
     "translations": {
       "ja": {
-        "name": "手描きアート"
+        "name": "手描きアート",
+        "summaryName": "手描きアート"
       },
       "en": {
         "name": "Hand-painted Art",
+        "summaryName": "Hand-painted Art",
         "regularPriceText": "¥500–¥1,200"
       },
       "vi": {
         "name": "Art vẽ tay",
+        "summaryName": "Art vẽ tay",
         "regularPriceText": "¥500–¥1,200"
       },
       "zh": {
-        "name": "手绘艺术"
+        "name": "手绘艺术",
+        "summaryName": "手绘艺术"
       },
       "ko": {
-        "name": "핸드페인팅 아트"
+        "name": "핸드페인팅 아트",
+        "summaryName": "핸드페인팅 아트"
       },
       "my": {
-        "name": "လက်ရေးဆွဲ art"
+        "name": "လက်ရေးဆွဲ art",
+        "summaryName": "လက်ရေးဆွဲ art"
       },
       "id": {
-        "name": "Art lukis tangan"
+        "name": "Art lukis tangan",
+        "summaryName": "Art lukis tangan"
       }
     }
   },
@@ -1349,27 +1433,34 @@
     "noteType": "",
     "translations": {
       "ja": {
-        "name": "パーツ"
+        "name": "パーツ",
+        "summaryName": "パーツ"
       },
       "en": {
         "name": "Parts",
+        "summaryName": "Parts",
         "regularPriceText": "¥500–¥1,500"
       },
       "vi": {
         "name": "Phụ kiện",
+        "summaryName": "Phụ kiện",
         "regularPriceText": "¥500–¥1,500"
       },
       "zh": {
-        "name": "配件"
+        "name": "配件",
+        "summaryName": "配件"
       },
       "ko": {
-        "name": "파츠"
+        "name": "파츠",
+        "summaryName": "파츠"
       },
       "my": {
-        "name": "parts"
+        "name": "parts",
+        "summaryName": "parts"
       },
       "id": {
-        "name": "Parts"
+        "name": "Parts",
+        "summaryName": "Parts"
       }
     }
   },
@@ -1393,27 +1484,34 @@
     "noteType": "",
     "translations": {
       "ja": {
-        "name": "甘皮処理"
+        "name": "甘皮処理",
+        "summaryName": "甘皮処理"
       },
       "en": {
         "name": "Cuticle Care",
+        "summaryName": "Cuticle Care",
         "regularPriceText": "¥2,000–¥3,000"
       },
       "vi": {
         "name": "Xử lý da thừa",
+        "summaryName": "Xử lý da thừa",
         "regularPriceText": "¥2,000–¥3,000"
       },
       "zh": {
-        "name": "甘皮护理"
+        "name": "甘皮护理",
+        "summaryName": "甘皮护理"
       },
       "ko": {
-        "name": "큐티클 케어"
+        "name": "큐티클 케어",
+        "summaryName": "큐티클 케어"
       },
       "my": {
-        "name": "Cuticle care"
+        "name": "Cuticle care",
+        "summaryName": "Cuticle care"
       },
       "id": {
-        "name": "Cuticle care"
+        "name": "Cuticle care",
+        "summaryName": "Cuticle care"
       }
     }
   },
@@ -1437,27 +1535,34 @@
     "noteType": "",
     "translations": {
       "ja": {
-        "name": "ハンドケア"
+        "name": "ハンドケア",
+        "summaryName": "ハンドケア"
       },
       "en": {
         "name": "Hand Care",
+        "summaryName": "Hand Care",
         "regularPriceText": "¥3,000–¥4,500"
       },
       "vi": {
         "name": "Chăm sóc tay",
+        "summaryName": "Chăm sóc tay",
         "regularPriceText": "¥3,000–¥4,500"
       },
       "zh": {
-        "name": "手部护理"
+        "name": "手部护理",
+        "summaryName": "手部护理"
       },
       "ko": {
-        "name": "핸드 케어"
+        "name": "핸드 케어",
+        "summaryName": "핸드 케어"
       },
       "my": {
-        "name": "Hand care"
+        "name": "Hand care",
+        "summaryName": "Hand care"
       },
       "id": {
-        "name": "Perawatan tangan"
+        "name": "Perawatan tangan",
+        "summaryName": "Perawatan tangan"
       }
     }
   },
@@ -1481,27 +1586,34 @@
     "noteType": "",
     "translations": {
       "ja": {
-        "name": "フットケア"
+        "name": "フットケア",
+        "summaryName": "フットケア"
       },
       "en": {
         "name": "Foot Care",
+        "summaryName": "Foot Care",
         "regularPriceText": "¥4,000–¥6,500"
       },
       "vi": {
         "name": "Chăm sóc chân",
+        "summaryName": "Chăm sóc chân",
         "regularPriceText": "¥4,000–¥6,500"
       },
       "zh": {
-        "name": "足部护理"
+        "name": "足部护理",
+        "summaryName": "足部护理"
       },
       "ko": {
-        "name": "풋 케어"
+        "name": "풋 케어",
+        "summaryName": "풋 케어"
       },
       "my": {
-        "name": "Foot care"
+        "name": "Foot care",
+        "summaryName": "Foot care"
       },
       "id": {
-        "name": "Perawatan kaki"
+        "name": "Perawatan kaki",
+        "summaryName": "Perawatan kaki"
       }
     }
   }

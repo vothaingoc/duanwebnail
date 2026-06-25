@@ -23,7 +23,10 @@
 
   function itemText(item, lang) {
     const ja = item.translations.ja || {};
-    return Object.assign({}, ja, item.translations[lang] || {});
+    const current = item.translations[lang] || {};
+    const text = Object.assign({}, ja, current);
+    if (current.name && (!current.summaryName || (lang !== 'ja' && current.summaryName === ja.summaryName))) text.summaryName = current.name;
+    return text;
   }
 
   function localizedText(translations, lang) {
