@@ -26,6 +26,11 @@
     return Object.assign({}, ja, item.translations[lang] || {});
   }
 
+  function localizedText(translations, lang) {
+    const ja = translations && translations.ja ? translations.ja : {};
+    return Object.assign({}, ja, (translations && translations[lang]) || {});
+  }
+
   function categoryText(category, lang) {
     const data = (window.GOLYN_PRICING_CATEGORIES || {})[category];
     if (!data) return { label: '', title: '' };
@@ -159,10 +164,14 @@
         return `<li>${escapeHtml(name)} ${priceInline(item, text)}</li>`;
       }).join('');
       const note = homeNoteHtml(card, lang);
+      const cardText = localizedText(card.translations, lang);
+      const label = cardText.label ? escapeHtml(cardText.label) : '';
+      const title = cardText.title ? escapeHtml(cardText.title) : '';
+      const desc = cardText.description ? escapeHtml(cardText.description) : '';
       return `<div class="pricing-card${featured} fade-up"${delay}>
-<div class="pricing-card-label" data-i18n="${card.labelKey}"></div>
-<div class="pricing-name" data-i18n="${card.nameKey}"></div>
-<p class="pricing-desc" data-i18n="${card.descKey}"${descStyle}></p>
+<div class="pricing-card-label"${card.labelKey ? ` data-i18n="${card.labelKey}"` : ''}>${label}</div>
+<div class="pricing-name"${card.nameKey ? ` data-i18n="${card.nameKey}"` : ''}>${title}</div>
+<p class="pricing-desc"${card.descKey ? ` data-i18n="${card.descKey}"` : ''}${descStyle}>${desc}</p>
 <ul class="pricing-list">${items}</ul>
 ${note ? `<div class="pricing-note"${noteStyle}>${note}</div>` : ''}
 </div>`;

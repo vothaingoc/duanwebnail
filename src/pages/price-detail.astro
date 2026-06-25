@@ -1,7 +1,8 @@
 ---
-import { getPricingCampaignOverride } from '../lib/sanity';
+import { getPricingCampaignOverride, getPricingDataOverride } from '../lib/sanity';
 
 const sanityPricingCampaign = await getPricingCampaignOverride();
+const sanityPricingData = await getPricingDataOverride();
 ---
 <!DOCTYPE html>
 <html lang="ja">
@@ -212,8 +213,9 @@ html[lang="vi"] { --serif:'Cormorant Garamond', serif; --sans:'Be Vietnam Pro', 
 <div class="back-actions"><a class="btn-primary" data-i18n="back_btn" href="/#pricing">料金表へ戻る</a></div>
 </main>
 <footer><span class="footer-copy">© 2025 Golyn Nail, Namba Osaka. All rights reserved.</span></footer>
-<script is:inline define:vars={{ sanityPricingCampaign }}>
+<script is:inline define:vars={{ sanityPricingCampaign, sanityPricingData }}>
 window.GOLYN_SANITY_PRICING_CAMPAIGN = sanityPricingCampaign || null;
+window.GOLYN_SANITY_PRICING_DATA = sanityPricingData || null;
 if (sanityPricingCampaign) {
   window.GOLYN_PRICING_CAMPAIGN = sanityPricingCampaign;
 }

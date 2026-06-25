@@ -308,9 +308,10 @@
     } })
   ];
 
-  window.GOLYN_PRICING_LANGS = langs;
-  window.GOLYN_PRICING_CATEGORIES = categoryTranslations;
-  window.GOLYN_PRICING_HOME_CARDS = homeCards;
-  window.GOLYN_PRICING_ITEMS = items;
+  const sanityPricing = window.GOLYN_SANITY_PRICING_DATA;
+  window.GOLYN_PRICING_LANGS = sanityPricing && Array.isArray(sanityPricing.langs) ? sanityPricing.langs : langs;
+  window.GOLYN_PRICING_CATEGORIES = sanityPricing && sanityPricing.categories ? sanityPricing.categories : categoryTranslations;
+  window.GOLYN_PRICING_HOME_CARDS = sanityPricing && Array.isArray(sanityPricing.homeCards) ? sanityPricing.homeCards : homeCards;
+  window.GOLYN_PRICING_ITEMS = sanityPricing && Array.isArray(sanityPricing.items) ? sanityPricing.items : items;
   window.GOLYN_PRICING_CAMPAIGN = window.GOLYN_SANITY_PRICING_CAMPAIGN || window.GOLYN_PRICING_CAMPAIGN || campaign;
 })();

@@ -69,6 +69,38 @@ const pricingCampaignQuery = `*[_type == "pricingCampaign"] | order(_updatedAt d
   endsAt
 }`;
 
+const pricingCategoryQuery = `*[_type == "pricingCategory" && published != false] | order(coalesce(order, 999) asc, _createdAt asc) {
+  _id,
+  "key": key.current,
+  title,
+  label,
+  order,
+  featured,
+  showOnHome,
+  homeOrder,
+  translations,
+  "homeItems": homeItems[]->{
+    _id,
+    "id": id.current
+  }
+}`;
+
+const pricingItemQuery = `*[_type == "pricingItem" && published != false && defined(category->_id)] | order(category->order asc, coalesce(order, 999) asc, _createdAt asc) {
+  _id,
+  "id": id.current,
+  "category": category->key.current,
+  order,
+  showOnHome,
+  regularPrice,
+  regularPriceText,
+  campaignEnabled,
+  campaignPrice,
+  campaignPriceText,
+  duration,
+  noteType,
+  translations
+}`;
+
 const staffListQuery = `*[_type == "staffMember" && published == true] | order(coalesce(order, 999) asc, _createdAt asc) {
   _id,
   name,
@@ -140,6 +172,14 @@ export type PricingCampaign = {
   name: string;
   startsAt: string | null;
   endsAt: string | null;
+};
+
+export type PricingData = {
+  source: 'sanity';
+  langs: string[];
+  categories: Record<string, any>;
+  homeCards: any[];
+  items: any[];
 };
 
 export type StaffMember = {
@@ -235,6 +275,96 @@ function toPricingCampaign(item: any): PricingCampaign | null {
   };
 }
 
+const pricingLangs = ['ja', 'en', 'vi', 'zh', 'ko', 'my', 'id'];
+
+function priceValue(textValue: string | undefined, numericValue: number | undefined) {
+  if (textValue) return textValue;
+  return typeof numericValue === 'number' ? numericValue : null;
+}
+
+function localizedPricingObject(translations: any, fallback: any = {}) {
+  const source = translations || {};
+  return pricingLangs.reduce<Record<string, any>>((acc, lang) => {
+    acc[lang] = {
+      ...(fallback || {}),
+      ...(source.ja || {}),
+      ...(source[lang] || {})
+    };
+    return acc;
+  }, {});
+}
+
+function toPricingData(categories: any[], items: any[]): PricingData | null {
+  const validCategories = Array.isArray(categories) ? categories.filter(item => item?.key) : [];
+  const validItems = Array.isArray(items) ? items.filter(item => item?.id && item?.category) : [];
+  if (!validCategories.length || !validItems.length) return null;
+
+  const normalizedItems = validItems.map(item => ({
+    id: item.id,
+    category: item.category,
+    order: typeof item.order === 'number' ? item.order : 999,
+    originalPrice: priceValue(item.regularPriceText, item.regularPrice),
+    saleActive: item.campaignEnabled === true,
+    salePrice: priceValue(item.campaignPriceText, item.campaignPrice),
+    duration: item.duration || '',
+    note: item.noteType || '',
+    home: item.showOnHome === true,
+    translations: localizedPricingObject(item.translations, {
+      duration: item.duration || '',
+      originalPrice: priceValue(item.regularPriceText, item.regularPrice),
+      salePrice: priceValue(item.campaignPriceText, item.campaignPrice)
+    })
+  }));
+
+  const categoriesByKey = validCategories.reduce<Record<string, any>>((acc, category) => {
+    acc[category.key] = {
+      label: category.label || category.title || category.key,
+      featured: category.featured === true,
+      translations: pricingLangs.reduce<Record<string, string>>((translationAcc, lang) => {
+        const value = category.translations?.[lang]?.title || category.translations?.ja?.title || category.title || category.key;
+        translationAcc[lang] = value;
+        return translationAcc;
+      }, {})
+    };
+    return acc;
+  }, {});
+
+  const homeCards = validCategories
+    .filter(category => category.showOnHome === true)
+    .sort((a, b) => (a.homeOrder || a.order || 999) - (b.homeOrder || b.order || 999))
+    .map((category, index) => {
+      const selectedIds = Array.isArray(category.homeItems)
+        ? category.homeItems.map((item: any) => item?.id).filter(Boolean)
+        : [];
+      const itemIds = selectedIds.length
+        ? selectedIds
+        : normalizedItems
+            .filter(item => item.category === category.key && item.home)
+            .sort((a, b) => (a.order || 0) - (b.order || 0))
+            .map(item => item.id);
+
+      return {
+        category: category.key,
+        delay: index ? `.${index}s` : '',
+        itemIds,
+        translations: localizedPricingObject(category.translations, {
+          label: category.label || '',
+          title: category.title || category.key,
+          description: ''
+        })
+      };
+    })
+    .filter(card => card.itemIds.length);
+
+  return {
+    source: 'sanity',
+    langs: pricingLangs,
+    categories: categoriesByKey,
+    homeCards,
+    items: normalizedItems
+  };
+}
+
 function toStaffMember(item: any): StaffMember | null {
   const slug = item?.slug || '';
   const name = item?.name || '';
@@ -292,6 +422,20 @@ export async function getSanityPricingCampaign(): Promise<PricingCampaign | null
   return normalized;
 }
 
+export async function getSanityPricingData(): Promise<PricingData | null> {
+  if (!sanityClient) {
+    console.log('[Sanity] Pricing data: ENV not configured, using JS fallback.');
+    return null;
+  }
+  const [categories, items] = await Promise.all([
+    sanityClient.fetch(pricingCategoryQuery),
+    sanityClient.fetch(pricingItemQuery)
+  ]);
+  const normalized = toPricingData(categories, items);
+  console.log(`[Sanity] Pricing data: ${normalized ? `fetched ${Object.keys(normalized.categories).length} category/categories and ${normalized.items.length} item(s)` : 'no complete pricing data found'}.`);
+  return normalized;
+}
+
 export async function getSanityStaffMembers(): Promise<StaffMember[]> {
   if (!sanityClient) {
     console.log('[Sanity] Staff: ENV not configured.');
@@ -343,6 +487,15 @@ export async function getPricingCampaignOverride() {
     return await getSanityPricingCampaign();
   } catch (error) {
     console.warn('Sanity pricing campaign fallback:', error);
+  }
+  return null;
+}
+
+export async function getPricingDataOverride() {
+  try {
+    return await getSanityPricingData();
+  } catch (error) {
+    console.warn('Sanity pricing data fallback:', error);
   }
   return null;
 }
