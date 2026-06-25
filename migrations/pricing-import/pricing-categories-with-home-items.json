@@ -1,0 +1,282 @@
+[
+  {
+    "_id": "pricingCategory-gel",
+    "_type": "pricingCategory",
+    "key": {
+      "_type": "slug",
+      "current": "gel"
+    },
+    "title": "Gel Nail",
+    "label": "Gel Nail",
+    "order": 10,
+    "featured": false,
+    "published": true,
+    "showOnHome": true,
+    "homeOrder": 10,
+    "translations": {
+      "ja": {
+        "label": "ベーシック",
+        "title": "Gel Nail",
+        "description": "ワンカラーからアートコースまで。韓国・ワンホン・ニュアンス対応。"
+      },
+      "en": {
+        "label": "Basic",
+        "title": "Gel Nail",
+        "description": "From one-color to art courses. Korean, Wanghong, and nuance styles available."
+      },
+      "vi": {
+        "label": "Cơ bản",
+        "title": "Gel Nail",
+        "description": "Từ một màu đến course art. Có thể làm phong cách Hàn, Wanghong và nuance."
+      },
+      "zh": {
+        "label": "基础",
+        "title": "凝胶美甲",
+        "description": "从纯色到艺术套餐。支持韩系、网红与氛围款。"
+      },
+      "ko": {
+        "label": "베이직",
+        "title": "젤 네일",
+        "description": "원컬러부터 아트 코스까지. 한국, 왕홍, 뉘앙스 스타일 가능."
+      },
+      "my": {
+        "label": "Basic",
+        "title": "Gel Nail",
+        "description": "တစ်ရောင်မှ art course အထိ။ Korean, Wanghong, Nuance စတိုင်များရနိုင်သည်။"
+      },
+      "id": {
+        "label": "Dasar",
+        "title": "Gel Nail",
+        "description": "Dari satu warna hingga course art. Tersedia gaya Korea, Wanghong, dan nuance."
+      }
+    },
+    "homeItems": [
+      {
+        "_key": "gel-onecolor",
+        "_type": "reference",
+        "_ref": "pricingItem-gel-onecolor"
+      },
+      {
+        "_key": "gel-4art",
+        "_type": "reference",
+        "_ref": "pricingItem-gel-4art"
+      },
+      {
+        "_key": "gel-6art",
+        "_type": "reference",
+        "_ref": "pricingItem-gel-6art"
+      },
+      {
+        "_key": "gel-10art",
+        "_type": "reference",
+        "_ref": "pricingItem-gel-10art"
+      }
+    ]
+  },
+  {
+    "_id": "pricingCategory-extension",
+    "_type": "pricingCategory",
+    "key": {
+      "_type": "slug",
+      "current": "extension"
+    },
+    "title": "長さ出し",
+    "label": "Extension",
+    "order": 20,
+    "featured": true,
+    "published": true,
+    "showOnHome": true,
+    "homeOrder": 20,
+    "translations": {
+      "ja": {
+        "label": "おすすめ",
+        "title": "長さ出し",
+        "description": "自然な長さ出しからロングネイルまで。華やかなデザインにも対応。"
+      },
+      "en": {
+        "label": "Popular",
+        "title": "Nail Extension",
+        "description": "From natural extensions to long nails. Glamorous designs are also available."
+      },
+      "vi": {
+        "label": "Gợi ý",
+        "title": "Nối móng",
+        "description": "Từ nối móng tự nhiên đến móng dài. Có thể làm cả thiết kế nổi bật."
+      },
+      "zh": {
+        "label": "推荐",
+        "title": "延长美甲",
+        "description": "从自然延长到长款美甲。也支持华丽设计。"
+      },
+      "ko": {
+        "label": "추천",
+        "title": "네일 연장",
+        "description": "자연스러운 연장부터 롱네일까지. 화려한 디자인도 가능."
+      },
+      "my": {
+        "label": "အကြံပြု",
+        "title": "Nail Extension",
+        "description": "သဘာဝဆန်သော အရှည်တိုးခြင်းမှ လက်သည်းရှည်ဒီဇိုင်းအထိ ရနိုင်သည်။"
+      },
+      "id": {
+        "label": "Populer",
+        "title": "Nail Extension",
+        "description": "Dari extension natural hingga kuku panjang. Desain glamor juga tersedia."
+      }
+    },
+    "homeItems": [
+      {
+        "_key": "ext-onecolor",
+        "_type": "reference",
+        "_ref": "pricingItem-ext-onecolor"
+      },
+      {
+        "_key": "ext-4art",
+        "_type": "reference",
+        "_ref": "pricingItem-ext-4art"
+      },
+      {
+        "_key": "ext-6art",
+        "_type": "reference",
+        "_ref": "pricingItem-ext-6art"
+      },
+      {
+        "_key": "ext-10art",
+        "_type": "reference",
+        "_ref": "pricingItem-ext-10art"
+      }
+    ]
+  },
+  {
+    "_id": "pricingCategory-foot",
+    "_type": "pricingCategory",
+    "key": {
+      "_type": "slug",
+      "current": "foot"
+    },
+    "title": "Foot & Off",
+    "label": "Foot Nail",
+    "order": 30,
+    "featured": false,
+    "published": true,
+    "showOnHome": true,
+    "homeOrder": 30,
+    "translations": {
+      "ja": {
+        "label": "フット・オフ",
+        "title": "Foot & Off",
+        "description": "フットネイルと付け替えオフの基本料金。"
+      },
+      "en": {
+        "label": "Foot & Off",
+        "title": "Foot & Off",
+        "description": "Basic pricing for foot nails and replacement removal."
+      },
+      "vi": {
+        "label": "Foot & Off",
+        "title": "Foot & Off",
+        "description": "Giá cơ bản cho foot nail và tháo gel khi thay bộ mới."
+      },
+      "zh": {
+        "label": "足部・卸甲",
+        "title": "Foot & Off",
+        "description": "足部美甲与换新卸甲的基础价格。"
+      },
+      "ko": {
+        "label": "풋・제거",
+        "title": "Foot & Off",
+        "description": "풋 네일과 교체 제거의 기본 가격입니다."
+      },
+      "my": {
+        "label": "Foot & Off",
+        "title": "Foot & Off",
+        "description": "ခြေသည်းနှင့် gel ဖယ်ရှားခြင်းအတွက် အခြေခံစျေးနှုန်းများ။"
+      },
+      "id": {
+        "label": "Foot & Off",
+        "title": "Foot & Off",
+        "description": "Harga dasar untuk nail kaki dan pelepasan gel."
+      }
+    },
+    "homeItems": [
+      {
+        "_key": "foot-onecolor",
+        "_type": "reference",
+        "_ref": "pricingItem-foot-onecolor"
+      },
+      {
+        "_key": "foot-design",
+        "_type": "reference",
+        "_ref": "pricingItem-foot-design"
+      },
+      {
+        "_key": "off-own",
+        "_type": "reference",
+        "_ref": "pricingItem-off-own"
+      },
+      {
+        "_key": "off-other",
+        "_type": "reference",
+        "_ref": "pricingItem-off-other"
+      },
+      {
+        "_key": "off-only",
+        "_type": "reference",
+        "_ref": "pricingItem-off-only"
+      }
+    ]
+  },
+  {
+    "_id": "pricingCategory-options",
+    "_type": "pricingCategory",
+    "key": {
+      "_type": "slug",
+      "current": "options"
+    },
+    "title": "オフ・オプション・ケア",
+    "label": "Off / Options / Care",
+    "order": 40,
+    "featured": false,
+    "published": true,
+    "showOnHome": false,
+    "homeOrder": 40,
+    "translations": {
+      "ja": {
+        "label": "Off / Options / Care",
+        "title": "オフ・オプション・ケア",
+        "description": ""
+      },
+      "en": {
+        "label": "Off / Options / Care",
+        "title": "Removal / Options / Care",
+        "description": ""
+      },
+      "vi": {
+        "label": "Off / Options / Care",
+        "title": "Tháo móng / Option / Chăm sóc",
+        "description": ""
+      },
+      "zh": {
+        "label": "Off / Options / Care",
+        "title": "卸甲・选项・护理",
+        "description": ""
+      },
+      "ko": {
+        "label": "Off / Options / Care",
+        "title": "제거・옵션・케어",
+        "description": ""
+      },
+      "my": {
+        "label": "Off / Options / Care",
+        "title": "ဖယ်ရှားခြင်း・အပိုရွေးချယ်မှု・စောင့်ရှောက်မှု",
+        "description": ""
+      },
+      "id": {
+        "label": "Off / Options / Care",
+        "title": "Removal / Opsi / Perawatan",
+        "description": ""
+      }
+    },
+    "homeItems": []
+  }
+]
