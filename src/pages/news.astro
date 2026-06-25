@@ -866,12 +866,14 @@ html[lang="vi"] { --serif: 'Cormorant Garamond', serif; --sans: 'Be Vietnam Pro'
     radial-gradient(circle at 50% 44%, rgba(232,201,122,.26), transparent 46%),
     linear-gradient(135deg, rgba(255,252,247,.95), rgba(238,226,212,.74));
 }
-.blog-card-placeholder img {
-  width: min(58%, 240px);
+.blog-card .blog-card-placeholder img {
+  display: block;
+  width: min(42%, 160px);
   height: auto;
-  max-height: 68%;
+  max-width: 160px;
+  max-height: 48%;
   object-fit: contain;
-  opacity: .88;
+  opacity: .82;
   filter: saturate(.92) contrast(1.04);
   mix-blend-mode: multiply;
 }
@@ -995,12 +997,14 @@ html[lang="vi"] { --serif: 'Cormorant Garamond', serif; --sans: 'Be Vietnam Pro'
     radial-gradient(circle at 50% 44%, rgba(232,201,122,.26), transparent 46%),
     linear-gradient(135deg, rgba(255,252,247,.95), rgba(238,226,212,.74));
 }
-:global(.blog-card-placeholder img) {
-  width: min(58%, 240px);
+:global(.blog-card .blog-card-placeholder img) {
+  display: block;
+  width: min(42%, 160px);
   height: auto;
-  max-height: 68%;
+  max-width: 160px;
+  max-height: 48%;
   object-fit: contain;
-  opacity: .88;
+  opacity: .82;
   filter: saturate(.92) contrast(1.04);
   mix-blend-mode: multiply;
 }
