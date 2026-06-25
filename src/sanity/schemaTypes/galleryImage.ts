@@ -25,7 +25,14 @@ export const galleryImage = defineType({
     defineField({ name: 'tags', title: 'Tags', type: 'array', of: [{ type: 'string' }] }),
     defineField({ name: 'description', title: 'Description', type: 'text' }),
     defineField({ name: 'order', title: 'Order', type: 'number' }),
-    defineField({ name: 'published', title: 'Published', type: 'boolean', initialValue: true })
+    defineField({ name: 'published', title: 'Published', type: 'boolean', initialValue: true }),
+    defineField({
+      name: 'sourcePath',
+      title: 'Original Import Source',
+      type: 'string',
+      readOnly: true,
+      description: 'Backup reference to the original local path or URL used during import.'
+    })
   ],
   preview: {
     select: {

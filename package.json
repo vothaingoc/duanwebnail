@@ -5,7 +5,8 @@
     "preview": "astro preview",
     "sanity:dev": "sanity dev",
     "sanity:build": "sanity build sanity-dist",
-    "sanity:import-pricing": "node scripts/import-pricing-to-sanity.mjs"
+    "sanity:import-pricing": "node scripts/import-pricing-to-sanity.mjs",
+    "sanity:import-gallery": "node scripts/import-gallery-to-sanity.mjs"
   },
   "dependencies": {
     "@portabletext/to-html": "^5.0.2",
