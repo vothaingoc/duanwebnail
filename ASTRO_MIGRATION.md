@@ -10,6 +10,6 @@ Cloudflare Pages settings:
 
 Notes:
 
-- Decap CMS is still available under `/admin/`.
+- Content editing has moved to Sanity Studio.
 - Legacy data is still copied into the Astro build from `public/content`, `public/assets`, and `public/images`.
-- Sanity is intentionally not integrated in this migration step.
+- Sanity is now the active CMS for editable content.
