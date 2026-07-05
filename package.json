@@ -9,6 +9,7 @@
     "sanity:import-gallery": "node scripts/import-gallery-to-sanity.mjs"
   },
   "dependencies": {
+    "@astrojs/sitemap": "^3.7.3",
     "@portabletext/to-html": "^5.0.2",
     "@sanity/client": "^7.23.0",
     "astro": "latest",
