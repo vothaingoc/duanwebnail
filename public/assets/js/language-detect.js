@@ -44,12 +44,12 @@
 
   function countryLanguage() {
     const country = cookieValue('golynCountry').toUpperCase();
-    return country === 'JP' ? 'ja' : 'en';
+    return country === 'JP' ? 'ja' : '';
   }
 
   if (localStorage.getItem('golynLangUserSet') === 'true') return;
 
-  const detected = browserLanguage() || countryLanguage() || 'en';
+  const detected = countryLanguage() || 'ja';
   localStorage.setItem('golynLang', detected);
   localStorage.setItem('golynLangAutoSource', browserLanguage() ? 'browser' : 'country');
 })();
