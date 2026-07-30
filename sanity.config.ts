@@ -4,7 +4,7 @@ import { schemaTypes } from './src/sanity/schemaTypes';
 
 export default defineConfig({
   name: 'golyn-nail',
-  title: 'Golyn Nail CMS',
+  title: 'Golyn Nail CMS - Main',
   projectId: '722zj1tf',
   dataset: 'production',
   plugins: [structureTool()],
