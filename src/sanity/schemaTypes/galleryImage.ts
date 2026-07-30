@@ -18,6 +18,8 @@ export const galleryImage = defineType({
           { title: 'Gel', value: 'gel' },
           { title: 'Foot', value: 'foot' },
           { title: 'Seasonal', value: 'seasonal' },
+          { title: 'Valentine', value: 'valentine' },
+          { title: 'Halloween', value: 'halloween' },
           { title: 'Design', value: 'design' }
         ]
       }

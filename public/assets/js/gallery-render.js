@@ -7,6 +7,8 @@
     { key: "gel", label: "Gel" },
     { key: "foot", label: "Foot" },
     { key: "seasonal", label: "Seasonal" },
+    { key: "valentine", label: "Valentine" },
+    { key: "halloween", label: "Halloween" },
     { key: "design", label: "Design" }
   ];
   const INITIAL_VISIBLE_COUNT = 8;
