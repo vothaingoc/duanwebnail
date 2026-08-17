@@ -6,7 +6,8 @@
     "sanity:dev": "sanity dev",
     "sanity:build": "sanity build sanity-dist",
     "sanity:import-pricing": "node scripts/import-pricing-to-sanity.mjs",
-    "sanity:import-gallery": "node scripts/import-gallery-to-sanity.mjs"
+    "sanity:import-gallery": "node scripts/import-gallery-to-sanity.mjs",
+    "sanity:import-gallery-folder": "node scripts/import-gallery-to-sanity.mjs --folder"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",

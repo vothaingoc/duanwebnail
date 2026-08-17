@@ -106,3 +106,42 @@ Then:
 4. Confirm the image preview, category, tags, order, and published field.
 
 After import, rebuild/deploy the website so Astro fetches the published Sanity gallery documents instead of using the local fallback.
+
+## Fast Folder Import
+
+Use this when you have many images, for example 96 photos from one shoot.
+
+1. Put all photos in one folder, for example:
+
+```text
+C:\Users\thai ngoc\Desktop\golyn-upload\valentine
+```
+
+2. Dry run first:
+
+```powershell
+npm.cmd run sanity:import-gallery-folder -- "C:\Users\thai ngoc\Desktop\golyn-upload\valentine" --category valentine --tags valentine,seasonal --start-order 100 --title-prefix Valentine --dry-run
+```
+
+3. Real import:
+
+```powershell
+$env:SANITY_AUTH_TOKEN="your_sanity_write_token"
+npm.cmd run sanity:import-gallery-folder -- "C:\Users\thai ngoc\Desktop\golyn-upload\valentine" --category valentine --tags valentine,seasonal --start-order 100 --title-prefix Valentine
+```
+
+Options:
+
+- `--category valentine`: sets the Gallery Image category for all photos.
+- `--tags valentine,seasonal`: adds tags for filtering/searching.
+- `--start-order 100`: first order number. The next images become 101, 102, and so on.
+- `--title-prefix Valentine`: adds a prefix to generated titles.
+- `--force-assets`: uploads image assets again instead of reusing existing document assets.
+
+Supported image formats:
+
+- `.jpg`
+- `.jpeg`
+- `.png`
+- `.webp`
+- `.avif`

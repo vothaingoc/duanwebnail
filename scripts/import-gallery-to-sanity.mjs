@@ -11,6 +11,21 @@ const API_VERSION = process.env.PUBLIC_SANITY_API_VERSION || process.env.SANITY_
 const TOKEN = process.env.SANITY_AUTH_TOKEN || process.env.SANITY_API_TOKEN || '';
 const DRY_RUN = process.argv.includes('--dry-run');
 const FORCE_ASSETS = process.argv.includes('--force-assets');
+const IMAGE_EXTENSIONS = new Set(['.jpg', '.jpeg', '.png', '.webp', '.avif']);
+
+function argValue(name, fallback = '') {
+  const prefix = `--${name}=`;
+  const inline = process.argv.find(arg => arg.startsWith(prefix));
+  if (inline) return inline.slice(prefix.length);
+  const index = process.argv.indexOf(`--${name}`);
+  return index >= 0 ? process.argv[index + 1] || fallback : fallback;
+}
+
+const SOURCE_FOLDER = argValue('folder') || argValue('dir');
+const IMPORT_CATEGORY = argValue('category', 'simple');
+const IMPORT_TAGS = argValue('tags', IMPORT_CATEGORY);
+const START_ORDER = Number.parseInt(argValue('start-order', '1'), 10);
+const TITLE_PREFIX = argValue('title-prefix');
 
 function slugify(value) {
   return String(value || '')
@@ -23,7 +38,7 @@ function slugify(value) {
 }
 
 function sourceValue(item) {
-  return String(item.image || item.src || '').trim();
+  return String(item.localPath || item.image || item.src || '').trim();
 }
 
 function basenameFromSource(source) {
@@ -52,6 +67,7 @@ function cleanTags(item) {
 }
 
 function resolveLocalPath(source) {
+  if (path.isAbsolute(source) && fs.existsSync(source)) return source;
   const normalized = source.replace(/^\//, '').replace(/^\.\//, '');
   const candidates = [
     path.join(ROOT_DIR, 'public', normalized),
@@ -127,21 +143,69 @@ function buildDocument(item, index, assetRef = null) {
     description: item.description || item.tag || '',
     order: Number.isFinite(Number(item.order)) ? Number(item.order) : index + 1,
     published: item.published !== false,
-    sourcePath: source
+    sourcePath: item.sourcePath || source
   };
 }
 
-function galleryItems() {
+function titleFromFilename(filename) {
+  const base = path.parse(filename).name;
+  const words = base
+    .replace(/^\d+[-_\s.]*/, '')
+    .replace(/[-_]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  return words
+    ? words.replace(/\b\w/g, letter => letter.toUpperCase())
+    : base;
+}
+
+function folderGalleryItems() {
+  const folder = path.resolve(ROOT_DIR, SOURCE_FOLDER);
+  if (!fs.existsSync(folder)) {
+    throw new Error(`Gallery import folder not found: ${folder}`);
+  }
+
+  const tags = IMPORT_TAGS
+    ? IMPORT_TAGS.split(',').map(tag => tag.trim()).filter(Boolean)
+    : [];
+  const files = fs.readdirSync(folder, { withFileTypes: true })
+    .filter(entry => entry.isFile() && IMAGE_EXTENSIONS.has(path.extname(entry.name).toLowerCase()))
+    .map(entry => entry.name)
+    .sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
+
+  return files.map((filename, index) => {
+    const order = Number.isFinite(START_ORDER) ? START_ORDER + index : index + 1;
+    const title = `${TITLE_PREFIX ? `${TITLE_PREFIX} ` : ''}${titleFromFilename(filename)}`.trim();
+    return {
+      localPath: path.join(folder, filename),
+      sourcePath: `folder-import:${filename}`,
+      title,
+      label: title,
+      alt: `${title} nail design`,
+      category: IMPORT_CATEGORY,
+      tags,
+      order,
+      published: true
+    };
+  });
+}
+
+function jsonGalleryItems() {
   const galleryData = JSON.parse(fs.readFileSync(SOURCE_FILE, 'utf8'));
   const images = Array.isArray(galleryData) ? galleryData : galleryData.images;
   return Array.isArray(images) ? images : [];
+}
+
+function galleryItems() {
+  return SOURCE_FOLDER ? folderGalleryItems() : jsonGalleryItems();
 }
 
 async function run() {
   const items = galleryItems();
   const prepared = items.map((item, index) => buildDocument(item, index));
 
-  console.log(`Gallery source: content/gallery/gallery.json`);
+  console.log(`Gallery source: ${SOURCE_FOLDER ? path.resolve(ROOT_DIR, SOURCE_FOLDER) : 'content/gallery/gallery.json'}`);
   console.log(`Gallery documents prepared: ${prepared.length}`);
 
   if (DRY_RUN) {
