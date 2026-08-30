@@ -1,133 +1,168 @@
 ---
 import SiteLayout from '../components/SiteLayout.astro';
 
-const title = 'Nail Services in Osaka | Golyn Nail';
-const description = 'Explore Golyn Nail services in Osaka, including gel nails, nail art, long nail extensions, foot nails, manicure, pedicure, and salon care.';
+const title = 'サービス | Golyn Nail 大阪のネイルサロン';
+const description = 'Golyn Nailのネイルサービス。ジェルネイル、アートデザイン、長さ出し、フットネイルまで大阪で丁寧に施術します。';
 ---
 
 <SiteLayout title={title} description={description}>
   <main>
-    <section class="page-hero">
-      <div class="hero-eyebrow">Our Services</div>
-      <h1>Golyn Nail Services</h1>
-      <p>Gel nail, nail art, long nail extensions, foot nail, manicure, pedicure, and careful salon care in Osaka.</p>
-      <div class="sec-line"></div>
-    </section>
-
-    <section class="seo-page-section" aria-labelledby="services-title">
-      <div class="section-heading">
-        <p>Menu</p>
-        <h2 id="services-title">Nail services for everyday beauty and special occasions</h2>
+    <section class="services services-page" id="services" aria-labelledby="services-title">
+      <div class="sec-header">
+        <div class="sec-eyebrow">Our Services</div>
+        <h1 class="sec-title" id="services-title">私たちの<em>サービス</em></h1>
+        <div class="sec-line"></div>
       </div>
-      <div class="seo-grid">
-        <article>
-          <h3>Gel Nail</h3>
-          <p>One color, flash, glitter, nuance, Korean style, and clean daily designs.</p>
+      <div class="services-grid">
+        <article class="service-card">
+          <div class="service-num">01</div>
+          <div class="service-name">Gel Nail</div>
+          <p class="service-desc">ワンカラー・フラッシュ・ラメグラ。韓国・ワンホン・ニュアンスにも対応。</p>
+          <div class="service-price" data-service-price="gel-onecolor">¥5,900〜※ 期間限定キャンペーン価格</div>
         </article>
-        <article>
-          <h3>Art Design</h3>
-          <p>Four, six, or ten finger art designs with popular parts and custom design consultation.</p>
+        <article class="service-card">
+          <div class="service-num">02</div>
+          <div class="service-name">Art Design</div>
+          <p class="service-desc">4本・6本・10本アート。人気パーツ込み、持ち込みデザインOK。</p>
+          <div class="service-price" data-service-price="gel-4art">¥8,200〜※ 期間限定キャンペーン価格</div>
         </article>
-        <article>
-          <h3>Long Nail Extensions</h3>
-          <p>Length extensions, sculpture, gel tips, and long nail styles for a polished finish.</p>
+        <article class="service-card">
+          <div class="service-num">03</div>
+          <div class="service-name">Long Nail / 長さ出し</div>
+          <p class="service-desc">長さ出し・スカルプ・ジェルチップ対応。超ロングや韓国ネイルも人気。</p>
+          <div class="service-price" data-service-price="ext-onecolor">¥6,800〜※ 期間限定キャンペーン価格</div>
         </article>
-        <article>
-          <h3>Foot Nail</h3>
-          <p>Foot gel, foot art, and seasonal pedicure designs for sandals, travel, and events.</p>
+        <article class="service-card">
+          <div class="service-num">04</div>
+          <div class="service-name">Foot Nail</div>
+          <p class="service-desc">フットワンカラーから10本アートまで。夏人気のフットネイルにも対応。</p>
+          <div class="service-price" data-service-price="foot-onecolor">¥4,600〜※ 期間限定キャンペーン価格</div>
         </article>
-      </div>
-      <div class="page-actions">
-        <a class="btn-primary" href="/price-detail/">View Prices</a>
-        <a class="btn-secondary" href="/gallery/">View Gallery</a>
       </div>
     </section>
   </main>
+  <script is:inline src="/assets/js/pricing-data.js"></script>
+  <script is:inline src="/assets/js/pricing-render.js"></script>
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const lang = localStorage.getItem('golynLang') || 'ja';
+      if (window.GolynPricing) {
+        window.GolynPricing.renderServicePrices(lang);
+        window.GolynPricing.applyCampaignState();
+      }
+    });
+  </script>
 </SiteLayout>
 
 <style>
-  .seo-page-section {
-    padding: 72px 20px 96px;
+  .services {
+    padding: calc(var(--nav-h) + 76px) 80px 96px;
+    background: var(--white);
   }
-  .section-heading {
-    max-width: 840px;
-    margin: 0 auto 34px;
+  .sec-header {
     text-align: center;
+    margin-bottom: 58px;
   }
-  .section-heading p {
-    margin-bottom: 8px;
-    color: var(--gold);
+  .sec-eyebrow {
     font-size: 12px;
-    letter-spacing: .26em;
+    letter-spacing: .22em;
     text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 14px;
   }
-  .section-heading h2 {
+  .sec-title {
     font-family: var(--serif);
-    font-size: clamp(30px, 4vw, 46px);
+    font-size: clamp(32px, 3.6vw, 50px);
     font-weight: 300;
     color: var(--brown-deep);
-    line-height: 1.2;
+    line-height: 1.18;
   }
-  .seo-grid {
+  .sec-title em {
+    font-style: italic;
+    color: var(--beige-dark);
+  }
+  .services-grid {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 20px;
-    max-width: 1100px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+    max-width: 900px;
     margin: 0 auto;
   }
-  .seo-grid article {
-    min-height: 210px;
-    padding: 28px 24px;
-    background: var(--white);
-    border: 1px solid rgba(217,197,160,.72);
-    border-bottom: 2px solid var(--cream-deep);
-    border-radius: 6px;
-    box-shadow: 0 12px 36px rgba(74,55,40,.07);
+  .service-card {
+    background: var(--cream);
+    padding: 42px 32px;
+    position: relative;
+    overflow: hidden;
+    transition: .3s;
   }
-  .seo-grid h3 {
-    margin-bottom: 14px;
+  .service-card:hover {
+    background: var(--cream-mid);
+  }
+  .service-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--gold);
+    transition: width .4s;
+    box-shadow: 0 0 10px rgba(201,150,60,.4);
+  }
+  .service-card:hover::after {
+    width: 100%;
+  }
+  .service-num {
     font-family: var(--serif);
-    font-size: 28px;
-    font-weight: 400;
-    color: var(--brown-deep);
+    font-size: 44px;
+    font-weight: 300;
+    color: var(--cream-deep);
+    line-height: 1;
+    margin-bottom: 20px;
   }
-  .seo-grid p {
-    color: var(--text-mid);
-    font-size: 14px;
-    line-height: 1.85;
-  }
-  .page-actions {
-    display: flex;
-    justify-content: center;
-    gap: 14px;
-    margin-top: 34px;
-    flex-wrap: wrap;
-  }
-  .btn-primary,
-  .btn-secondary {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 46px;
-    padding: 12px 28px;
-    border-radius: 2px;
-    text-decoration: none;
+  .service-name {
     font-size: 13px;
-    letter-spacing: .12em;
-  }
-  .btn-primary {
-    background: var(--brown-deep);
-    color: var(--cream);
-  }
-  .btn-secondary {
-    border: 1px solid var(--cream-deep);
+    letter-spacing: .14em;
+    text-transform: uppercase;
     color: var(--brown-deep);
+    font-weight: 500;
+    margin-bottom: 10px;
   }
-  @media (max-width: 900px) {
-    .seo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .service-desc {
+    font-size: 15px;
+    color: var(--text-mid);
+    line-height: 1.85;
+    margin-bottom: 16px;
   }
-  @media (max-width: 640px) {
-    .seo-page-section { padding: 56px 20px 72px; }
-    .seo-grid { grid-template-columns: 1fr; }
+  .service-price {
+    color: var(--brown);
+  }
+  :global(.service-price-value) {
+    display: block;
+    font-family: var(--serif);
+    font-size: 22px;
+    font-style: italic;
+    line-height: 1.25;
+  }
+  .service-price :global(.service-campaign) {
+    display: block;
+    font-family: var(--sans);
+    font-size: 11px;
+    line-height: 1.5;
+    font-style: normal;
+    color: var(--text-light);
+    letter-spacing: .04em;
+    margin-top: 4px;
+  }
+  @media (max-width: 768px) {
+    .services {
+      padding: calc(var(--nav-h) + 50px) 20px 64px;
+    }
+    .services-grid {
+      grid-template-columns: 1fr;
+    }
+    .service-card {
+      padding: 34px 26px;
+    }
   }
 </style>

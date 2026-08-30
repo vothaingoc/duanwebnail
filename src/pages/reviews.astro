@@ -1,136 +1,111 @@
 ---
 import SiteLayout from '../components/SiteLayout.astro';
 
-const title = 'Customer Reviews | Golyn Nail Osaka';
-const description = 'Read customer review highlights for Golyn Nail, a nail salon in Osaka offering gel nails, nail art, foot nails, and careful salon service.';
+const title = '口コミ | Golyn Nail 大阪のネイルサロン';
+const description = 'Golyn Nailをご利用いただいたお客様の声。大阪で丁寧なカウンセリング、上品な空間、長持ちするジェルネイルをご提供します。';
 ---
 
 <SiteLayout title={title} description={description}>
   <main>
-    <section class="page-hero">
-      <div class="hero-eyebrow">Customer Reviews</div>
-      <h1>Golyn Nail Reviews</h1>
-      <p>Customer voices about design consultation, careful nail work, relaxing salon time, and long lasting gel nails.</p>
-      <div class="sec-line"></div>
-    </section>
-
-    <section class="seo-page-section" aria-labelledby="reviews-title">
-      <div class="section-heading">
-        <p>Voice</p>
-        <h2 id="reviews-title">What customers appreciate about Golyn Nail</h2>
+    <section class="testimonials testimonials-page" id="testimonials" aria-labelledby="reviews-title">
+      <div class="sec-header">
+        <div class="sec-eyebrow">Customer Reviews</div>
+        <h1 class="sec-title" id="reviews-title">お客様の<em>声</em></h1>
+        <div class="sec-line"></div>
       </div>
-      <div class="review-grid">
-        <article>
-          <div class="stars">★★★★★</div>
-          <p>Careful consultation and beautiful nail art. The finish felt elegant and easy to wear every day.</p>
-          <span>Osaka customer</span>
+      <div class="test-grid">
+        <article class="test-card">
+          <div class="test-stars">★★★★★</div>
+          <p class="test-quote">「大阪で一番気に入っているネイルサロンです。担当の方がとても丁寧で親切でした。」</p>
+          <div class="test-author">— Kimura Yuki, Osaka</div>
         </article>
-        <article>
-          <div class="stars">★★★★★</div>
-          <p>The salon atmosphere is calm, and the gel nails lasted well while keeping a clean shape.</p>
-          <span>Namba customer</span>
+        <article class="test-card">
+          <div class="test-stars">★★★★★</div>
+          <p class="test-quote">「空間がとても上品でリラックスできます。ジェルネイルが5週間経っても剥がれませんでした。」</p>
+          <div class="test-author">— Tanaka Haruka, Namba</div>
         </article>
-        <article>
-          <div class="stars">★★★★★</div>
-          <p>The design result was even better than expected. I would recommend it for detailed nail art.</p>
-          <span>International customer</span>
+        <article class="test-card">
+          <div class="test-stars">★★★★★</div>
+          <p class="test-quote">「ネイルアートのデザインが期待以上でした。毎月通いたいですし、友人にも勧めたいです。」</p>
+          <div class="test-author">— Nguyen Linh, 留学生</div>
         </article>
-      </div>
-      <div class="page-actions">
-        <a class="btn-primary" href="/access/">Contact Golyn Nail</a>
-        <a class="btn-secondary" href="/gallery/">View Designs</a>
       </div>
     </section>
   </main>
 </SiteLayout>
 
 <style>
-  .seo-page-section {
-    padding: 72px 20px 96px;
+  .testimonials {
+    padding: calc(var(--nav-h) + 76px) 80px 96px;
+    background: var(--cream-mid);
   }
-  .section-heading {
-    max-width: 840px;
-    margin: 0 auto 34px;
+  .sec-header {
     text-align: center;
+    margin-bottom: 58px;
   }
-  .section-heading p {
-    margin-bottom: 8px;
-    color: var(--gold);
+  .sec-eyebrow {
     font-size: 12px;
-    letter-spacing: .26em;
+    letter-spacing: .22em;
     text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 14px;
   }
-  .section-heading h2 {
+  .sec-title {
     font-family: var(--serif);
-    font-size: clamp(30px, 4vw, 46px);
+    font-size: clamp(32px, 3.6vw, 50px);
     font-weight: 300;
     color: var(--brown-deep);
-    line-height: 1.2;
+    line-height: 1.18;
   }
-  .review-grid {
+  .sec-title em {
+    font-style: italic;
+    color: var(--beige-dark);
+  }
+  .test-grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 22px;
     max-width: 1100px;
     margin: 0 auto;
   }
-  .review-grid article {
-    min-height: 240px;
-    padding: 30px 26px;
+  .test-card {
     background: var(--white);
-    border: 1px solid rgba(217,197,160,.72);
+    padding: 34px 30px;
+    border-radius: 4px;
     border-bottom: 2px solid var(--cream-deep);
-    border-radius: 6px;
-    box-shadow: 0 12px 36px rgba(74,55,40,.07);
+    transition: border-color .25s, transform .25s;
   }
-  .stars {
-    margin-bottom: 18px;
+  .test-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-4px);
+  }
+  .test-stars {
     color: var(--gold);
-    letter-spacing: .08em;
+    letter-spacing: 2px;
+    font-size: 12px;
+    margin-bottom: 16px;
   }
-  .review-grid p {
-    margin-bottom: 18px;
-    color: var(--brown-deep);
+  .test-quote {
     font-family: var(--serif);
-    font-size: 20px;
+    font-size: 18px;
     font-style: italic;
-    line-height: 1.7;
-  }
-  .review-grid span {
-    color: var(--text-light);
-    font-size: 13px;
-  }
-  .page-actions {
-    display: flex;
-    justify-content: center;
-    gap: 14px;
-    margin-top: 34px;
-    flex-wrap: wrap;
-  }
-  .btn-primary,
-  .btn-secondary {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 46px;
-    padding: 12px 28px;
-    border-radius: 2px;
-    text-decoration: none;
-    font-size: 13px;
-    letter-spacing: .12em;
-  }
-  .btn-primary {
-    background: var(--brown-deep);
-    color: var(--cream);
-  }
-  .btn-secondary {
-    border: 1px solid var(--cream-deep);
     color: var(--brown-deep);
+    line-height: 1.65;
+    margin-bottom: 22px;
+  }
+  .test-author {
+    font-size: 13px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--text-light);
   }
   @media (max-width: 900px) {
-    .review-grid { grid-template-columns: 1fr; max-width: 680px; }
-  }
-  @media (max-width: 640px) {
-    .seo-page-section { padding: 56px 20px 72px; }
+    .testimonials {
+      padding: calc(var(--nav-h) + 50px) 20px 64px;
+    }
+    .test-grid {
+      grid-template-columns: 1fr;
+      max-width: 680px;
+    }
   }
 </style>
