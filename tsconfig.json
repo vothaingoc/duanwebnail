@@ -1,18 +1,3 @@
 {
-  "extends": "astro/tsconfigs/strict",
-  "include": [
-    ".astro/types.d.ts",
-    "src/**/*.astro",
-    "src/**/*.ts",
-    "*.ts",
-    "*.mjs"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "sanity-dist",
-    "public",
-    "assets",
-    "migrations"
-  ]
+  "extends": "astro/tsconfigs/strict"
 }

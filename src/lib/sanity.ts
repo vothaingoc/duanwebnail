@@ -21,7 +21,7 @@ export const sanityClient = isSanityConfigured()
     })
   : null;
 
-const blogListQuery = `*[_type == "blogPost" && published != false] | order(publishedAt desc) {
+const blogListQuery = `*[_type == "blogPost"] | order(publishedAt desc) {
   _id,
   title,
   "slug": slug.current,
@@ -277,42 +277,6 @@ function toPricingCampaign(item: any): PricingCampaign | null {
 
 const pricingLangs = ['ja', 'en', 'vi', 'zh', 'ko', 'my', 'id'];
 
-const placeholderTerms = [
-  'quản trị viên',
-  'card giới thiệu',
-  'chủ quán',
-  'admin',
-  'administrator',
-  'placeholder',
-  'sample',
-];
-
-function containsPlaceholder(value: unknown) {
-  const normalized = String(value || '').trim().toLowerCase();
-  return placeholderTerms.some(term => normalized.includes(term));
-}
-
-function isPublicBlogPost(post: LegacyBlogPost) {
-  const slug = String(post.slug || post.id || '').toLowerCase();
-  const title = String(post.title || '').trim();
-  const body = String(post.html || post.body || post.content || '').trim();
-  const explicitlyTest = /(^|[-_\s])(test|demo|sample|placeholder)([-_\s]|$)/i.test(`${slug} ${title} ${post.tag || ''}`);
-  return Boolean(slug && title && body && !explicitlyTest && !containsPlaceholder(title));
-}
-
-function isPublicStaffMember(staff: StaffMember) {
-  return Boolean(
-    staff.slug &&
-    staff.name &&
-    staff.position &&
-    staff.photo &&
-    !containsPlaceholder(staff.name) &&
-    !containsPlaceholder(staff.position) &&
-    !containsPlaceholder(staff.introduction) &&
-    !containsPlaceholder(staff.selfIntroduction)
-  );
-}
-
 function priceValue(textValue: string | undefined, numericValue: number | undefined) {
   if (textValue) return textValue;
   return typeof numericValue === 'number' ? numericValue : null;
@@ -496,9 +460,7 @@ export async function getSanityStaffMembers(): Promise<StaffMember[]> {
     return [];
   }
   const items = await sanityClient.fetch(staffListQuery);
-  return Array.isArray(items)
-    ? items.map(toStaffMember).filter((item): item is StaffMember => Boolean(item))
-    : [];
+  return Array.isArray(items) ? items.map(toStaffMember).filter(Boolean) : [];
 }
 
 export async function getSanityStaffMemberBySlug(slug: string): Promise<StaffMember | null> {
@@ -509,23 +471,23 @@ export async function getSanityStaffMemberBySlug(slug: string): Promise<StaffMem
 
 export async function getBlogPostsWithFallback() {
   try {
-    const posts = (await getSanityBlogPosts()).filter(isPublicBlogPost);
+    const posts = await getSanityBlogPosts();
     if (posts.length) return posts;
     console.log(`[Sanity] Blog: no Sanity posts, using ${legacyBlogPosts().length} JSON fallback post(s).`);
   } catch (error) {
     console.warn('Sanity blog fallback:', error);
   }
-  return legacyBlogPosts().filter(isPublicBlogPost);
+  return legacyBlogPosts();
 }
 
 export async function getBlogPostBySlugWithFallback(slug: string) {
   try {
     const post = await getSanityBlogPostBySlug(slug);
-    if (post && isPublicBlogPost(post)) return post;
+    if (post) return post;
   } catch (error) {
     console.warn('Sanity blog detail fallback:', error);
   }
-  return legacyBlogPosts().filter(isPublicBlogPost).find(post => post.slug === slug || post.id === slug) || null;
+  return legacyBlogPosts().find(post => post.slug === slug || post.id === slug) || null;
 }
 
 export async function getGalleryWithFallback() {
@@ -558,7 +520,7 @@ export async function getPricingDataOverride() {
 
 export async function getStaffMembers() {
   try {
-    return (await getSanityStaffMembers()).filter(isPublicStaffMember);
+    return await getSanityStaffMembers();
   } catch (error) {
     console.warn('Sanity staff fallback:', error);
   }
@@ -567,8 +529,7 @@ export async function getStaffMembers() {
 
 export async function getStaffMemberBySlug(slug: string) {
   try {
-    const staff = await getSanityStaffMemberBySlug(slug);
-    return staff && isPublicStaffMember(staff) ? staff : null;
+    return await getSanityStaffMemberBySlug(slug);
   } catch (error) {
     console.warn('Sanity staff detail fallback:', error);
   }

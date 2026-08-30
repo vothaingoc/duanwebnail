@@ -1,7 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /admin/
-Disallow: /sanity/
-Disallow: /price-detail/
 
-Sitemap: https://golynnail.jp/sitemap.xml
+Sitemap: https://golynnail.jp/sitemap-index.xml

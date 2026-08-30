@@ -1,35 +1,242 @@
 ---
 import StaffCard from '../../components/StaffCard.astro';
 import SiteLayout from '../../components/SiteLayout.astro';
-import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import { getStaffMembers } from '../../lib/sanity';
-import { pageSeo } from '../../data/site';
 
 const staffMembers = await getStaffMembers();
+const title = 'スタッフ紹介 | Golyn Nail';
+const description = 'Golyn Nailで働くスタッフをご紹介します。経験豊富なネイリストのプロフィール、得意なデザイン、資格をご覧いただけます。';
 ---
 
-<SiteLayout title={pageSeo.staff.title} description={pageSeo.staff.description} path="/staff/">
+<SiteLayout title={title} description={description}>
   <main>
-    <Breadcrumbs items={[{ label: 'スタッフ紹介' }]} />
-    <section class="page-hero"><p class="eyebrow">Staff</p><h1>スタッフ紹介</h1><p class="lead">確認済みのプロフィールが公開されたスタッフをご紹介します。</p><div class="gold-line"></div></section>
-    <section class="section" aria-labelledby="staff-list-title">
-      <div class="section-inner">
-        <div class="section-heading"><p class="eyebrow">Members</p><h2 id="staff-list-title">ネイリスト一覧</h2></div>
-        {staffMembers.length ? <div class="staff-grid">{staffMembers.map((staff) => <StaffCard staff={staff} />)}</div> : <p class="notice">スタッフ情報はただいま準備中です。確認済みのスタッフ情報が公開されると、こちらに表示されます。</p>}
+    <section class="page-hero">
+      <div class="hero-eyebrow">Staff</div>
+      <h1 data-i18n="staff_title">スタッフ紹介</h1>
+      <p data-i18n="staff_subtitle">Golyn Nailで働くスタッフをご紹介します。</p>
+      <div class="sec-line"></div>
+    </section>
+
+    <section class="staff-list" aria-labelledby="staff-list-title">
+      <div class="section-heading">
+        <p>Members</p>
+        <h2 id="staff-list-title" data-i18n="staff_members">ネイリスト一覧</h2>
       </div>
+      {staffMembers.length > 0 ? (
+        <div class="staff-grid">
+          {staffMembers.map((staff) => <StaffCard staff={staff} />)}
+        </div>
+      ) : (
+        <p class="staff-empty">スタッフ情報はただいま準備中です。公開済みのスタッフが登録されると、こちらに表示されます。</p>
+      )}
     </section>
   </main>
 </SiteLayout>
 
 <style>
-  .staff-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
-  .staff-card { display: flex; flex-direction: column; overflow: hidden; background: var(--white); border: 1px solid var(--cream-deep); }
-  .staff-card-image img { width: 100%; aspect-ratio: 4/5; object-fit: cover; }
-  .staff-card-body { display: flex; flex: 1; flex-direction: column; padding: 24px; }
-  .staff-position { margin: 0; color: var(--gold); font-size: 12px; letter-spacing: .16em; }
-  .staff-card h2 { margin: 6px 0; color: var(--brown-deep); font-family: var(--serif); font-size: 32px; font-weight: 500; }
-  .staff-intro { flex: 1; color: var(--text-mid); }
-  .staff-button { color: var(--brown); font-weight: 500; text-underline-offset: 3px; }
-  @media (max-width: 800px) { .staff-grid { grid-template-columns: 1fr 1fr; } }
-  @media (max-width: 520px) { .staff-grid { grid-template-columns: 1fr; } }
+  .staff-list {
+    padding: 72px 20px 96px;
+  }
+  .section-heading {
+    max-width: 1100px;
+    margin: 0 auto 30px;
+    text-align: center;
+  }
+  .section-heading p {
+    color: var(--gold);
+    font-size: 12px;
+    letter-spacing: .26em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .section-heading h2 {
+    font-family: var(--serif);
+    font-size: clamp(32px, 5vw, 48px);
+    font-weight: 300;
+    color: var(--brown-deep);
+  }
+  .staff-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: stretch;
+    grid-auto-rows: 1fr;
+    gap: 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .staff-empty {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 30px 24px;
+    background: var(--white);
+    border: 1px solid rgba(217,197,160,.72);
+    border-radius: 6px;
+    color: var(--text-mid);
+    font-size: 15px;
+    line-height: 1.9;
+    text-align: center;
+  }
+  .staff-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: var(--white);
+    border: 1px solid rgba(217,197,160,.72);
+    border-bottom: 2px solid var(--cream-deep);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 12px 36px rgba(74,55,40,.07);
+  }
+  .staff-card-image {
+    display: block;
+    aspect-ratio: 3 / 4;
+    flex: 0 0 auto;
+    overflow: hidden;
+    background: var(--cream-mid);
+  }
+  .staff-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .45s;
+  }
+  .staff-card:hover .staff-card-image img {
+    transform: scale(1.04);
+  }
+  .staff-card-body {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 26px 24px 28px;
+  }
+  .staff-position {
+    color: var(--gold);
+    font-size: 11px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .staff-card h2 {
+    margin-top: 6px;
+    font-family: var(--serif);
+    font-size: 32px;
+    font-weight: 400;
+    color: var(--brown-deep);
+  }
+  .staff-intro {
+    margin-top: 12px;
+    padding-bottom: 24px;
+    color: var(--text-mid);
+    font-size: 14px;
+    line-height: 1.9;
+  }
+  .staff-button {
+    display: inline-flex;
+    align-self: flex-start;
+    margin-top: auto;
+    padding: 11px 22px;
+    background: var(--brown-deep);
+    color: var(--cream);
+    border-radius: 2px;
+    text-decoration: none;
+    font-size: 13px;
+    letter-spacing: .12em;
+    transition: background .25s, transform .25s, box-shadow .25s;
+  }
+  .staff-button:hover {
+    background: var(--brown);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 18px rgba(201,150,60,.3);
+  }
+  @media (max-width: 900px) {
+    .staff-list { padding: 56px 20px 72px; }
+    .staff-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 760px; }
+  }
+  @media (max-width: 640px) {
+    .staff-grid { grid-template-columns: 1fr; max-width: 520px; }
+  }
+
+  :global(.staff-card) {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-width: 0;
+    background: var(--white);
+    border: 1px solid rgba(217,197,160,.72);
+    border-bottom: 2px solid var(--cream-deep);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 12px 36px rgba(74,55,40,.07);
+  }
+  :global(.staff-card-image) {
+    display: block;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    flex: 0 0 auto;
+    overflow: hidden;
+    background: var(--cream-mid);
+  }
+  :global(.staff-card-image img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    transition: transform .45s;
+  }
+  :global(.staff-card:hover .staff-card-image img) {
+    transform: scale(1.04);
+  }
+  :global(.staff-card-body) {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    min-height: 245px;
+    padding: 26px 24px 28px;
+  }
+  :global(.staff-position) {
+    min-height: 1.4em;
+    color: var(--gold);
+    font-size: 11px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  :global(.staff-card h2) {
+    margin-top: 6px;
+    font-family: var(--serif);
+    font-size: clamp(26px, 2.8vw, 32px);
+    font-weight: 400;
+    line-height: 1.15;
+    color: var(--brown-deep);
+  }
+  :global(.staff-intro) {
+    margin-top: 12px;
+    padding-bottom: 24px;
+    color: var(--text-mid);
+    font-size: 14px;
+    line-height: 1.9;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  :global(.staff-button) {
+    display: inline-flex;
+    align-self: flex-start;
+    margin-top: auto;
+    padding: 11px 22px;
+    background: var(--brown-deep);
+    color: var(--cream);
+    border-radius: 2px;
+    text-decoration: none;
+    font-size: 13px;
+    letter-spacing: .12em;
+    transition: background .25s, transform .25s, box-shadow .25s;
+  }
+  :global(.staff-button:hover) {
+    background: var(--brown);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 18px rgba(201,150,60,.3);
+  }
 </style>
