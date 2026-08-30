@@ -1,0 +1,163 @@
+---
+import SiteLayout from '../components/SiteLayout.astro';
+
+const title = 'Access and Reservation | Golyn Nail Osaka';
+const description = 'Find Golyn Nail access information, opening hours, station directions, map, and reservation contact details for the Osaka nail salon.';
+---
+
+<SiteLayout title={title} description={description}>
+  <main>
+    <section class="page-hero">
+      <div class="hero-eyebrow">Access</div>
+      <h1>Access and Reservation</h1>
+      <p>Visit Golyn Nail in Osaka. Please contact us through LINE or social channels for reservations and questions.</p>
+      <div class="sec-line"></div>
+    </section>
+
+    <section class="access-page" aria-labelledby="access-title">
+      <div class="section-heading">
+        <p>Location</p>
+        <h2 id="access-title">Salon information</h2>
+      </div>
+      <div class="access-grid">
+        <div class="map-wrap">
+          <iframe allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3281.15!2d135.47956!3d34.66785!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6000e6a4b1f1bf0d%3A0x8c4d2f0b3a1e5c7d!2z5aSn6Ziq5YyX5aSn6Ziq5biC6KW_5Yy65Lmd5p2x5Y2X77yT5LiB55uu77yT77yQ4oiS77yR77yA!5e0!3m2!1sja!2sjp!4v1700000000000!5m2!1sja!2sjp" title="Golyn Nail map"></iframe>
+        </div>
+        <div class="access-card">
+          <h3>Golyn Nail</h3>
+          <dl>
+            <div>
+              <dt>Address</dt>
+              <dd>3-30-10 Kujo Minami, Nishi-ku, Osaka 550-0025</dd>
+            </div>
+            <div>
+              <dt>Hours</dt>
+              <dd>Monday to Friday: 10:00 - 20:00<br />Saturday and Sunday: 10:00 - 19:00</dd>
+            </div>
+            <div>
+              <dt>Nearest Stations</dt>
+              <dd>About 7 minutes from Hanshin Namba Line Kujo Station. About 8 minutes from Osaka Metro Chuo Line Kujo Station.</dd>
+            </div>
+          </dl>
+          <div class="page-actions">
+            <a class="btn-primary" href="https://maps.google.com/?q=34.66785,135.47956" rel="noopener noreferrer" target="_blank">Open Google Maps</a>
+            <a class="btn-secondary" href="https://www.instagram.com/golynnail?igsh=MWhoNmR1NXV1dnFmcg%3D%3D&utm_source=qr" rel="noopener noreferrer" target="_blank">Instagram</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</SiteLayout>
+
+<style>
+  .access-page {
+    padding: 72px 20px 96px;
+  }
+  .section-heading {
+    max-width: 840px;
+    margin: 0 auto 34px;
+    text-align: center;
+  }
+  .section-heading p {
+    margin-bottom: 8px;
+    color: var(--gold);
+    font-size: 12px;
+    letter-spacing: .26em;
+    text-transform: uppercase;
+  }
+  .section-heading h2 {
+    font-family: var(--serif);
+    font-size: clamp(30px, 4vw, 46px);
+    font-weight: 300;
+    color: var(--brown-deep);
+    line-height: 1.2;
+  }
+  .access-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(320px, .9fr);
+    gap: 32px;
+    max-width: 1100px;
+    margin: 0 auto;
+    align-items: stretch;
+  }
+  .map-wrap {
+    min-height: 430px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(74,55,40,.1);
+  }
+  .map-wrap iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+  .access-card {
+    padding: 34px 30px;
+    background: var(--white);
+    border: 1px solid rgba(217,197,160,.72);
+    border-bottom: 2px solid var(--cream-deep);
+    border-radius: 6px;
+    box-shadow: 0 12px 36px rgba(74,55,40,.07);
+  }
+  .access-card h3 {
+    margin-bottom: 24px;
+    font-family: var(--serif);
+    font-size: 34px;
+    font-weight: 400;
+    color: var(--brown-deep);
+  }
+  .access-card dl,
+  .access-card dd {
+    margin: 0;
+  }
+  .access-card dl > div {
+    padding: 18px 0;
+    border-top: 1px solid var(--cream-deep);
+  }
+  .access-card dt {
+    margin-bottom: 8px;
+    color: var(--gold);
+    font-size: 11px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .access-card dd {
+    color: var(--text-mid);
+    font-size: 14px;
+    line-height: 1.8;
+  }
+  .page-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 28px;
+    flex-wrap: wrap;
+  }
+  .btn-primary,
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    padding: 12px 24px;
+    border-radius: 2px;
+    text-decoration: none;
+    font-size: 13px;
+    letter-spacing: .12em;
+  }
+  .btn-primary {
+    background: var(--brown-deep);
+    color: var(--cream);
+  }
+  .btn-secondary {
+    border: 1px solid var(--cream-deep);
+    color: var(--brown-deep);
+  }
+  @media (max-width: 900px) {
+    .access-grid { grid-template-columns: 1fr; max-width: 760px; }
+  }
+  @media (max-width: 640px) {
+    .access-page { padding: 56px 20px 72px; }
+    .map-wrap { min-height: 320px; }
+  }
+</style>

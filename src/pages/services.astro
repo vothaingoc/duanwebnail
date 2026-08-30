@@ -1,0 +1,133 @@
+---
+import SiteLayout from '../components/SiteLayout.astro';
+
+const title = 'Nail Services in Osaka | Golyn Nail';
+const description = 'Explore Golyn Nail services in Osaka, including gel nails, nail art, long nail extensions, foot nails, manicure, pedicure, and salon care.';
+---
+
+<SiteLayout title={title} description={description}>
+  <main>
+    <section class="page-hero">
+      <div class="hero-eyebrow">Our Services</div>
+      <h1>Golyn Nail Services</h1>
+      <p>Gel nail, nail art, long nail extensions, foot nail, manicure, pedicure, and careful salon care in Osaka.</p>
+      <div class="sec-line"></div>
+    </section>
+
+    <section class="seo-page-section" aria-labelledby="services-title">
+      <div class="section-heading">
+        <p>Menu</p>
+        <h2 id="services-title">Nail services for everyday beauty and special occasions</h2>
+      </div>
+      <div class="seo-grid">
+        <article>
+          <h3>Gel Nail</h3>
+          <p>One color, flash, glitter, nuance, Korean style, and clean daily designs.</p>
+        </article>
+        <article>
+          <h3>Art Design</h3>
+          <p>Four, six, or ten finger art designs with popular parts and custom design consultation.</p>
+        </article>
+        <article>
+          <h3>Long Nail Extensions</h3>
+          <p>Length extensions, sculpture, gel tips, and long nail styles for a polished finish.</p>
+        </article>
+        <article>
+          <h3>Foot Nail</h3>
+          <p>Foot gel, foot art, and seasonal pedicure designs for sandals, travel, and events.</p>
+        </article>
+      </div>
+      <div class="page-actions">
+        <a class="btn-primary" href="/price-detail/">View Prices</a>
+        <a class="btn-secondary" href="/gallery/">View Gallery</a>
+      </div>
+    </section>
+  </main>
+</SiteLayout>
+
+<style>
+  .seo-page-section {
+    padding: 72px 20px 96px;
+  }
+  .section-heading {
+    max-width: 840px;
+    margin: 0 auto 34px;
+    text-align: center;
+  }
+  .section-heading p {
+    margin-bottom: 8px;
+    color: var(--gold);
+    font-size: 12px;
+    letter-spacing: .26em;
+    text-transform: uppercase;
+  }
+  .section-heading h2 {
+    font-family: var(--serif);
+    font-size: clamp(30px, 4vw, 46px);
+    font-weight: 300;
+    color: var(--brown-deep);
+    line-height: 1.2;
+  }
+  .seo-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .seo-grid article {
+    min-height: 210px;
+    padding: 28px 24px;
+    background: var(--white);
+    border: 1px solid rgba(217,197,160,.72);
+    border-bottom: 2px solid var(--cream-deep);
+    border-radius: 6px;
+    box-shadow: 0 12px 36px rgba(74,55,40,.07);
+  }
+  .seo-grid h3 {
+    margin-bottom: 14px;
+    font-family: var(--serif);
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--brown-deep);
+  }
+  .seo-grid p {
+    color: var(--text-mid);
+    font-size: 14px;
+    line-height: 1.85;
+  }
+  .page-actions {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 34px;
+    flex-wrap: wrap;
+  }
+  .btn-primary,
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    padding: 12px 28px;
+    border-radius: 2px;
+    text-decoration: none;
+    font-size: 13px;
+    letter-spacing: .12em;
+  }
+  .btn-primary {
+    background: var(--brown-deep);
+    color: var(--cream);
+  }
+  .btn-secondary {
+    border: 1px solid var(--cream-deep);
+    color: var(--brown-deep);
+  }
+  @media (max-width: 900px) {
+    .seo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 640px) {
+    .seo-page-section { padding: 56px 20px 72px; }
+    .seo-grid { grid-template-columns: 1fr; }
+  }
+</style>
