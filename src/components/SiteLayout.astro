@@ -5,7 +5,6 @@ interface Props {
 }
 
 const { title, description } = Astro.props;
-const isStaff = Astro.url.pathname.startsWith('/staff');
 const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://golynnail.jp').toString();
 const socialImage = new URL('/images/golyn-logo.jpg', Astro.site ?? 'https://golynnail.jp').toString();
 const organizationSchema = {
@@ -509,7 +508,7 @@ const organizationSchema = {
         <li><a data-i18n="nav_services" href="/services/">サービス</a></li>
         <li><a data-i18n="nav_reviews" href="/reviews/">口コミ</a></li>
         <li><a data-i18n="acc_eyebrow" href="/access/">アクセス</a></li>
-        <li><a data-i18n="staff_eyebrow" href="/staff/" aria-current={isStaff ? 'page' : undefined}>スタッフ</a></li>
+        <li><a data-i18n="staff_eyebrow" href="/staff/">スタッフ</a></li>
         <li><a data-i18n="nav_news" href="/news/">コラム</a></li>
       </ul>
       <div class="nav-right">
