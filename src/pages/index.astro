@@ -71,6 +71,7 @@ const homeSchema = {
 <link rel="icon" type="image/png" href="/favicon.png"/>
 <link rel="apple-touch-icon" href="/favicon.png"/>
 <script is:inline src="/assets/js/language-detect.js"></script>
+<script src="/assets/js/clean-section-links.js" defer></script>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500&amp;family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&amp;family=Jost:wght@200;300;400;500&amp;family=Noto+Sans+JP:wght@300;400;500&amp;display=swap" rel="stylesheet"/>
 <style>
@@ -710,14 +711,14 @@ html[lang="vi"] { --serif: 'Cormorant Garamond', serif; --sans: 'Be Vietnam Pro'
 <!-- Mobile Nav Overlay -->
 <div class="mobile-nav" id="mobileNav">
 <button class="mobile-nav-close" onclick="toggleMenu()">✕</button>
-<a data-i18n="nav_gallery" href="/gallery/" onclick="toggleMenu()">ギャラリー</a>
-<a data-i18n="price_eyebrow" href="/price-detail/" onclick="toggleMenu()">料金表</a>
-<a data-i18n="nav_services" href="/services/" onclick="toggleMenu()">サービス</a>
-<a data-i18n="nav_reviews" href="/reviews/" onclick="toggleMenu()">口コミ</a>
-<a data-i18n="acc_eyebrow" href="/access/" onclick="toggleMenu()">アクセス</a>
+<a data-i18n="nav_gallery" data-home-section="gallery" href="/" onclick="toggleMenu()">ギャラリー</a>
+<a data-i18n="price_eyebrow" data-home-section="pricing" href="/" onclick="toggleMenu()">料金表</a>
+<a data-i18n="nav_services" data-home-section="services" href="/" onclick="toggleMenu()">サービス</a>
+<a data-i18n="nav_reviews" data-home-section="testimonials" href="/" onclick="toggleMenu()">口コミ</a>
+<a data-i18n="acc_eyebrow" data-home-section="access" href="/" onclick="toggleMenu()">アクセス</a>
 <a data-i18n="staff_eyebrow" href="/staff/" onclick="toggleMenu()">スタッフ</a>
 <a data-i18n="nav_news" href="/news/" onclick="toggleMenu()">コラム</a>
-<a class="btn-primary" data-i18n="nav_reserve" href="/access/" onclick="toggleMenu()" style="font-family:var(--sans);margin-top:6px">ご予約</a>
+<a class="btn-primary" data-i18n="nav_reserve" data-home-section="access" href="/" onclick="toggleMenu()" style="font-family:var(--sans);margin-top:6px">ご予約</a>
 <div class="lang-switcher" style="margin-top:18px">
 <div class="lang-picker">
 <button aria-expanded="false" aria-haspopup="listbox" class="lang-current" onclick="toggleLangMenu(this)" type="button"><span class="flag flag-ja"></span><span class="lang-current-label">日本語</span><span class="lang-caret">▾</span></button>
@@ -737,11 +738,11 @@ html[lang="vi"] { --serif: 'Cormorant Garamond', serif; --sans: 'Be Vietnam Pro'
 <nav id="navbar">
 <a class="nav-logo-wrap" href="/" style="text-decoration:none"><img alt="Golyn Nail" class="nav-logo-img" src="/images/golyn-logo.jpg"/></a>
 <ul class="nav-links">
-<li><a data-i18n="nav_gallery" href="/gallery/">ギャラリー</a></li>
-<li><a data-i18n="price_eyebrow" href="/price-detail/">料金表</a></li>
-<li><a data-i18n="nav_services" href="/services/">サービス</a></li>
-<li><a data-i18n="nav_reviews" href="/reviews/">口コミ</a></li>
-<li><a data-i18n="acc_eyebrow" href="/access/">アクセス</a></li>
+<li><a data-i18n="nav_gallery" data-home-section="gallery" href="/">ギャラリー</a></li>
+<li><a data-i18n="price_eyebrow" data-home-section="pricing" href="/">料金表</a></li>
+<li><a data-i18n="nav_services" data-home-section="services" href="/">サービス</a></li>
+<li><a data-i18n="nav_reviews" data-home-section="testimonials" href="/">口コミ</a></li>
+<li><a data-i18n="acc_eyebrow" data-home-section="access" href="/">アクセス</a></li>
 <li><a data-i18n="staff_eyebrow" href="/staff/">スタッフ</a></li>
 <li><a data-i18n="nav_news" href="/news/">コラム</a></li>
 </ul>
@@ -760,7 +761,7 @@ html[lang="vi"] { --serif: 'Cormorant Garamond', serif; --sans: 'Be Vietnam Pro'
 </div>
 </div>
 </div>
-<a class="nav-cta" data-i18n="nav_reserve" href="/access/">ご予約</a>
+<a class="nav-cta" data-i18n="nav_reserve" data-home-section="access" href="/">ご予約</a>
 <div class="hamburger" onclick="toggleMenu()">
 <span></span><span></span><span></span>
 </div>
@@ -774,8 +775,8 @@ html[lang="vi"] { --serif: 'Cormorant Garamond', serif; --sans: 'Be Vietnam Pro'
 <p class="hero-subtitle" data-i18n="hero_sub">Premium Gel · Nail Art · Spa</p>
 <p class="hero-desc" data-i18n="hero_desc">細部にまでこだわったネイルアート。日本の技術と国際的なセンスを融合させた、大阪随一のネイルアトリエです。</p>
 <div class="hero-btns">
-<a class="btn-primary" data-i18n="hero_cta1" href="/access/">今すぐ予約する</a>
-<a class="btn-ghost" data-i18n="hero_cta2" href="/gallery/">デザインを見る</a>
+<a class="btn-primary" data-i18n="hero_cta1" data-home-section="access" href="/">今すぐ予約する</a>
+<a class="btn-ghost" data-i18n="hero_cta2" data-home-section="gallery" href="/">デザインを見る</a>
 </div>
 </div>
 <div class="hero-visual">
@@ -944,16 +945,16 @@ html[lang="vi"] { --serif: 'Cormorant Garamond', serif; --sans: 'Be Vietnam Pro'
 <div>
 <div class="footer-col-title" data-i18n="footer_info">インフォ</div>
 <ul class="footer-links">
-<li><a data-i18n="footer_about" href="/services/">私たちについて</a></li>
-<li><a data-i18n="footer_price" href="/price-detail/">料金表</a></li>
-<li><a href="/access/">FAQ</a></li>
+<li><a data-i18n="footer_about" data-home-section="services" href="/">私たちについて</a></li>
+<li><a data-i18n="footer_price" data-home-section="pricing" href="/">料金表</a></li>
+<li><a data-home-section="access" href="/">FAQ</a></li>
 <li><a href="/news/">Blog</a></li>
 </ul>
 </div>
 <div>
 <div class="footer-col-title" data-i18n="footer_contact">お問い合わせ</div>
 <ul class="footer-links">
-<li><a href="/access/">LINE Official</a></li>
+<li><a data-home-section="access" href="/">LINE Official</a></li>
 <li><a href="https://www.facebook.com/people/Golyn-Nail/61585820682024/" rel="noopener noreferrer" target="_blank">Facebook</a></li>
 <li><a href="https://www.instagram.com/golynnail?igsh=MWhoNmR1NXV1dnFmcg%3D%3D&utm_source=qr" rel="noopener noreferrer" target="_blank">Instagram</a></li>
 <li><a href="https://www.tiktok.com/@golynnail?_r=1&_t=ZS-96ekqoueQVg" rel="noopener noreferrer" target="_blank">Tiktok</a></li>

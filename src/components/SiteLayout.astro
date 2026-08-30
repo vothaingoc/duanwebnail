@@ -52,6 +52,7 @@ const organizationSchema = {
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/favicon.png" />
     <script is:inline src="/assets/js/language-detect.js"></script>
+    <script src="/assets/js/clean-section-links.js" defer></script>
     <link rel="canonical" href={canonical} />
     <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)}></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -478,14 +479,14 @@ const organizationSchema = {
   <body>
     <div class="mobile-nav" id="mobileNav" aria-hidden="true">
       <button class="mobile-nav-close" onclick="toggleMenu()" type="button">×</button>
-      <a data-i18n="nav_gallery" href="/gallery/" onclick="toggleMenu()">ギャラリー</a>
-      <a data-i18n="price_eyebrow" href="/price-detail/" onclick="toggleMenu()">料金表</a>
-      <a data-i18n="nav_services" href="/services/" onclick="toggleMenu()">サービス</a>
-      <a data-i18n="nav_reviews" href="/reviews/" onclick="toggleMenu()">口コミ</a>
-      <a data-i18n="acc_eyebrow" href="/access/" onclick="toggleMenu()">アクセス</a>
+      <a data-i18n="nav_gallery" data-home-section="gallery" href="/" onclick="toggleMenu()">ギャラリー</a>
+      <a data-i18n="price_eyebrow" data-home-section="pricing" href="/" onclick="toggleMenu()">料金表</a>
+      <a data-i18n="nav_services" data-home-section="services" href="/" onclick="toggleMenu()">サービス</a>
+      <a data-i18n="nav_reviews" data-home-section="testimonials" href="/" onclick="toggleMenu()">口コミ</a>
+      <a data-i18n="acc_eyebrow" data-home-section="access" href="/" onclick="toggleMenu()">アクセス</a>
       <a data-i18n="staff_eyebrow" href="/staff/" onclick="toggleMenu()">スタッフ</a>
       <a data-i18n="nav_news" href="/news/" onclick="toggleMenu()">コラム</a>
-      <a class="btn-primary" data-i18n="nav_reserve" href="/access/" onclick="toggleMenu()">ご予約</a>
+      <a class="btn-primary" data-i18n="nav_reserve" data-home-section="access" href="/" onclick="toggleMenu()">ご予約</a>
       <div class="lang-switcher">
         <div class="lang-picker">
           <button aria-expanded="false" aria-haspopup="listbox" class="lang-current" onclick="toggleLangMenu(this)" type="button"><span class="flag flag-ja"></span><span class="lang-current-label">日本語</span><span class="lang-caret">▾</span></button>
@@ -504,11 +505,11 @@ const organizationSchema = {
     <nav id="navbar">
       <a class="nav-logo-wrap" href="/"><img alt="Golyn Nail" class="nav-logo-img" src="/images/golyn-logo.jpg" /></a>
       <ul class="nav-links">
-        <li><a data-i18n="nav_gallery" href="/gallery/">ギャラリー</a></li>
-        <li><a data-i18n="price_eyebrow" href="/price-detail/">料金表</a></li>
-        <li><a data-i18n="nav_services" href="/services/">サービス</a></li>
-        <li><a data-i18n="nav_reviews" href="/reviews/">口コミ</a></li>
-        <li><a data-i18n="acc_eyebrow" href="/access/">アクセス</a></li>
+        <li><a data-i18n="nav_gallery" data-home-section="gallery" href="/">ギャラリー</a></li>
+        <li><a data-i18n="price_eyebrow" data-home-section="pricing" href="/">料金表</a></li>
+        <li><a data-i18n="nav_services" data-home-section="services" href="/">サービス</a></li>
+        <li><a data-i18n="nav_reviews" data-home-section="testimonials" href="/">口コミ</a></li>
+        <li><a data-i18n="acc_eyebrow" data-home-section="access" href="/">アクセス</a></li>
         <li><a data-i18n="staff_eyebrow" href="/staff/" aria-current={isStaff ? 'page' : undefined}>スタッフ</a></li>
         <li><a data-i18n="nav_news" href="/news/">コラム</a></li>
       </ul>
@@ -527,7 +528,7 @@ const organizationSchema = {
             </div>
           </div>
         </div>
-        <a class="nav-cta" data-i18n="nav_reserve" href="/access/">ご予約</a>
+        <a class="nav-cta" data-i18n="nav_reserve" data-home-section="access" href="/">ご予約</a>
         <button class="hamburger" type="button" onclick="toggleMenu()" aria-label="メニューを開く">
           <span></span><span></span><span></span>
         </button>
@@ -543,8 +544,8 @@ const organizationSchema = {
         <div>
           <div class="footer-col-title" data-i18n="footer_info">インフォ</div>
           <ul class="footer-links">
-            <li><a data-i18n="footer_about" href="/services/">私たちについて</a></li>
-            <li><a data-i18n="footer_price" href="/price-detail/">料金表</a></li>
+            <li><a data-i18n="footer_about" data-home-section="services" href="/">私たちについて</a></li>
+            <li><a data-i18n="footer_price" data-home-section="pricing" href="/">料金表</a></li>
             <li><a href="/news/">Blog</a></li>
             <li><a data-i18n="staff_eyebrow" href="/staff/">スタッフ</a></li>
           </ul>
@@ -552,7 +553,7 @@ const organizationSchema = {
         <div>
           <div class="footer-col-title" data-i18n="footer_contact">お問い合わせ</div>
           <ul class="footer-links">
-            <li><a href="/access/">LINE Official</a></li>
+            <li><a data-home-section="access" href="/">LINE Official</a></li>
             <li><a href="https://www.facebook.com/people/Golyn-Nail/61585820682024/" rel="noopener noreferrer" target="_blank">Facebook</a></li>
             <li><a href="https://www.instagram.com/golynnail?igsh=MWhoNmR1NXV1dnFmcg%3D%3D&utm_source=qr" rel="noopener noreferrer" target="_blank">Instagram</a></li>
             <li><a href="https://www.tiktok.com/@golynnail?_r=1&_t=ZS-96ekqoueQVg" rel="noopener noreferrer" target="_blank">Tiktok</a></li>
