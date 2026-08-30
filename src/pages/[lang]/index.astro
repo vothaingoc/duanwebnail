@@ -1,0 +1,42 @@
+---
+import SiteLayout from '../../components/SiteLayout.astro';
+
+const copy = {
+  en: { label: 'English', title: 'Golyn Nail | Osaka Nail Salon', lead: 'Golyn Nail is preparing to open a nail salon in Osaka.', notice: 'The complete English version is being reviewed. Until it is ready, this page is not included in search results.', gallery: 'Nail designs', price: 'Menu & prices', services: 'Services' },
+  vi: { label: 'Tiếng Việt', title: 'Golyn Nail | Tiệm nail tại Osaka', lead: 'Golyn Nail đang chuẩn bị mở tiệm nail tại Osaka.', notice: 'Phiên bản tiếng Việt đầy đủ đang được kiểm duyệt. Trang này tạm thời không xuất hiện trên kết quả tìm kiếm.', gallery: 'Mẫu nail', price: 'Menu & bảng giá', services: 'Dịch vụ' },
+  zh: { label: '中文', title: 'Golyn Nail | 大阪美甲沙龙', lead: 'Golyn Nail 正在大阪筹备美甲沙龙。', notice: '完整中文版正在审核中。在内容完善之前，本页面暂不收录于搜索结果。', gallery: '美甲设计', price: '项目与价格', services: '服务' },
+  ko: { label: '한국어', title: 'Golyn Nail | 오사카 네일 살롱', lead: 'Golyn Nail은 오사카에서 네일 살롱 오픈을 준비하고 있습니다.', notice: '전체 한국어 콘텐츠를 검수하고 있습니다. 준비가 완료될 때까지 이 페이지는 검색 결과에 노출되지 않습니다.', gallery: '네일 디자인', price: '메뉴・가격', services: '서비스' },
+  my: { label: 'မြန်မာ', title: 'Golyn Nail | Osaka Nail Salon', lead: 'Golyn Nail သည် Osaka တွင် nail salon ဖွင့်လှစ်ရန် ပြင်ဆင်နေပါသည်။', notice: 'မြန်မာဘာသာ အပြည့်အစုံကို စစ်ဆေးနေဆဲဖြစ်သောကြောင့် ယခုစာမျက်နှာကို search results တွင် ယာယီမဖော်ပြထားပါ။', gallery: 'ဒီဇိုင်းများ', price: 'မီနူးနှင့် စျေးနှုန်း', services: 'ဝန်ဆောင်မှုများ' },
+  id: { label: 'Bahasa Indonesia', title: 'Golyn Nail | Salon Nail di Osaka', lead: 'Golyn Nail sedang mempersiapkan pembukaan salon nail di Osaka.', notice: 'Versi lengkap Bahasa Indonesia sedang ditinjau. Halaman ini sementara tidak ditampilkan di hasil pencarian.', gallery: 'Desain nail', price: 'Menu & harga', services: 'Layanan' },
+} as const;
+
+export function getStaticPaths() {
+  return ['en', 'vi', 'zh', 'ko', 'my', 'id'].map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as keyof typeof copy;
+const content = copy[lang];
+---
+
+<SiteLayout title={content.title} description={content.lead} path={`/${lang}/`} lang={lang} noindex>
+  <main>
+    <section class="page-hero"><p class="eyebrow">Golyn Nail</p><h1>{content.title}</h1><p class="lead">{content.lead}</p><div class="gold-line"></div></section>
+    <section class="section">
+      <div class="section-inner language-content">
+        <p class="notice">{content.notice}</p>
+        <nav aria-label={content.label}>
+          <a href="/gallery/">{content.gallery}</a>
+          <a href="/price/">{content.price}</a>
+          <a href="/services/">{content.services}</a>
+        </nav>
+      </div>
+    </section>
+  </main>
+</SiteLayout>
+
+<style>
+  .language-content { max-width: 820px; }
+  nav { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 28px; }
+  nav a { padding: 18px; background: var(--white); border: 1px solid var(--cream-deep); color: var(--brown); text-align: center; text-decoration: none; }
+  @media (max-width: 640px) { nav { grid-template-columns: 1fr; } }
+</style>

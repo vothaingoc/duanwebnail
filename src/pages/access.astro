@@ -1,0 +1,32 @@
+---
+import SiteLayout from '../components/SiteLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { business, locationAnnouncement } from '../config/business';
+import { pageSeo } from '../data/site';
+---
+
+<SiteLayout title={pageSeo.access.title} description={pageSeo.access.description} path="/access/">
+  <main>
+    <Breadcrumbs items={[{ label: '店舗情報' }]} />
+    <section class="page-hero"><p class="eyebrow">Salon Information</p><h1>店舗情報</h1><p class="lead">Golyn Nailは大阪でオープンに向けた準備を進めています。</p><div class="gold-line"></div></section>
+    <section class="section" aria-labelledby="location-title">
+      <div class="section-inner">
+        <div class="section-heading"><p class="eyebrow">Access</p><h2 id="location-title">住所・アクセス</h2></div>
+        <div class="notice"><h3>店舗情報は準備中です</h3><p>{locationAnnouncement}</p><p>現時点では、店舗住所・最寄り駅・地図・電話番号・営業時間を公開していません。確定前の住所や地図を使ったご案内は行っておりません。</p></div>
+        <div class="social-card">
+          <h2>最新情報</h2><p>オープンに関するお知らせは、当サイトのネイルコラムと公式SNSでご案内します。</p>
+          <div><a href={business.socials.instagram} rel="noopener noreferrer" target="_blank">Instagram</a><a href={business.socials.facebook} rel="noopener noreferrer" target="_blank">Facebook</a><a href={business.socials.tiktok} rel="noopener noreferrer" target="_blank">TikTok</a></div>
+        </div>
+      </div>
+    </section>
+  </main>
+</SiteLayout>
+
+<style>
+  .notice h3 { margin: 0 0 12px; color: var(--brown-deep); font-family: var(--serif); font-size: 30px; font-weight: 500; }
+  .notice p:last-child { margin-bottom: 0; }
+  .social-card { max-width: 820px; margin: 24px auto 0; padding: 30px; text-align: center; }
+  .social-card h2 { margin: 0; color: var(--brown-deep); font-family: var(--serif); font-size: 30px; font-weight: 500; }
+  .social-card div { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 20px; }
+  .social-card a { padding: 9px 18px; border: 1px solid var(--cream-deep); color: var(--brown); text-decoration: none; }
+</style>

@@ -2,6 +2,9 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "check": "astro check",
+    "test": "npm run build && npm run test:seo",
+    "test:seo": "node scripts/seo-audit.mjs",
     "preview": "astro preview",
     "sanity:dev": "sanity dev",
     "sanity:build": "sanity build sanity-dist",
@@ -10,7 +13,6 @@
     "sanity:import-gallery-folder": "node scripts/import-gallery-to-sanity.mjs --folder"
   },
   "dependencies": {
-    "@astrojs/sitemap": "^3.7.3",
     "@portabletext/to-html": "^5.0.2",
     "@sanity/client": "^7.23.0",
     "astro": "latest",
@@ -18,5 +20,10 @@
     "react-dom": "^19.2.7",
     "sanity": "^6.1.0",
     "styled-components": "^6.4.2"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@types/node": "^26.4.0",
+    "typescript": "^6.0.3"
   }
 }

@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <sitemap>
-    <loc>https://golynnail.jp/sitemap-0.xml</loc>
-  </sitemap>
-</sitemapindex>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://golynnail.jp/</loc></url>
+  <url><loc>https://golynnail.jp/gallery/</loc></url>
+  <url><loc>https://golynnail.jp/price/</loc></url>
+  <url><loc>https://golynnail.jp/services/</loc></url>
+  <url><loc>https://golynnail.jp/staff/</loc></url>
+  <url><loc>https://golynnail.jp/access/</loc></url>
+  <url><loc>https://golynnail.jp/reservation/</loc></url>
+  <url><loc>https://golynnail.jp/news/</loc></url>
+</urlset>

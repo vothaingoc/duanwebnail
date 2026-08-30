@@ -28,7 +28,14 @@ export const blogPost = defineType({
       ]
     }),
     defineField({ name: 'seoTitle', title: 'SEO Title', type: 'string' }),
-    defineField({ name: 'seoDescription', title: 'SEO Description', type: 'text' })
+    defineField({ name: 'seoDescription', title: 'SEO Description', type: 'text' }),
+    defineField({
+      name: 'published',
+      title: 'Published on website',
+      type: 'boolean',
+      description: 'Turn this off to keep drafts and test posts out of the public website.',
+      initialValue: false
+    })
   ],
   preview: {
     select: {
