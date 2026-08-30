@@ -1,4 +1,6 @@
 ---
+import SiteFooter from './SiteFooter.astro';
+
 interface Props {
   title: string;
   description: string;
@@ -533,40 +535,7 @@ const organizationSchema = {
       </div>
     </nav>
     <slot />
-    <footer>
-      <div class="footer-grid">
-        <div>
-          <div class="footer-logo-wrap"><img alt="Golyn Nail" class="footer-logo-img" src="/images/golyn-logo.jpg" /></div>
-          <p class="footer-desc" data-i18n="footer_desc">大阪中心部の高品質ネイルアトリエ。日本の技術と国際的なスタイルの融合。</p>
-        </div>
-        <div>
-          <div class="footer-col-title" data-i18n="footer_info">インフォ</div>
-          <ul class="footer-links">
-            <li><a data-i18n="footer_about" href="/services/">私たちについて</a></li>
-            <li><a data-i18n="footer_price" href="/price-detail/">料金表</a></li>
-            <li><a href="/news/">Blog</a></li>
-            <li><a data-i18n="staff_eyebrow" href="/staff/">スタッフ</a></li>
-          </ul>
-        </div>
-        <div>
-          <div class="footer-col-title" data-i18n="footer_contact">お問い合わせ</div>
-          <ul class="footer-links">
-            <li><a href="/access/">LINE Official</a></li>
-            <li><a href="https://www.facebook.com/people/Golyn-Nail/61585820682024/" rel="noopener noreferrer" target="_blank">Facebook</a></li>
-            <li><a href="https://www.instagram.com/golynnail?igsh=MWhoNmR1NXV1dnFmcg%3D%3D&utm_source=qr" rel="noopener noreferrer" target="_blank">Instagram</a></li>
-            <li><a href="https://www.tiktok.com/@golynnail?_r=1&_t=ZS-96ekqoueQVg" rel="noopener noreferrer" target="_blank">Tiktok</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p class="footer-copy">© 2026 Golyn Nail. All rights reserved.</p>
-        <div class="footer-social">
-          <a href="https://www.instagram.com/golynnail?igsh=MWhoNmR1NXV1dnFmcg%3D%3D&utm_source=qr" rel="noopener noreferrer" target="_blank">IG</a>
-          <a href="https://www.tiktok.com/@golynnail?_r=1&_t=ZS-96ekqoueQVg" rel="noopener noreferrer" target="_blank">TT</a>
-          <a href="https://www.facebook.com/people/Golyn-Nail/61585820682024/" rel="noopener noreferrer" target="_blank">FB</a>
-        </div>
-      </div>
-    </footer>
+    <SiteFooter />
     <script is:inline>
       const siteI18n = {
         ja: { nav_gallery:'ギャラリー', price_eyebrow:'料金表', nav_services:'サービス', nav_reviews:'口コミ', acc_eyebrow:'アクセス', staff_eyebrow:'スタッフ', nav_news:'コラム', nav_reserve:'ご予約', footer_desc:'大阪中心部の高品質ネイルアトリエ。日本の技術と国際的なスタイルの融合。', footer_info:'インフォ', footer_about:'私たちについて', footer_price:'料金表', footer_contact:'お問い合わせ', staff_title:'スタッフ紹介', staff_subtitle:'Golyn Nailで働くスタッフをご紹介します。', staff_members:'ネイリスト一覧', staff_detail:'詳細を見る', staff_experience:'経験年数', staff_specialty:'得意分野', staff_certifications:'資格', staff_gallery:'担当デザイン', staff_back:'スタッフ一覧へ戻る' },
