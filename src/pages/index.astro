@@ -14,7 +14,8 @@ const homeSchema = {
       name: 'Golyn Nail',
       url: 'https://golynnail.jp/',
       image: 'https://golynnail.jp/images/golyn-logo.jpg',
-      description: '大阪のネイルサロン Golyn Nail。丁寧な施術と上品なデザインをご提案します。',
+      description: '大阪・心斎橋エリアのネイルサロン Golyn Nail。心斎橋ネイル、ジェルネイル、ネイルアート、長さ出し、フットネイルを丁寧にご提案します。English-friendly Shinsaibashi nail salon and nail store.',
+      alternateName: ['Golyn Nail Osaka', 'Golyn Nail Shinsaibashi', '心斎橋ネイル Golyn Nail'],
       address: {
         '@type': 'PostalAddress',
         postalCode: '550-0025',
@@ -28,6 +29,12 @@ const homeSchema = {
         latitude: 34.66785,
         longitude: 135.47956,
       },
+      areaServed: [
+        { '@type': 'Place', name: '大阪' },
+        { '@type': 'Place', name: '心斎橋' },
+        { '@type': 'Place', name: 'Shinsaibashi' },
+      ],
+      serviceType: ['大阪ネイル', '大阪 ネイルサロン', '心斎橋ネイル', 'Shinsaibashi nail store', 'Osaka nail salon'],
       sameAs: [
         'https://www.facebook.com/people/Golyn-Nail/61585820682024/',
         'https://www.instagram.com/golynnail',
@@ -51,21 +58,21 @@ const homeSchema = {
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Golyn Nail｜大阪のネイルサロン</title>
-<meta name="description" content="大阪のネイルサロン Golyn Nail。丁寧な施術と上品なデザインで、お客様一人ひとりに合ったネイルをご提案します。"/>
+<title>Golyn Nail｜大阪・心斎橋ネイルサロン</title>
+<meta name="description" content="大阪・心斎橋エリアのネイルサロン Golyn Nail。心斎橋ネイル、ジェルネイル、ネイルアート、長さ出し、フットネイルに対応。English-friendly Shinsaibashi nail salon and nail store."/>
 <link rel="canonical" href="https://golynnail.jp/"/>
 <link rel="alternate" hreflang="ja" href="https://golynnail.jp/"/>
 <link rel="alternate" hreflang="x-default" href="https://golynnail.jp/"/>
 <meta property="og:locale" content="ja_JP"/>
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://golynnail.jp/"/>
-<meta property="og:title" content="Golyn Nail｜大阪のネイルサロン"/>
-<meta property="og:description" content="大阪のネイルサロン Golyn Nail。丁寧な施術と上品なデザインで、お客様一人ひとりに合ったネイルをご提案します。"/>
+<meta property="og:title" content="Golyn Nail｜大阪・心斎橋ネイルサロン"/>
+<meta property="og:description" content="大阪・心斎橋エリアのネイルサロン Golyn Nail。心斎橋ネイル、ジェルネイル、ネイルアート、長さ出し、フットネイルに対応。English-friendly Shinsaibashi nail salon and nail store."/>
 <meta property="og:image" content="https://golynnail.jp/images/golyn-logo.jpg"/>
 <meta property="og:site_name" content="Golyn Nail"/>
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="Golyn Nail｜大阪のネイルサロン"/>
-<meta name="twitter:description" content="大阪のネイルサロン Golyn Nail。丁寧な施術と上品なデザインで、お客様一人ひとりに合ったネイルをご提案します。"/>
+<meta name="twitter:title" content="Golyn Nail｜大阪・心斎橋ネイルサロン"/>
+<meta name="twitter:description" content="大阪・心斎橋エリアのネイルサロン Golyn Nail。心斎橋ネイル、ジェルネイル、ネイルアート、長さ出し、フットネイルに対応。English-friendly Shinsaibashi nail salon and nail store."/>
 <meta name="twitter:image" content="https://golynnail.jp/images/golyn-logo.jpg"/>
 <meta name="robots" content="index,follow,max-image-preview:large"/>
 <script type="application/ld+json" set:html={JSON.stringify(homeSchema)}></script>

@@ -13,8 +13,10 @@ const organizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'BeautySalon',
   name: 'Golyn Nail',
+  alternateName: ['Golyn Nail Osaka', 'Golyn Nail Shinsaibashi', '心斎橋ネイル Golyn Nail'],
   url: 'https://golynnail.jp/',
   image: socialImage,
+  description: 'Golyn Nail is a nail salon serving Osaka and the Shinsaibashi area, offering gel nails, nail art, nail extensions, foot nails, and multilingual support.',
   address: {
     '@type': 'PostalAddress',
     postalCode: '550-0025',
@@ -23,6 +25,12 @@ const organizationSchema = {
     streetAddress: '九条南3丁目30-10 レアレア・九条51番館',
     addressCountry: 'JP',
   },
+  areaServed: [
+    { '@type': 'Place', name: 'Osaka' },
+    { '@type': 'Place', name: 'Shinsaibashi' },
+    { '@type': 'Place', name: '心斎橋' },
+  ],
+  serviceType: ['Gel nail', 'Nail art', 'Nail extension', 'Foot nail', '大阪ネイル', '心斎橋ネイル'],
   sameAs: [
     'https://www.facebook.com/people/Golyn-Nail/61585820682024/',
     'https://www.instagram.com/golynnail',
