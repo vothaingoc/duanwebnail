@@ -79,5 +79,5 @@ Object.entries(accessLabels).forEach(([lang, values]) => {
 // Use the street address for geocoding; the building and room remain in the salon details.
 export const mapQuery = '〒542-0081 大阪府大阪市中央区南船場3丁目11-27';
 export const mapUrl = 'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(mapQuery) + '&travelmode=walking';
-export const mapEmbedUrl = 'https://maps.google.com/maps?hl=ja&q=' + encodeURIComponent(mapQuery) + '&z=16&output=embed';
+export const mapEmbedUrl = 'https://maps.google.com/maps?hl=ja&q=' + encodeURIComponent(mapQuery) + '&z=15&output=embed';
 

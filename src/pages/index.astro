@@ -593,10 +593,13 @@ section[id] { scroll-margin-top: var(--nav-h); }
 .access-map-link {
   display: inline-flex; align-items: center; gap: 8px;
   font-size: 12px; letter-spacing: .12em; text-transform: uppercase;
-  color: var(--brown); text-decoration: none; margin-top: 12px;
-  transition: color .2s;
+  color: var(--brown-deep); text-decoration: none; margin-top: 12px;
+  background: var(--gold); border: 1px solid var(--gold);
+  padding: 12px 22px; border-radius: 2px; font-weight: 500;
+  box-shadow: 0 4px 12px rgba(201,150,60,.18);
+  transition: background .2s, transform .2s;
 }
-.access-map-link:hover { color: var(--gold); }
+.access-map-link:hover { background: var(--gold-light); transform: translateY(-1px); }
 .access-map-link::after { content: '→'; }
 @media (max-width: 1100px) {
   .access { padding: 64px 28px; }
