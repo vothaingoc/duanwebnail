@@ -1,4 +1,5 @@
 ---
+import { salonTranslations, salonAddress, salonHours, mapUrl, mapEmbedUrl } from "../data/salon";
 import SiteFooter from '../components/SiteFooter.astro';
 import { getGalleryWithFallback, getPricingCampaignOverride, getPricingDataOverride } from '../lib/sanity';
 
@@ -16,19 +17,10 @@ const homeSchema = {
       image: 'https://golynnail.jp/images/golyn-logo.jpg',
       description: '大阪・心斎橋エリアのネイルサロン Golyn Nail。心斎橋ネイル、ジェルネイル、ネイルアート、長さ出し、フットネイルを丁寧にご提案します。English-friendly Shinsaibashi nail salon and nail store.',
       alternateName: ['Golyn Nail Osaka', 'Golyn Nail Shinsaibashi', '心斎橋ネイル Golyn Nail'],
-      address: {
-        '@type': 'PostalAddress',
-        postalCode: '550-0025',
-        addressRegion: '大阪府',
-        addressLocality: '大阪市西区',
-        streetAddress: '九条南3丁目30-10 レアレア・九条51番館',
-        addressCountry: 'JP',
-      },
-      geo: {
-        '@type': 'GeoCoordinates',
-        latitude: 34.66785,
-        longitude: 135.47956,
-      },
+      address: salonAddress,
+ telephone: '+81-70-8836-6688',
+ openingHoursSpecification: [salonHours],
+
       areaServed: [
         { '@type': 'Place', name: '大阪' },
         { '@type': 'Place', name: '心斎橋' },
@@ -907,21 +899,22 @@ html[lang="vi"] { --serif: 'Cormorant Garamond', serif; --sans: 'Be Vietnam Pro'
 </div>
 <div class="access-inner fade-up">
 <div class="access-map">
-<iframe allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3281.15!2d135.47956!3d34.66785!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6000e6a4b1f1bf0d%3A0x8c4d2f0b3a1e5c7d!2z5aSn6Ziq5YyX5aSn6Ziq5biC6KW_5Yy65Lmd5p2x5Y2X77yT5LiB55uu77yT77yQ4oiS77yR77yA!5e0!3m2!1sja!2sjp!4v1700000000000!5m2!1sja!2sjp" title="Golyn Nail - Map">
+<iframe allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src={mapEmbedUrl} title="Golyn Nail - Map">
 </iframe>
 </div>
 <div class="access-info">
 <div class="access-block">
 <div class="access-block-title" data-i18n="acc_addr_label">住所</div>
-<p class="access-address" data-i18n="acc_addr">〒550-0025<br/>大阪府大阪市西区九条南３丁目３０−１０<br/>レアレア・九条５１番館</p>
-<a class="access-map-link" data-i18n="acc_map_link" href="https://maps.google.com/?q=34.66785,135.47956" target="_blank">Google マップで開く</a>
+<p class="access-address" data-i18n="acc_addr"><span set:html={salonTranslations.ja.acc_addr} /></p>
+<a class="access-map-link" data-i18n="acc_map_link" href={mapUrl} target="_blank">Google マップで開く</a>
 </div>
 <div class="access-block">
 <div class="access-block-title" data-i18n="acc_dir_label">最寄り駅からのアクセス</div>
 <ul class="access-directions">
-<li data-i18n="acc_dir1"><strong>阪神なんば線「九条駅」</strong> 2番出口より徒歩約7分</li>
-<li data-i18n="acc_dir2"><strong>大阪メトロ中央線「九条駅」</strong> 出口より徒歩約8分</li>
-<li data-i18n="acc_dir3"><strong>阪神なんば線「ドーム前駅」</strong> より徒歩約10分</li>
+<li data-i18n="acc_dir1"><span set:html={salonTranslations.ja.acc_dir1} /></li>
+<li data-i18n="acc_dir2"><span set:html={salonTranslations.ja.acc_dir2} /></li>
+<li data-i18n="acc_dir3"><span set:html={salonTranslations.ja.acc_dir3} /></li>
+<li data-i18n="acc_dir4">{salonTranslations.ja.acc_dir4}</li>
 </ul>
 </div>
 <div class="access-block">
@@ -929,14 +922,14 @@ html[lang="vi"] { --serif: 'Cormorant Garamond', serif; --sans: 'Be Vietnam Pro'
 <div class="access-row">
 <div class="access-row-icon">🕙</div>
 <div class="access-row-body">
-<div class="access-row-value" data-i18n="acc_hours">月〜金: 10:00 – 20:00<br/>土・日: 10:00 – 19:00</div>
+<div class="access-row-value" data-i18n="acc_hours"><span set:html={salonTranslations.ja.acc_hours} /></div>
 </div>
 </div>
 <div class="access-row">
 <div class="access-row-icon">📱</div>
 <div class="access-row-body">
-<div class="access-row-label" data-i18n="acc_tel_label">電話 / LINE</div>
-<div class="access-row-value" data-i18n="acc_tel">お問い合わせはLINEにて</div>
+<div class="access-row-label" data-i18n="acc_tel_label">電話</div>
+<div class="access-row-value" data-i18n="acc_tel"><a href="tel:07088366688">070-8836-6688</a></div>
 </div>
 </div>
 </div>
@@ -945,6 +938,7 @@ html[lang="vi"] { --serif: 'Cormorant Garamond', serif; --sans: 'Be Vietnam Pro'
 </section>
 <!-- Footer -->
 <SiteFooter />
+<script is:inline define:vars={{ salonTranslations }}></script>
 <script is:inline define:vars={{ golynGalleryItems }}>
 window.GOLYN_CONTENT_GALLERY_ITEMS = golynGalleryItems;
 </script>
@@ -991,13 +985,13 @@ const i18n = {
     rev2_q:'「空間がとても上品でリラックスできます。ジェルネイルが5週間経っても剥がれませんでした。」',
     rev3_q:'「ネイルアートのデザインが期待以上でした。毎月通いたいですし、友人にも勧めたいです。」',
     acc_eyebrow:'アクセス', acc_title:'店舗への<em>アクセス</em>',
-    acc_addr_label:'住所', acc_addr:'〒550-0025<br>大阪府大阪市西区九条南３丁目３０−１０<br>レアレア・九条５１番館',
-    acc_hours_label:'営業時間', acc_hours:'月〜金: 10:00 – 20:00<br>土・日: 10:00 – 19:00',
-    acc_tel_label:'電話 / LINE', acc_tel:'お問い合わせはLINEにて',
+    acc_addr_label:'住所', acc_addr:"〒542-0081<br>大阪府大阪市中央区南船場3-11-27<br>日宝シルバービル 4階 406号室",
+    acc_hours_label:'営業時間', acc_hours:"10:00〜20:00<br>定休日：毎週火曜日",
+    acc_tel_label:"電話", acc_tel:"<a href=\"tel:07088366688\">070-8836-6688</a>",
     acc_dir_label:'最寄り駅からのアクセス',
-    acc_dir1:'<strong>阪神なんば線「九条駅」</strong> 2番出口より徒歩約7分',
-    acc_dir2:'<strong>大阪メトロ中央線「九条駅」</strong> 出口より徒歩約8分',
-    acc_dir3:'<strong>阪神なんば線「ドーム前駅」</strong> より徒歩約10分',
+    acc_dir1:"心斎橋駅（北8出口）より徒歩約1分",
+    acc_dir2:"四ツ橋駅（1-A出口）より徒歩約7分",
+    acc_dir3:"長堀橋駅（2-B出口）より徒歩約8分",
     acc_map_link:'Google マップで開く',
     footer_desc:'大阪中心部の高品質ネイルアトリエ。日本の技術と国際的なスタイルの融合。',
     footer_svc:'サービス', footer_info:'インフォ', footer_about:'私たちについて',
@@ -1043,13 +1037,13 @@ const i18n = {
     rev2_q:'&ldquo;The space is so elegant and relaxing. My gel nails lasted 5 weeks without any chipping.&rdquo;',
     rev3_q:'&ldquo;The nail art exceeded all my expectations. I will be back every month and recommend it to friends.&rdquo;',
     acc_eyebrow:'Access', acc_title:'How to <em>find us</em>',
-    acc_addr_label:'Address', acc_addr:'〒550-0025<br>3-30-10 Kujominami, Nishi-ku, Osaka<br>Rarearea Kujo Bldg. 51',
-    acc_hours_label:'Opening Hours', acc_hours:'Mon – Fri: 10:00 – 20:00<br>Sat – Sun: 10:00 – 19:00',
-    acc_tel_label:'Phone / LINE', acc_tel:'Please contact us via LINE',
+    acc_addr_label:'Address', acc_addr:"〒542-0081<br>3-11-27 Minamisenba, Chuo-ku, Osaka<br>Nippo Silver Building (日宝シルバービル), 4F, Room 406",
+    acc_hours_label:'Opening Hours', acc_hours:"10:00–20:00<br>Closed every Tuesday",
+    acc_tel_label:"Phone", acc_tel:"<a href=\"tel:07088366688\">070-8836-6688</a>",
     acc_dir_label:'Directions from Nearest Stations',
-    acc_dir1:'<strong>Hanshin Namba Line "Kujo Stn"</strong> — 7 min walk from Exit 2',
-    acc_dir2:'<strong>Osaka Metro Chuo Line "Kujo Stn"</strong> — 8 min walk',
-    acc_dir3:'<strong>Hanshin "Dome-mae Stn"</strong> — 10 min walk',
+    acc_dir1:"Shinsaibashi Station, North Exit 8 — about 1 minute on foot",
+    acc_dir2:"Yotsubashi Station, Exit 1-A — about 7 minutes on foot",
+    acc_dir3:"Nagahoribashi Station, Exit 2-B — about 8 minutes on foot",
     acc_map_link:'Open in Google Maps',
     footer_desc:'Premium nail atelier in central Osaka. Japanese technique, international style.',
     footer_svc:'Services', footer_info:'Information', footer_about:'About Us',
@@ -1095,13 +1089,13 @@ const i18n = {
     rev2_q:'&ldquo;Không gian rất sang trọng và thoải mái. Gel nail bền đến 5 tuần mà không bong tróc.&rdquo;',
     rev3_q:'&ldquo;Mẫu nail art đẹp hơn cả mong đợi. Sẽ quay lại hàng tháng và giới thiệu cho bạn bè.&rdquo;',
     acc_eyebrow:'Địa chỉ', acc_title:'Đường đến <em>tiệm</em>',
-    acc_addr_label:'Địa chỉ', acc_addr:'〒550-0025<br>3-30-10 Kujominami, Nishi-ku, Osaka<br>Tòa nhà Rarearea Kujo 51',
-    acc_hours_label:'Giờ mở cửa', acc_hours:'Thứ 2 – Thứ 6: 10:00 – 20:00<br>Thứ 7 – CN: 10:00 – 19:00',
-    acc_tel_label:'Điện thoại / LINE', acc_tel:'Vui lòng liên hệ qua LINE',
+    acc_addr_label:'Địa chỉ', acc_addr:"〒542-0081<br>3-11-27 Minamisenba, Chuo-ku, Osaka<br>Tòa nhà Nippo Silver (日宝シルバービル), tầng 4, phòng 406",
+    acc_hours_label:'Giờ mở cửa', acc_hours:"10:00–20:00<br>Nghỉ thứ Ba hằng tuần",
+    acc_tel_label:"Điện thoại", acc_tel:"<a href=\"tel:07088366688\">070-8836-6688</a>",
     acc_dir_label:'Từ ga tàu gần nhất',
-    acc_dir1:'<strong>Ga Kujo (Hanshin Namba Line)</strong> — Cửa ra số 2, đi bộ khoảng 7 phút',
-    acc_dir2:'<strong>Ga Kujo (Osaka Metro Chuo)</strong> — Đi bộ khoảng 8 phút',
-    acc_dir3:'<strong>Ga Dome-mae (Hanshin)</strong> — Đi bộ khoảng 10 phút',
+    acc_dir1:"Ga Shinsaibashi, cửa Bắc 8 — đi bộ khoảng 1 phút",
+    acc_dir2:"Ga Yotsubashi, cửa 1-A — đi bộ khoảng 7 phút",
+    acc_dir3:"Ga Nagahoribashi, cửa 2-B — đi bộ khoảng 8 phút",
     acc_map_link:'Mở Google Maps',
     footer_desc:'Nghệ thuật nail cao cấp tại trung tâm Osaka. Kỹ thuật Nhật Bản, phong cách quốc tế.',
     footer_svc:'Dịch vụ', footer_info:'Thông tin', footer_about:'Về chúng tôi',
@@ -1129,7 +1123,7 @@ Object.assign(i18n, {
     price_eyebrow:'价格表', price_title:'清晰透明的<em>价格</em>', price_basic_label:'基础', price_basic_name:'凝胶美甲', price_basic_desc:'从纯色到艺术款。支持韩式、网红和晕染风格。', price_art_label:'人气', price_art_name:'延长美甲', price_art_desc:'从自然延长到长甲造型。也可制作华丽设计。', price_spa_label:'足部 & 卸甲', price_spa_name:'足部 & 卸甲', price_spa_desc:'足部美甲和卸甲的基本价格。', price_note:'※ 到店后7天内免费修补<br>※ 限时活动价格', price_note_ext:'※ 到店后7天内免费修补<br>※ 限时活动价格',
     svc_eyebrow:'服务项目', svc_title:'我们的<em>服务</em>', svc1_name:'凝胶美甲', svc1_desc:'纯色、闪光甲、亮片渐变。支持韩式、网红和晕染风格。', svc2_name:'美甲设计', svc2_desc:'4指、6指或10指艺术款。含人气配件，也欢迎自带设计。', svc3_name:'长甲 / 延长', svc3_desc:'延长、雕花、水晶和凝胶甲片。超长甲与韩式风格都很受欢迎。', svc4_name:'足部美甲', svc4_desc:'从足部纯色到10指艺术款，适合夏季足部设计。',
     rev_eyebrow:'顾客评价', rev_title:'顾客的<em>声音</em>', rev1_q:'“这是我在大阪最喜欢的美甲沙龙。美甲师非常细心，也很亲切。”', rev2_q:'“空间优雅又放松。凝胶美甲维持了5周都没有脱落。”', rev3_q:'“美甲设计超出期待。我想每个月都来，也会推荐给朋友。”',
-    acc_eyebrow:'交通方式', acc_title:'如何<em>到店</em>', acc_addr_label:'地址', acc_addr:'〒550-0025<br>大阪府大阪市西区九条南3丁目30-10<br>Rarearea 九条51番馆', acc_hours_label:'营业时间', acc_hours:'周一至周五: 10:00 – 20:00<br>周六、周日: 10:00 – 19:00', acc_tel_label:'电话 / LINE', acc_tel:'请通过 LINE 联系我们', acc_dir_label:'从最近车站前往', acc_dir1:'<strong>阪神难波线「九条站」</strong> 2号出口步行约7分钟', acc_dir2:'<strong>大阪Metro中央线「九条站」</strong> 步行约8分钟', acc_dir3:'<strong>阪神「Dome-mae站」</strong> 步行约10分钟', acc_map_link:'在 Google 地图中打开',
+    acc_eyebrow:'交通方式', acc_title:'如何<em>到店</em>', acc_addr_label:'地址', acc_addr:"〒542-0081<br>大阪府大阪市中央区南船场3-11-27<br>日宝シルバービル 4楼406室", acc_hours_label:'营业时间', acc_hours:"10:00–20:00<br>每周二休息", acc_tel_label:"电话", acc_tel:"<a href=\"tel:07088366688\">070-8836-6688</a>", acc_dir_label:'从最近车站前往', acc_dir1:"心斋桥站（北8出口）步行约1分钟", acc_dir2:"四桥站（1-A出口）步行约7分钟", acc_dir3:"长堀桥站（2-B出口）步行约8分钟", acc_map_link:'在 Google 地图中打开',
     footer_desc:'位于大阪市中心的高品质美甲工作室。日本技术，国际风格。', footer_svc:'服务', footer_info:'信息', footer_about:'关于我们', footer_price:'价格表', footer_contact:'联系我们', staff_eyebrow:'员工',
     news_eyebrow:'美甲专栏', news_title:'实用<em>资讯</em>', news_tag_care:'美甲护理', news_tag_trend:'趋势', news1_title:'让凝胶美甲更持久的5个技巧', news1_desc:'介绍日常生活中让凝胶美甲保持美丽并更持久的要点。', news2_title:'2025夏季美甲趋势汇总', news2_desc:'从人气韩式美甲到大阪流行的简约艺术，解说本季热门设计。', news3_title:'第一次去美甲沙龙完整指南', news3_desc:'从预约到当天流程与注意事项，为初次到店的客人清楚说明。', news_read_more:'阅读更多 →', news_cta:'查看更多文章'
   },
@@ -1140,7 +1134,7 @@ Object.assign(i18n, {
     price_eyebrow:'가격표', price_title:'명확하고 투명한 <em>가격</em>', price_basic_label:'베이직', price_basic_name:'젤 네일', price_basic_desc:'원컬러부터 아트 코스까지. 한국, 왕홍, 뉴앙스 스타일 가능.', price_art_label:'인기', price_art_name:'네일 연장', price_art_desc:'자연스러운 연장부터 롱네일까지. 화려한 디자인도 가능합니다.', price_spa_label:'풋 & 제거', price_spa_name:'풋 & 제거', price_spa_desc:'풋 네일과 젤 제거 기본 가격입니다.', price_note:'※ 방문 후 7일 이내 무료 보수<br>※ 기간 한정 캠페인 가격', price_note_ext:'※ 방문 후 7일 이내 무료 보수<br>※ 기간 한정 캠페인 가격',
     svc_eyebrow:'서비스', svc_title:'우리의 <em>서비스</em>', svc1_name:'젤 네일', svc1_desc:'원컬러, 플래시, 글리터 그라데이션. 한국, 왕홍, 뉴앙스 스타일 가능.', svc2_name:'아트 디자인', svc2_desc:'4개, 6개, 10개 아트 코스. 인기 파츠 포함, 가져온 디자인도 가능합니다.', svc3_name:'롱 네일 / 연장', svc3_desc:'연장, 스컬프, 젤 팁 가능. 초롱 네일과 한국 스타일이 인기입니다.', svc4_name:'풋 네일', svc4_desc:'풋 원컬러부터 10개 아트까지. 여름 풋 네일 디자인에 좋습니다.',
     rev_eyebrow:'고객 후기', rev_title:'고객의 <em>후기</em>', rev1_q:'“오사카에서 가장 마음에 드는 네일 살롱입니다. 담당자분이 정말 꼼꼼하고 친절했어요.”', rev2_q:'“공간이 고급스럽고 편안합니다. 젤 네일이 5주 동안 들뜸 없이 유지됐어요.”', rev3_q:'“네일 아트가 기대 이상이었습니다. 매달 방문하고 친구에게도 추천하고 싶어요.”',
-    acc_eyebrow:'오시는 길', acc_title:'매장 <em>위치</em>', acc_addr_label:'주소', acc_addr:'〒550-0025<br>오사카부 오사카시 니시구 구조미나미 3-30-10<br>Rarearea Kujo 51', acc_hours_label:'영업시간', acc_hours:'월–금: 10:00 – 20:00<br>토–일: 10:00 – 19:00', acc_tel_label:'전화 / LINE', acc_tel:'LINE으로 문의해 주세요', acc_dir_label:'가까운 역에서 오는 길', acc_dir1:'<strong>한신 난바선 “구조역”</strong> 2번 출구에서 도보 약 7분', acc_dir2:'<strong>오사카 메트로 중앙선 “구조역”</strong> 도보 약 8분', acc_dir3:'<strong>한신 “돔마에역”</strong> 도보 약 10분', acc_map_link:'Google 지도에서 열기',
+    acc_eyebrow:'오시는 길', acc_title:'매장 <em>위치</em>', acc_addr_label:'주소', acc_addr:"〒542-0081<br>오사카부 오사카시 주오구 미나미센바 3-11-27<br>日宝シルバービル 4층 406호", acc_hours_label:'영업시간', acc_hours:"10:00–20:00<br>매주 화요일 휴무", acc_tel_label:"전화", acc_tel:"<a href=\"tel:07088366688\">070-8836-6688</a>", acc_dir_label:'가까운 역에서 오는 길', acc_dir1:"신사이바시역 북쪽 8번 출구에서 도보 약 1분", acc_dir2:"요쓰바시역 1-A 출구에서 도보 약 7분", acc_dir3:"나가호리바시역 2-B 출구에서 도보 약 8분", acc_map_link:'Google 지도에서 열기',
     footer_desc:'오사카 중심부의 프리미엄 네일 아틀리에. 일본 기술과 국제적인 스타일.', footer_svc:'서비스', footer_info:'정보', footer_about:'소개', footer_price:'가격표', footer_contact:'문의', staff_eyebrow:'스태프',
     news_eyebrow:'네일 칼럼', news_title:'팁 &amp; <em>트렌드</em>', news_tag_care:'네일 케어', news_tag_trend:'트렌드', news1_title:'젤 네일을 오래 유지하는 5가지 팁', news1_desc:'젤 네일을 예쁘게 오래 유지하기 위해 일상에서 신경 쓸 포인트를 소개합니다.', news2_title:'2025 여름 네일 트렌드 모음', news2_desc:'인기 한국 네일부터 오사카의 심플 아트까지 이번 시즌 트렌드를 소개합니다.', news3_title:'첫 네일 살롱 방문 가이드', news3_desc:'예약부터 시술 당일 흐름과 매너까지 처음 방문하는 분들을 위해 쉽게 설명합니다.', news_read_more:'더 읽기 →', news_cta:'모든 글 보기'
   },
@@ -1150,7 +1144,7 @@ Object.assign(i18n, {
     gal_eyebrow:'Portfolio', gal_title:'<em>မကြာသေးမီ</em> လက်ရာများ', gal_more:'ဒီဇိုင်း ၂၀၀ ကျော် ကြည့်ရန်',
     price_eyebrow:'စျေးနှုန်း', price_title:'ရှင်းလင်းသော <em>စျေးနှုန်း</em>', price_basic_label:'အခြေခံ', price_basic_name:'Gel Nail', price_basic_desc:'တစ်ရောင်မှ art course အထိ။ Korean, Wanghong နှင့် nuance စတိုင်များရနိုင်သည်။', price_art_label:'လူကြိုက်များ', price_art_name:'လက်သည်းရှည်တိုးခြင်း', price_art_desc:'သဘာဝဆန်သော အရှည်တိုးခြင်းမှ လက်သည်းရှည်ဒီဇိုင်းအထိ ရနိုင်သည်။', price_spa_label:'Foot & Off', price_spa_name:'Foot & Off', price_spa_desc:'ခြေသည်းနှင့် gel ဖယ်ရှားခြင်းအတွက် အခြေခံစျေးနှုန်းများ။', price_note:'※ လာရောက်ပြီး ၇ ရက်အတွင်း အခမဲ့ပြင်ဆင်ပေးပါသည်<br>※ ကာလသတ်မှတ် campaign စျေးနှုန်း', price_note_ext:'※ လာရောက်ပြီး ၇ ရက်အတွင်း အခမဲ့ပြင်ဆင်ပေးပါသည်<br>※ ကာလသတ်မှတ် campaign စျေးနှုန်း',
     svc_eyebrow:'ဝန်ဆောင်မှုများ', svc_title:'ကျွန်ုပ်တို့၏ <em>ဝန်ဆောင်မှုများ</em>', svc1_name:'Gel Nail', svc1_desc:'One-color, flash နှင့် glitter gradient။ Korean, Wanghong, nuance စတိုင်ရနိုင်သည်။', svc2_name:'Art Design', svc2_desc:'၄ ချောင်း၊ ၆ ချောင်း၊ ၁၀ ချောင်း art course။ လူကြိုက်များသော parts ပါဝင်ပြီး ကိုယ်တိုင်ယူလာသော design လည်းရပါသည်။', svc3_name:'Long Nail / Extension', svc3_desc:'Extension, sculpt, gel tips ရနိုင်သည်။ Extra-long နှင့် Korean nail စတိုင်များလည်း လူကြိုက်များသည်။', svc4_name:'Foot Nail', svc4_desc:'Foot one-color မှ ၁၀ ချောင်း art အထိ။ နွေရာသီခြေသည်းဒီဇိုင်းများအတွက် သင့်တော်သည်။',
-    rev_eyebrow:'Customer Reviews', rev_title:'ဖောက်သည်များ၏ <em>အသံ</em>', acc_eyebrow:'လမ်းညွှန်', acc_title:'ဆိုင်သို့ <em>လာရောက်ရန်</em>', acc_addr_label:'လိပ်စာ', acc_hours_label:'ဖွင့်ချိန်', acc_tel_label:'ဖုန်း / LINE', acc_tel:'LINE မှတစ်ဆင့် ဆက်သွယ်ပါ', acc_dir_label:'အနီးဆုံးဘူတာမှ လမ်းညွှန်', acc_map_link:'Google Maps တွင်ဖွင့်ရန်',
+    rev_eyebrow:'Customer Reviews', rev_title:'ဖောက်သည်များ၏ <em>အသံ</em>', acc_eyebrow:'လမ်းညွှန်', acc_title:'ဆိုင်သို့ <em>လာရောက်ရန်</em>', acc_addr_label:'လိပ်စာ', acc_hours_label:'ဖွင့်ချိန်', acc_tel_label:"ဖုန်း", acc_tel:"<a href=\"tel:07088366688\">070-8836-6688</a>", acc_dir_label:'အနီးဆုံးဘူတာမှ လမ်းညွှန်', acc_map_link:'Google Maps တွင်ဖွင့်ရန်',
     footer_desc:'အိုဆာကာမြို့လယ်ရှိ အဆင့်မြင့် လက်သည်း Atelier။ ဂျပန်နည်းပညာနှင့် နိုင်ငံတကာစတိုင်။', footer_svc:'ဝန်ဆောင်မှုများ', footer_info:'အချက်အလက်', footer_about:'ကျွန်ုပ်တို့အကြောင်း', footer_price:'စျေးနှုန်း', footer_contact:'ဆက်သွယ်ရန်', staff_eyebrow:'ဝန်ထမ်းများ', news_eyebrow:'လက်သည်းကော်လံ', news_title:'အကြံပြုချက် &amp; <em>ရေစီးကြောင်း</em>', news_read_more:'ပိုမိုဖတ်ရန် →', news_cta:'ဆောင်းပါးအားလုံးကြည့်ရန်'
   },
   id: { ...i18n.en,
@@ -1159,7 +1153,7 @@ Object.assign(i18n, {
     gal_eyebrow:'Portofolio', gal_title:'Karya <em>terbaru</em>', gal_more:'Lihat semua 200+ desain',
     price_eyebrow:'Harga', price_title:'Harga yang <em>jelas</em>', price_basic_label:'Dasar', price_basic_name:'Gel Nail', price_basic_desc:'Dari one-color hingga course art. Tersedia gaya Korea, Wanghong, dan nuance.', price_art_label:'Populer', price_art_name:'Nail Extension', price_art_desc:'Dari extension natural hingga kuku panjang. Desain glamor juga tersedia.', price_spa_label:'Foot & Off', price_spa_name:'Foot & Off', price_spa_desc:'Harga dasar untuk nail kaki dan pelepasan gel.', price_note:'※ Perbaikan gratis dalam 7 hari setelah kunjungan<br>※ Harga campaign terbatas', price_note_ext:'※ Perbaikan gratis dalam 7 hari setelah kunjungan<br>※ Harga campaign terbatas',
     svc_eyebrow:'Layanan Kami', svc_title:'<em>Layanan</em> Kami', svc1_name:'Gel Nail', svc1_desc:'One-color, flash, dan glitter gradient. Tersedia gaya Korea, Wanghong, dan nuance.', svc2_name:'Art Design', svc2_desc:'Course art 4, 6, atau 10 kuku. Termasuk parts populer dan bisa membawa desain sendiri.', svc3_name:'Long Nail / Extension', svc3_desc:'Extension, sculpt, dan gel tips. Extra-long dan gaya Korea sangat populer.', svc4_name:'Foot Nail', svc4_desc:'Dari one-color kaki hingga art 10 kuku. Cocok untuk desain foot nail musim panas.',
-    rev_eyebrow:'Ulasan Pelanggan', rev_title:'Kata <em>pelanggan</em>', acc_eyebrow:'Akses', acc_title:'Cara <em>menemukan kami</em>', acc_addr_label:'Alamat', acc_hours_label:'Jam Buka', acc_tel_label:'Telepon / LINE', acc_tel:'Silakan hubungi kami melalui LINE', acc_dir_label:'Arah dari Stasiun Terdekat', acc_map_link:'Buka di Google Maps',
+    rev_eyebrow:'Ulasan Pelanggan', rev_title:'Kata <em>pelanggan</em>', acc_eyebrow:'Akses', acc_title:'Cara <em>menemukan kami</em>', acc_addr_label:'Alamat', acc_hours_label:'Jam Buka', acc_tel_label:"Telepon", acc_tel:"<a href=\"tel:07088366688\">070-8836-6688</a>", acc_dir_label:'Arah dari Stasiun Terdekat', acc_map_link:'Buka di Google Maps',
     footer_desc:'Atelier nail premium di pusat Osaka. Teknik Jepang, gaya internasional.', footer_svc:'Layanan', footer_info:'Informasi', footer_about:'Tentang Kami', footer_price:'Harga', footer_contact:'Kontak', staff_eyebrow:'Staf', news_eyebrow:'Kolom Nail', news_title:'Tips &amp; <em>Tren</em>', news_read_more:'Baca lagi →', news_cta:'Lihat semua artikel'
   }
 });
@@ -1176,6 +1170,7 @@ Object.assign(i18n.id, { price_detail_btn:'Lihat harga lengkap' });
 ═══════════════════════════════ */
 let currentLang = '';
 
+Object.entries(salonTranslations).forEach(([lang, values]) => Object.assign(i18n[lang], values));
 const langLabels = { ja:'日本語', en:'English', vi:'Tiếng Việt', zh:'中文', ko:'한국어', my:'မြန်မာ', id:'Bahasa Indonesia' };
 const langFlagClasses = { ja:'flag-ja', en:'flag-uk', vi:'flag-vi', zh:'flag-cn', ko:'flag-ko', my:'flag-my', id:'flag-id' };
 const pageTitles = {
