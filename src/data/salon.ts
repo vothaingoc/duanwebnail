@@ -76,7 +76,8 @@ const accessLabels = {"ja":["住所","営業時間","最寄り駅からのアク
 Object.entries(accessLabels).forEach(([lang, values]) => {
   Object.assign(salonTranslations[lang as keyof typeof salonTranslations], Object.fromEntries(['acc_addr_label', 'acc_hours_label', 'acc_dir_label', 'acc_map_link', 'acc_title'].map((key, i) => [key, values[i]])));
 });
-export const mapQuery = '大阪府大阪市中央区南船場3-11-27 日宝シルバービル';
-export const mapUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(mapQuery);
-export const mapEmbedUrl = 'https://maps.google.com/maps?q=' + encodeURIComponent(mapQuery) + '&z=19&output=embed';
+// Use the street address for geocoding; the building and room remain in the salon details.
+export const mapQuery = '〒542-0081 大阪府大阪市中央区南船場3丁目11-27';
+export const mapUrl = 'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(mapQuery) + '&travelmode=walking';
+export const mapEmbedUrl = 'https://maps.google.com/maps?hl=ja&q=' + encodeURIComponent(mapQuery) + '&z=19&output=embed';
 
