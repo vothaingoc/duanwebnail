@@ -938,7 +938,9 @@ html[lang="vi"] { --serif: 'Cormorant Garamond', serif; --sans: 'Be Vietnam Pro'
 </section>
 <!-- Footer -->
 <SiteFooter />
-<script is:inline define:vars={{ salonTranslations }}></script>
+<script is:inline define:vars={{ salonTranslations }}>
+window.golynSalonTranslations = salonTranslations;
+</script>
 <script is:inline define:vars={{ golynGalleryItems }}>
 window.GOLYN_CONTENT_GALLERY_ITEMS = golynGalleryItems;
 </script>
@@ -1170,7 +1172,7 @@ Object.assign(i18n.id, { price_detail_btn:'Lihat harga lengkap' });
 ═══════════════════════════════ */
 let currentLang = '';
 
-Object.entries(salonTranslations).forEach(([lang, values]) => Object.assign(i18n[lang], values));
+Object.entries(window.golynSalonTranslations).forEach(([lang, values]) => Object.assign(i18n[lang], values));
 const langLabels = { ja:'日本語', en:'English', vi:'Tiếng Việt', zh:'中文', ko:'한국어', my:'မြန်မာ', id:'Bahasa Indonesia' };
 const langFlagClasses = { ja:'flag-ja', en:'flag-uk', vi:'flag-vi', zh:'flag-cn', ko:'flag-ko', my:'flag-my', id:'flag-id' };
 const pageTitles = {
