@@ -26,7 +26,7 @@ const { JSDOM } = require('jsdom');
       if (!hours.includes('21:00') || !hours.includes('21:30') || hours.includes('20:00')) throw Error('Incorrect opening hours: ' + lang);
       if (file === 'dist/index.html') {
         if (!w.document.querySelector('.hero-title-lead') || !w.document.querySelector('.hero-title em')) throw Error('Missing slogan hierarchy: ' + lang);
-        if (w.document.querySelectorAll('.hero-desc > span').length !== 2) throw Error('Missing slogan paragraphs: ' + lang);
+        if (w.document.querySelector('.hero-desc').children.length !== 0) throw Error('Hero description must be one continuous paragraph: ' + lang);
       }
     }
     if (file === 'dist/index.html') {
