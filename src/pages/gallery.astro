@@ -1,5 +1,6 @@
 ---
 import SiteFooter from '../components/SiteFooter.astro';
+import PhotoDisclaimer from '../components/PhotoDisclaimer.astro';
 import { getGalleryWithFallback } from '../lib/sanity';
 
 const golynGalleryItems = await getGalleryWithFallback();
@@ -886,6 +887,7 @@ html[lang="vi"] { --serif: 'Cormorant Garamond', serif; --sans: 'Be Vietnam Pro'
     <div class="sec-eyebrow">Portfolio</div>
     <h1 class="sec-title" data-i18n="gallery_page_title"><em>&#20840;&#12390;&#12398;</em>&#12487;&#12470;&#12452;&#12531;</h1>
     <div class="sec-line"></div>
+    <PhotoDisclaimer />
   </section>
   <div class="gallery-filters" data-gallery-filters aria-label="Gallery categories"></div>
   <section class="gallery-grid" aria-label="Nail design gallery"></section>
@@ -920,6 +922,7 @@ ko:{nav_gallery:'갤러리',price_eyebrow:'가격표',nav_services:'서비스',n
 my:{nav_gallery:'ဒီဇိုင်းများ',price_eyebrow:'စျေးနှုန်း',nav_services:'ဝန်ဆောင်မှုများ',nav_reviews:'သုံးသပ်ချက်များ',acc_eyebrow:'လမ်းညွှန်',staff_eyebrow:'ဝန်ထမ်းများ',nav_news:'ဆောင်းပါး',nav_reserve:'ဘိုကင်လုပ်ရန်',gallery_page_title:'<em>ဒီဇိုင်းအားလုံး</em>',footer_desc:'အိုဆာကာမြို့လယ်ရှိ အဆင့်မြင့် လက်သည်း Atelier။ ဂျပန်နည်းပညာနှင့် နိုင်ငံတကာစတိုင်။',footer_svc:'ဝန်ဆောင်မှုများ',footer_info:'အချက်အလက်',footer_about:'ကျွန်ုပ်တို့အကြောင်း',footer_price:'စျေးနှုန်း',footer_contact:'ဆက်သွယ်ရန်'},
 id:{nav_gallery:'Galeri',price_eyebrow:'Harga',nav_services:'Layanan',nav_reviews:'Ulasan',acc_eyebrow:'Akses',staff_eyebrow:'Staf',nav_news:'Artikel',nav_reserve:'Reservasi',gallery_page_title:'<em>Semua</em> desain',footer_desc:'Atelier nail premium di pusat Osaka. Teknik Jepang, gaya internasional.',footer_svc:'Layanan',footer_info:'Informasi',footer_about:'Tentang Kami',footer_price:'Harga',footer_contact:'Kontak'}
 };
+Object.entries(window.golynPhotoDisclaimer).forEach(([lang, text]) => { galleryI18n[lang].photo_disclaimer = text; });
 const langLabels={ja:'日本語',en:'English',vi:'Tiếng Việt',zh:'中文',ko:'한국어',my:'မြန်မာ',id:'Bahasa Indonesia'};
 const langFlagClasses={ja:'flag-ja',en:'flag-uk',vi:'flag-vi',zh:'flag-cn',ko:'flag-ko',my:'flag-my',id:'flag-id'};
 const galleryMoreLabels={ja:'もっと見る',en:'View more',vi:'Xem thêm',zh:'查看更多',ko:'더 보기',my:'ပိုမိုကြည့်ရန်',id:'Lihat lagi'};

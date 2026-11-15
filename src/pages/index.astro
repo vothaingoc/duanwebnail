@@ -1,6 +1,7 @@
 ---
 import { salonTranslations, salonAddress, salonHours, mapUrl, mapEmbedUrl } from "../data/salon";
 import SiteFooter from '../components/SiteFooter.astro';
+import PhotoDisclaimer from '../components/PhotoDisclaimer.astro';
 import { getGalleryWithFallback, getPricingCampaignOverride, getPricingDataOverride } from '../lib/sanity';
 
 const golynGalleryItems = await getGalleryWithFallback();
@@ -808,6 +809,7 @@ html[lang="vi"] { --serif: 'Cormorant Garamond', serif; --sans: 'Be Vietnam Pro'
 <div class="sec-eyebrow" data-i18n="gal_eyebrow">Portfolio</div>
 <h2 class="sec-title" data-i18n="gal_title"><em>最近の</em>作品</h2>
 <div class="sec-line"></div>
+<PhotoDisclaimer />
 </div>
 <div class="gallery-grid fade-up" data-gallery-scope="home"></div>
 <div class="gallery-more fade-up">
@@ -1177,6 +1179,7 @@ Object.assign(i18n.id, { price_detail_btn:'Lihat harga lengkap' });
 let currentLang = '';
 
 Object.entries(window.golynSalonTranslations).forEach(([lang, values]) => Object.assign(i18n[lang], values));
+Object.entries(window.golynPhotoDisclaimer).forEach(([lang, text]) => { i18n[lang].photo_disclaimer = text; });
 const langLabels = { ja:'日本語', en:'English', vi:'Tiếng Việt', zh:'中文', ko:'한국어', my:'မြန်မာ', id:'Bahasa Indonesia' };
 const langFlagClasses = { ja:'flag-ja', en:'flag-uk', vi:'flag-vi', zh:'flag-cn', ko:'flag-ko', my:'flag-my', id:'flag-id' };
 const pageTitles = {
