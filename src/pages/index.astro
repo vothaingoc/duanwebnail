@@ -74,6 +74,7 @@ const homeSchema = {
 <script is:inline src="/assets/js/language-detect.js"></script>
 
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500&amp;family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&amp;family=Jost:wght@200;300;400;500&amp;family=Noto+Sans+JP:wght@300;400;500&amp;display=swap" rel="stylesheet"/>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -262,29 +263,36 @@ nav {
 }
 .hero-content {
   display: flex; flex-direction: column; justify-content: center;
-  padding: 80px 52px 80px 76px;
+  padding: 76px clamp(32px, 4vw, 64px) 76px clamp(40px, 5vw, 88px);
 }
 .hero-eyebrow {
   font-size: 12px; letter-spacing: .28em; text-transform: uppercase;
-  color: var(--gold); margin-bottom: 28px;
+  color: var(--gold); margin-bottom: 34px;
   display: flex; align-items: center; gap: 14px;
 }
 .hero-eyebrow::before { content: ''; width: 32px; height: 1px; background: var(--gold); display: block; }
 .hero-title {
-  font-family: var(--serif); font-size: clamp(36px, 4.2vw, 64px);
-  font-weight: 300; line-height: 1.4; color: var(--brown-deep); margin-bottom: 0;
-  overflow-wrap: anywhere;
+  font-family: var(--serif); font-size: clamp(38px, 4.1vw, 64px);
+  font-weight: 300; line-height: 1.5; color: var(--brown-deep); margin: 0;
+  overflow-wrap: break-word;
+  text-wrap: balance;
 }
-.hero-title :global(.hero-title-lead) { display: block; font-size: .62em; letter-spacing: .06em; margin-bottom: 10px; }
-.hero-title :global(em) { display: block; font-style: normal; color: var(--beige-dark); }
+.hero-title :global(.hero-title-lead) { display: block; font-size: .78em; letter-spacing: .05em; margin-bottom: 8px; }
+.hero-title :global(em) { display: block; font-style: normal; color: var(--beige-dark); letter-spacing: .03em; }
+html[lang="ja"] .hero-title { font-family: 'Noto Serif JP', serif; font-weight: 400; }
+html[lang="ja"] .hero-title :global(em) { white-space: nowrap; }
 .hero-subtitle {
-  font-size: clamp(16px, 1.45vw, 21px); letter-spacing: .04em; color: var(--brown);
-  margin-bottom: 22px; margin-top: 24px; line-height: 1.8;
+  font-size: clamp(14px, 1.25vw, 18px); letter-spacing: .06em; color: var(--brown);
+  margin: 28px 0 24px; padding-top: 24px; line-height: 1.9;
+  position: relative; text-wrap: pretty;
 }
+.hero-subtitle::before { content: ''; position: absolute; top: 0; left: 0; width: 44px; height: 1px; background: var(--gold); }
 .hero-desc {
-  font-size: 14px; color: var(--text-mid); max-width: 440px;
-  margin-bottom: 32px; line-height: 2;
+  font-size: 14px; color: var(--text-mid); max-width: 420px;
+  margin-bottom: 30px; line-height: 2.1; text-wrap: pretty;
 }
+.hero-desc :global(span) { display: block; }
+.hero-desc :global(span + span) { margin-top: 14px; color: var(--text-light); font-size: 13px; }
 .hero-btns { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
 .btn-primary {
   padding: 14px 34px; background: var(--brown-deep); color: var(--cream);
@@ -524,7 +532,7 @@ section[id] { scroll-margin-top: var(--nav-h); }
   .hamburger { display: flex; }
   .nav-cta { display: none; }
   .hero { grid-template-columns: 1fr; min-height: auto; }
-  .hero-content { padding: 50px 28px 42px; order: 1; }
+  .hero-content { padding: 56px 36px 48px; order: 1; max-width: 720px; width: 100%; margin: 0 auto; }
   .hero-visual { height: 380px; order: 2; }
   .services { padding: 64px 28px; }
   .services-grid { grid-template-columns: 1fr; }
@@ -539,8 +547,10 @@ section[id] { scroll-margin-top: var(--nav-h); }
   .footer-bottom { flex-direction: column; text-align: center; }
 }
 @media (max-width: 600px) {
-  .hero-content { padding: 34px 20px 30px; }
-  .hero-title { font-size: 33px; }
+  .hero-content { padding: 40px 24px 38px; }
+  .hero-title { font-size: clamp(30px, 8vw, 42px); }
+  .hero-eyebrow { margin-bottom: 26px; font-size: 10px; }
+  .hero-subtitle { margin-top: 24px; padding-top: 20px; }
   .hero-visual { height: 290px; }
   .hero-nail-art { width: 175px; height: 215px; }
   .services { padding: 50px 20px; }
@@ -780,7 +790,7 @@ html[lang="vi"] { --serif: 'Cormorant Garamond', serif; --sans: 'Be Vietnam Pro'
 <div class="hero-eyebrow" data-i18n="hero_eyebrow">Osaka Nail Atelier</div>
 <h1 class="hero-title" data-i18n="hero_title"><span class="hero-title-lead">美しさは、</span><em>自信になる。</em></h1>
 <p class="hero-subtitle" data-i18n="hero_sub">あなたの美しさに、心を込めて。</p>
-<p class="hero-desc" data-i18n="hero_desc">すべての女性が、自分の指先に自信を持てるように。<br /><br />一人ひとりの美しさに寄り添い、心を込めた施術を通して、毎日に小さな幸せをお届けします。</p>
+<p class="hero-desc" data-i18n="hero_desc"><span>すべての女性が、自分の指先に自信を持てるように。</span><span>一人ひとりの美しさに寄り添い、心を込めた施術を通して、毎日に小さな幸せをお届けします。</span></p>
 <div class="hero-btns">
 <a class="btn-primary" data-i18n="hero_cta1" href="/access/">今すぐ予約する</a>
 <a class="btn-ghost" data-i18n="hero_cta2" href="/gallery/">デザインを見る</a>
@@ -973,7 +983,7 @@ const i18n = {
     hero_eyebrow:'Osaka Nail Atelier',
     hero_title:"<span class=\"hero-title-lead\">美しさは、</span><em>自信になる。</em>",
     hero_sub:"あなたの美しさに、心を込めて。",
-    hero_desc:"すべての女性が、自分の指先に自信を持てるように。<br><br>一人ひとりの美しさに寄り添い、心を込めた施術を通して、毎日に小さな幸せをお届けします。",
+    hero_desc:"<span>すべての女性が、自分の指先に自信を持てるように。</span><span>一人ひとりの美しさに寄り添い、心を込めた施術を通して、毎日に小さな幸せをお届けします。</span>",
     hero_cta1:'今すぐ予約する', hero_cta2:'デザインを見る',
     gal_eyebrow:'Portfolio', gal_title:'<em>最近の</em>作品', gal_more:'200以上のデザインを見る',
     price_eyebrow:'料金表', price_title:'明確な<em>料金設定</em>',
@@ -1025,7 +1035,7 @@ const i18n = {
     hero_eyebrow:'Osaka Nail Atelier',
     hero_title:"<span class=\"hero-title-lead\">Beauty becomes</span><em>confidence.</em>",
     hero_sub:"Caring for your beauty, wholeheartedly.",
-    hero_desc:"So every woman can feel confident in her fingertips.<br><br>We embrace each woman's unique beauty and bring a little happiness to everyday life through thoughtful, heartfelt nail care.",
+    hero_desc:"<span>So every woman can feel confident in her fingertips.</span><span>We embrace each woman's unique beauty and bring a little happiness to everyday life through thoughtful, heartfelt nail care.</span>",
     hero_cta1:'Book Now', hero_cta2:'View Designs',
     gal_eyebrow:'Portfolio', gal_title:'<em>Recent</em> works', gal_more:'View all 200+ designs',
     price_eyebrow:'Pricing', price_title:'Clear &amp; honest <em>pricing</em>',
@@ -1077,7 +1087,7 @@ const i18n = {
     hero_eyebrow:'Osaka Nail Atelier',
     hero_title:"<span class=\"hero-title-lead\">Vẻ đẹp khơi nguồn</span><em>sự tự tin.</em>",
     hero_sub:"Nâng niu vẻ đẹp của bạn, bằng cả tấm lòng.",
-    hero_desc:"Để mỗi người phụ nữ đều tự tin với những đầu ngón tay của mình.<br><br>Chúng tôi trân trọng vẻ đẹp riêng của từng người, chăm chút bằng cả tấm lòng để mang đến những niềm vui nhỏ trong cuộc sống mỗi ngày.",
+    hero_desc:"<span>Để mỗi người phụ nữ đều tự tin với những đầu ngón tay của mình.</span><span>Chúng tôi trân trọng vẻ đẹp riêng của từng người, chăm chút bằng cả tấm lòng để mang đến những niềm vui nhỏ trong cuộc sống mỗi ngày.</span>",
     hero_cta1:'Đặt lịch ngay', hero_cta2:'Xem mẫu nail',
     gal_eyebrow:'Portfolio', gal_title:'<em>Tác phẩm</em> gần đây', gal_more:'Xem toàn bộ 200+ mẫu',
     price_eyebrow:'Bảng giá', price_title:'Giá cả <em>minh bạch</em>',
@@ -1128,7 +1138,7 @@ const i18n = {
 Object.assign(i18n, {
   zh: { ...i18n.en,
     nav_services:'服务', nav_gallery:'作品集', nav_reviews:'评价', nav_reserve:'预约', nav_news:'专栏',
-    hero_eyebrow:'大阪美甲工作室', hero_title:"<span class=\"hero-title-lead\">美丽，</span><em>化作自信。</em>", hero_sub:"用心呵护，你的美丽。", hero_desc:"愿每一位女性，都能对自己的指尖充满自信。<br><br>我们珍视每个人独有的美丽，以真挚细致的美甲服务，为每一天带来一份小小的幸福。", hero_cta1:'立即预约', hero_cta2:'查看设计',
+    hero_eyebrow:'大阪美甲工作室', hero_title:"<span class=\"hero-title-lead\">美丽，</span><em>化作自信。</em>", hero_sub:"用心呵护，你的美丽。", hero_desc:"<span>愿每一位女性，都能对自己的指尖充满自信。</span><span>我们珍视每个人独有的美丽，以真挚细致的美甲服务，为每一天带来一份小小的幸福。</span>", hero_cta1:'立即预约', hero_cta2:'查看设计',
     gal_eyebrow:'作品集', gal_title:'<em>近期</em>作品', gal_more:'查看全部 200+ 款设计',
     price_eyebrow:'价格表', price_title:'清晰透明的<em>价格</em>', price_basic_label:'基础', price_basic_name:'凝胶美甲', price_basic_desc:'从纯色到艺术款。支持韩式、网红和晕染风格。', price_art_label:'人气', price_art_name:'延长美甲', price_art_desc:'从自然延长到长甲造型。也可制作华丽设计。', price_spa_label:'足部 & 卸甲', price_spa_name:'足部 & 卸甲', price_spa_desc:'足部美甲和卸甲的基本价格。', price_note:'※ 到店后7天内免费修补<br>※ 限时活动价格', price_note_ext:'※ 到店后7天内免费修补<br>※ 限时活动价格',
     svc_eyebrow:'服务项目', svc_title:'我们的<em>服务</em>', svc1_name:'凝胶美甲', svc1_desc:'纯色、闪光甲、亮片渐变。支持韩式、网红和晕染风格。', svc2_name:'美甲设计', svc2_desc:'4指、6指或10指艺术款。含人气配件，也欢迎自带设计。', svc3_name:'长甲 / 延长', svc3_desc:'延长、雕花、水晶和凝胶甲片。超长甲与韩式风格都很受欢迎。', svc4_name:'足部美甲', svc4_desc:'从足部纯色到10指艺术款，适合夏季足部设计。',
@@ -1139,7 +1149,7 @@ Object.assign(i18n, {
   },
   ko: { ...i18n.en,
     nav_services:'서비스', nav_gallery:'갤러리', nav_reviews:'후기', nav_reserve:'예약', nav_news:'칼럼',
-    hero_eyebrow:'오사카 네일 아틀리에', hero_title:"<span class=\"hero-title-lead\">아름다움은,</span><em>자신감이 됩니다.</em>", hero_sub:"당신의 아름다움에, 진심을 담아.", hero_desc:"모든 여성이 자신의 손끝에 자신감을 가질 수 있도록.<br><br>한 분 한 분의 아름다움을 소중히 여기며, 정성을 담은 시술로 일상에 작은 행복을 전합니다.", hero_cta1:'지금 예약하기', hero_cta2:'디자인 보기',
+    hero_eyebrow:'오사카 네일 아틀리에', hero_title:"<span class=\"hero-title-lead\">아름다움은,</span><em>자신감이 됩니다.</em>", hero_sub:"당신의 아름다움에, 진심을 담아.", hero_desc:"<span>모든 여성이 자신의 손끝에 자신감을 가질 수 있도록.</span><span>한 분 한 분의 아름다움을 소중히 여기며, 정성을 담은 시술로 일상에 작은 행복을 전합니다.</span>", hero_cta1:'지금 예약하기', hero_cta2:'디자인 보기',
     gal_eyebrow:'포트폴리오', gal_title:'<em>최근</em> 작품', gal_more:'200개 이상의 디자인 보기',
     price_eyebrow:'가격표', price_title:'명확하고 투명한 <em>가격</em>', price_basic_label:'베이직', price_basic_name:'젤 네일', price_basic_desc:'원컬러부터 아트 코스까지. 한국, 왕홍, 뉴앙스 스타일 가능.', price_art_label:'인기', price_art_name:'네일 연장', price_art_desc:'자연스러운 연장부터 롱네일까지. 화려한 디자인도 가능합니다.', price_spa_label:'풋 & 제거', price_spa_name:'풋 & 제거', price_spa_desc:'풋 네일과 젤 제거 기본 가격입니다.', price_note:'※ 방문 후 7일 이내 무료 보수<br>※ 기간 한정 캠페인 가격', price_note_ext:'※ 방문 후 7일 이내 무료 보수<br>※ 기간 한정 캠페인 가격',
     svc_eyebrow:'서비스', svc_title:'우리의 <em>서비스</em>', svc1_name:'젤 네일', svc1_desc:'원컬러, 플래시, 글리터 그라데이션. 한국, 왕홍, 뉴앙스 스타일 가능.', svc2_name:'아트 디자인', svc2_desc:'4개, 6개, 10개 아트 코스. 인기 파츠 포함, 가져온 디자인도 가능합니다.', svc3_name:'롱 네일 / 연장', svc3_desc:'연장, 스컬프, 젤 팁 가능. 초롱 네일과 한국 스타일이 인기입니다.', svc4_name:'풋 네일', svc4_desc:'풋 원컬러부터 10개 아트까지. 여름 풋 네일 디자인에 좋습니다.',
@@ -1150,7 +1160,7 @@ Object.assign(i18n, {
   },
   my: { ...i18n.en,
     nav_services:'ဝန်ဆောင်မှုများ', nav_gallery:'ဒီဇိုင်းများ', nav_reviews:'သုံးသပ်ချက်များ', nav_reserve:'ဘိုကင်လုပ်ရန်', nav_news:'ဆောင်းပါး',
-    hero_eyebrow:'အိုဆာကာ လက်သည်း Atelier', hero_title:"<span class=\"hero-title-lead\">အလှတရားမှ</span><em>ကိုယ့်ကိုယ်ကို ယုံကြည်မှုဆီသို့။</em>", hero_sub:"သင့်အလှတရားအတွက် စိတ်နှလုံးအပြည့်နဲ့။", hero_desc:"အမျိုးသမီးတိုင်း မိမိတို့၏ လက်ချောင်းထိပ်လေးများအတွက် ကိုယ့်ကိုယ်ကို ယုံကြည်မှုရှိစေရန်။<br><br>တစ်ဦးချင်းစီ၏ ထူးခြားသောအလှကို တန်ဖိုးထားပြီး စေတနာအပြည့်ဖြင့် ဝန်ဆောင်မှုပေးကာ နေ့စဉ်ဘဝထဲသို့ ပျော်ရွှင်မှုလေးများ ယူဆောင်ပေးပါသည်။", hero_cta1:'ယခုပဲ ဘိုကင်လုပ်ရန်', hero_cta2:'ဒီဇိုင်းများ ကြည့်ရန်',
+    hero_eyebrow:'အိုဆာကာ လက်သည်း Atelier', hero_title:"<span class=\"hero-title-lead\">အလှတရားမှ</span><em>ကိုယ့်ကိုယ်ကို ယုံကြည်မှုဆီသို့။</em>", hero_sub:"သင့်အလှတရားအတွက် စိတ်နှလုံးအပြည့်နဲ့။", hero_desc:"<span>အမျိုးသမီးတိုင်း မိမိတို့၏ လက်ချောင်းထိပ်လေးများအတွက် ကိုယ့်ကိုယ်ကို ယုံကြည်မှုရှိစေရန်။</span><span>တစ်ဦးချင်းစီ၏ ထူးခြားသောအလှကို တန်ဖိုးထားပြီး စေတနာအပြည့်ဖြင့် ဝန်ဆောင်မှုပေးကာ နေ့စဉ်ဘဝထဲသို့ ပျော်ရွှင်မှုလေးများ ယူဆောင်ပေးပါသည်။</span>", hero_cta1:'ယခုပဲ ဘိုကင်လုပ်ရန်', hero_cta2:'ဒီဇိုင်းများ ကြည့်ရန်',
     gal_eyebrow:'Portfolio', gal_title:'<em>မကြာသေးမီ</em> လက်ရာများ', gal_more:'ဒီဇိုင်း ၂၀၀ ကျော် ကြည့်ရန်',
     price_eyebrow:'စျေးနှုန်း', price_title:'ရှင်းလင်းသော <em>စျေးနှုန်း</em>', price_basic_label:'အခြေခံ', price_basic_name:'Gel Nail', price_basic_desc:'တစ်ရောင်မှ art course အထိ။ Korean, Wanghong နှင့် nuance စတိုင်များရနိုင်သည်။', price_art_label:'လူကြိုက်များ', price_art_name:'လက်သည်းရှည်တိုးခြင်း', price_art_desc:'သဘာဝဆန်သော အရှည်တိုးခြင်းမှ လက်သည်းရှည်ဒီဇိုင်းအထိ ရနိုင်သည်။', price_spa_label:'Foot & Off', price_spa_name:'Foot & Off', price_spa_desc:'ခြေသည်းနှင့် gel ဖယ်ရှားခြင်းအတွက် အခြေခံစျေးနှုန်းများ။', price_note:'※ လာရောက်ပြီး ၇ ရက်အတွင်း အခမဲ့ပြင်ဆင်ပေးပါသည်<br>※ ကာလသတ်မှတ် campaign စျေးနှုန်း', price_note_ext:'※ လာရောက်ပြီး ၇ ရက်အတွင်း အခမဲ့ပြင်ဆင်ပေးပါသည်<br>※ ကာလသတ်မှတ် campaign စျေးနှုန်း',
     svc_eyebrow:'ဝန်ဆောင်မှုများ', svc_title:'ကျွန်ုပ်တို့၏ <em>ဝန်ဆောင်မှုများ</em>', svc1_name:'Gel Nail', svc1_desc:'One-color, flash နှင့် glitter gradient။ Korean, Wanghong, nuance စတိုင်ရနိုင်သည်။', svc2_name:'Art Design', svc2_desc:'၄ ချောင်း၊ ၆ ချောင်း၊ ၁၀ ချောင်း art course။ လူကြိုက်များသော parts ပါဝင်ပြီး ကိုယ်တိုင်ယူလာသော design လည်းရပါသည်။', svc3_name:'Long Nail / Extension', svc3_desc:'Extension, sculpt, gel tips ရနိုင်သည်။ Extra-long နှင့် Korean nail စတိုင်များလည်း လူကြိုက်များသည်။', svc4_name:'Foot Nail', svc4_desc:'Foot one-color မှ ၁၀ ချောင်း art အထိ။ နွေရာသီခြေသည်းဒီဇိုင်းများအတွက် သင့်တော်သည်။',
@@ -1159,7 +1169,7 @@ Object.assign(i18n, {
   },
   id: { ...i18n.en,
     nav_services:'Layanan', nav_gallery:'Galeri', nav_reviews:'Ulasan', nav_reserve:'Reservasi', nav_news:'Artikel',
-    hero_eyebrow:'Atelier Nail Osaka', hero_title:"<span class=\"hero-title-lead\">Kecantikan menjadi</span><em>percaya diri.</em>", hero_sub:"Merawat kecantikan Anda, sepenuh hati.", hero_desc:"Agar setiap wanita merasa percaya diri hingga ke ujung jarinya.<br><br>Kami menghargai kecantikan unik setiap orang dan menghadirkan kebahagiaan kecil setiap hari melalui perawatan kuku yang tulus dan penuh perhatian.", hero_cta1:'Reservasi Sekarang', hero_cta2:'Lihat Desain',
+    hero_eyebrow:'Atelier Nail Osaka', hero_title:"<span class=\"hero-title-lead\">Kecantikan menjadi</span><em>percaya diri.</em>", hero_sub:"Merawat kecantikan Anda, sepenuh hati.", hero_desc:"<span>Agar setiap wanita merasa percaya diri hingga ke ujung jarinya.</span><span>Kami menghargai kecantikan unik setiap orang dan menghadirkan kebahagiaan kecil setiap hari melalui perawatan kuku yang tulus dan penuh perhatian.</span>", hero_cta1:'Reservasi Sekarang', hero_cta2:'Lihat Desain',
     gal_eyebrow:'Portofolio', gal_title:'Karya <em>terbaru</em>', gal_more:'Lihat semua 200+ desain',
     price_eyebrow:'Harga', price_title:'Harga yang <em>jelas</em>', price_basic_label:'Dasar', price_basic_name:'Gel Nail', price_basic_desc:'Dari one-color hingga course art. Tersedia gaya Korea, Wanghong, dan nuance.', price_art_label:'Populer', price_art_name:'Nail Extension', price_art_desc:'Dari extension natural hingga kuku panjang. Desain glamor juga tersedia.', price_spa_label:'Foot & Off', price_spa_name:'Foot & Off', price_spa_desc:'Harga dasar untuk nail kaki dan pelepasan gel.', price_note:'※ Perbaikan gratis dalam 7 hari setelah kunjungan<br>※ Harga campaign terbatas', price_note_ext:'※ Perbaikan gratis dalam 7 hari setelah kunjungan<br>※ Harga campaign terbatas',
     svc_eyebrow:'Layanan Kami', svc_title:'<em>Layanan</em> Kami', svc1_name:'Gel Nail', svc1_desc:'One-color, flash, dan glitter gradient. Tersedia gaya Korea, Wanghong, dan nuance.', svc2_name:'Art Design', svc2_desc:'Course art 4, 6, atau 10 kuku. Termasuk parts populer dan bisa membawa desain sendiri.', svc3_name:'Long Nail / Extension', svc3_desc:'Extension, sculpt, dan gel tips. Extra-long dan gaya Korea sangat populer.', svc4_name:'Foot Nail', svc4_desc:'Dari one-color kaki hingga art 10 kuku. Cocok untuk desain foot nail musim panas.',
