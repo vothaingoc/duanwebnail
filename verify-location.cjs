@@ -17,6 +17,10 @@ const { JSDOM } = require('jsdom');
       await new Promise(resolve => setTimeout(resolve, 250));
       const address = w.document.querySelector('[data-i18n="acc_addr"]').textContent;
       if (!address.includes('542-0081') || !address.includes('406')) throw Error(file + ' bad address ' + lang);
+      if (address.includes('4階')) throw Error('Floor label still present');
+      if (lang !== 'ja' && !address.includes('Osaka-fu, Osaka-shi, Chuo-ku, Minamisenba 3-11-27Nippo Building Room 406')) throw Error('Romanized address mismatch: ' + lang);
+      const direction = w.document.querySelector('[data-i18n="acc_dir1"]').textContent;
+      if (!direction.includes('2') || !/[3၃]/.test(direction)) throw Error('Missing Exit 2 walking time: ' + lang);
       if (!w.document.querySelector('[data-i18n="acc_dir4"]')) throw Error('Missing fourth station');
     }
     if (file === 'dist/index.html') {
