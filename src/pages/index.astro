@@ -271,17 +271,19 @@ nav {
 }
 .hero-eyebrow::before { content: ''; width: 32px; height: 1px; background: var(--gold); display: block; }
 .hero-title {
-  font-family: var(--serif); font-size: clamp(42px, 4.6vw, 72px);
-  font-weight: 300; line-height: 1.1; color: var(--brown-deep); margin-bottom: 8px;
+  font-family: var(--serif); font-size: clamp(36px, 4.2vw, 64px);
+  font-weight: 300; line-height: 1.4; color: var(--brown-deep); margin-bottom: 0;
+  overflow-wrap: anywhere;
 }
-.hero-title em { font-style: italic; color: var(--beige-dark); }
+.hero-title :global(.hero-title-lead) { display: block; font-size: .62em; letter-spacing: .06em; margin-bottom: 10px; }
+.hero-title :global(em) { display: block; font-style: normal; color: var(--beige-dark); }
 .hero-subtitle {
-  font-size: 13px; letter-spacing: .12em; color: var(--text-light);
-  margin-bottom: 30px; margin-top: 14px; text-transform: uppercase;
+  font-size: clamp(16px, 1.45vw, 21px); letter-spacing: .04em; color: var(--brown);
+  margin-bottom: 22px; margin-top: 24px; line-height: 1.8;
 }
 .hero-desc {
-  font-size: 16px; color: var(--text-mid); max-width: 380px;
-  margin-bottom: 42px; line-height: 1.85;
+  font-size: 14px; color: var(--text-mid); max-width: 440px;
+  margin-bottom: 32px; line-height: 2;
 }
 .hero-btns { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
 .btn-primary {
@@ -776,9 +778,9 @@ html[lang="vi"] { --serif: 'Cormorant Garamond', serif; --sans: 'Be Vietnam Pro'
 <section class="hero">
 <div class="hero-content">
 <div class="hero-eyebrow" data-i18n="hero_eyebrow">Osaka Nail Atelier</div>
-<h1 class="hero-title" data-i18n="hero_title">指先に宿る<br/><em>美しさ</em><br/>という芸術</h1>
-<p class="hero-subtitle" data-i18n="hero_sub">Premium Gel · Nail Art · Spa</p>
-<p class="hero-desc" data-i18n="hero_desc">細部にまでこだわったネイルアート。日本の技術と国際的なセンスを融合させた、大阪随一のネイルアトリエです。</p>
+<h1 class="hero-title" data-i18n="hero_title"><span class="hero-title-lead">美しさは、</span><em>自信になる。</em></h1>
+<p class="hero-subtitle" data-i18n="hero_sub">あなたの美しさに、心を込めて。</p>
+<p class="hero-desc" data-i18n="hero_desc">すべての女性が、自分の指先に自信を持てるように。<br /><br />一人ひとりの美しさに寄り添い、心を込めた施術を通して、毎日に小さな幸せをお届けします。</p>
 <div class="hero-btns">
 <a class="btn-primary" data-i18n="hero_cta1" href="/access/">今すぐ予約する</a>
 <a class="btn-ghost" data-i18n="hero_cta2" href="/gallery/">デザインを見る</a>
@@ -969,9 +971,9 @@ const i18n = {
   ja: {
     nav_services:'サービス', nav_gallery:'ギャラリー', nav_reviews:'口コミ', nav_reserve:'ご予約', nav_news:'コラム',
     hero_eyebrow:'Osaka Nail Atelier',
-    hero_title:'指先に宿る<br><em>美しさ</em><br>という芸術',
-    hero_sub:'Premium Gel · Nail Art · Spa',
-    hero_desc:'細部にまでこだわったネイルアート。日本の技術と国際的なセンスを融合させた、大阪随一のネイルアトリエです。',
+    hero_title:"<span class=\"hero-title-lead\">美しさは、</span><em>自信になる。</em>",
+    hero_sub:"あなたの美しさに、心を込めて。",
+    hero_desc:"すべての女性が、自分の指先に自信を持てるように。<br><br>一人ひとりの美しさに寄り添い、心を込めた施術を通して、毎日に小さな幸せをお届けします。",
     hero_cta1:'今すぐ予約する', hero_cta2:'デザインを見る',
     gal_eyebrow:'Portfolio', gal_title:'<em>最近の</em>作品', gal_more:'200以上のデザインを見る',
     price_eyebrow:'料金表', price_title:'明確な<em>料金設定</em>',
@@ -1021,9 +1023,9 @@ const i18n = {
   en: {
     nav_services:'Services', nav_gallery:'Gallery', nav_reviews:'Reviews', nav_reserve:'Reserve', nav_news:'Blog',
     hero_eyebrow:'Osaka Nail Atelier',
-    hero_title:'The art of<br><em>beautiful</em><br>nails',
-    hero_sub:'Premium Gel · Nail Art · Spa',
-    hero_desc:'Meticulous attention to every detail. We fuse authentic Japanese technique with international flair at Osaka finest nail atelier.',
+    hero_title:"<span class=\"hero-title-lead\">Beauty becomes</span><em>confidence.</em>",
+    hero_sub:"Caring for your beauty, wholeheartedly.",
+    hero_desc:"So every woman can feel confident in her fingertips.<br><br>We embrace each woman's unique beauty and bring a little happiness to everyday life through thoughtful, heartfelt nail care.",
     hero_cta1:'Book Now', hero_cta2:'View Designs',
     gal_eyebrow:'Portfolio', gal_title:'<em>Recent</em> works', gal_more:'View all 200+ designs',
     price_eyebrow:'Pricing', price_title:'Clear &amp; honest <em>pricing</em>',
@@ -1073,9 +1075,9 @@ const i18n = {
   vi: {
     nav_services:'Dịch vụ', nav_gallery:'Mẫu nail', nav_reviews:'Đánh giá', nav_reserve:'Đặt lịch', nav_news:'Bài viết',
     hero_eyebrow:'Osaka Nail Atelier',
-    hero_title:'Nghệ thuật<br><em>nail</em><br>tinh tế',
-    hero_sub:'Premium Gel · Nail Art · Spa',
-    hero_desc:'Tỉ mỉ trong từng chi tiết. Chúng tôi tạo nên những tác phẩm nghệ thuật trên đầu ngón tay bằng kỹ thuật Nhật Bản chuẩn mực tại tiệm nail hàng đầu Osaka.',
+    hero_title:"<span class=\"hero-title-lead\">Vẻ đẹp khơi nguồn</span><em>sự tự tin.</em>",
+    hero_sub:"Nâng niu vẻ đẹp của bạn, bằng cả tấm lòng.",
+    hero_desc:"Để mỗi người phụ nữ đều tự tin với những đầu ngón tay của mình.<br><br>Chúng tôi trân trọng vẻ đẹp riêng của từng người, chăm chút bằng cả tấm lòng để mang đến những niềm vui nhỏ trong cuộc sống mỗi ngày.",
     hero_cta1:'Đặt lịch ngay', hero_cta2:'Xem mẫu nail',
     gal_eyebrow:'Portfolio', gal_title:'<em>Tác phẩm</em> gần đây', gal_more:'Xem toàn bộ 200+ mẫu',
     price_eyebrow:'Bảng giá', price_title:'Giá cả <em>minh bạch</em>',
@@ -1126,7 +1128,7 @@ const i18n = {
 Object.assign(i18n, {
   zh: { ...i18n.en,
     nav_services:'服务', nav_gallery:'作品集', nav_reviews:'评价', nav_reserve:'预约', nav_news:'专栏',
-    hero_eyebrow:'大阪美甲工作室', hero_title:'指尖上的<br><em>美丽</em><br>艺术', hero_sub:'高级凝胶 · 美甲设计 · 护理', hero_desc:'注重每一个细节。我们融合日本技术与国际审美，在大阪打造高品质美甲体验。', hero_cta1:'立即预约', hero_cta2:'查看设计',
+    hero_eyebrow:'大阪美甲工作室', hero_title:"<span class=\"hero-title-lead\">美丽，</span><em>化作自信。</em>", hero_sub:"用心呵护，你的美丽。", hero_desc:"愿每一位女性，都能对自己的指尖充满自信。<br><br>我们珍视每个人独有的美丽，以真挚细致的美甲服务，为每一天带来一份小小的幸福。", hero_cta1:'立即预约', hero_cta2:'查看设计',
     gal_eyebrow:'作品集', gal_title:'<em>近期</em>作品', gal_more:'查看全部 200+ 款设计',
     price_eyebrow:'价格表', price_title:'清晰透明的<em>价格</em>', price_basic_label:'基础', price_basic_name:'凝胶美甲', price_basic_desc:'从纯色到艺术款。支持韩式、网红和晕染风格。', price_art_label:'人气', price_art_name:'延长美甲', price_art_desc:'从自然延长到长甲造型。也可制作华丽设计。', price_spa_label:'足部 & 卸甲', price_spa_name:'足部 & 卸甲', price_spa_desc:'足部美甲和卸甲的基本价格。', price_note:'※ 到店后7天内免费修补<br>※ 限时活动价格', price_note_ext:'※ 到店后7天内免费修补<br>※ 限时活动价格',
     svc_eyebrow:'服务项目', svc_title:'我们的<em>服务</em>', svc1_name:'凝胶美甲', svc1_desc:'纯色、闪光甲、亮片渐变。支持韩式、网红和晕染风格。', svc2_name:'美甲设计', svc2_desc:'4指、6指或10指艺术款。含人气配件，也欢迎自带设计。', svc3_name:'长甲 / 延长', svc3_desc:'延长、雕花、水晶和凝胶甲片。超长甲与韩式风格都很受欢迎。', svc4_name:'足部美甲', svc4_desc:'从足部纯色到10指艺术款，适合夏季足部设计。',
@@ -1137,7 +1139,7 @@ Object.assign(i18n, {
   },
   ko: { ...i18n.en,
     nav_services:'서비스', nav_gallery:'갤러리', nav_reviews:'후기', nav_reserve:'예약', nav_news:'칼럼',
-    hero_eyebrow:'오사카 네일 아틀리에', hero_title:'손끝에 담는<br><em>아름다움</em><br>이라는 예술', hero_sub:'프리미엄 젤 · 네일 아트 · 케어', hero_desc:'작은 디테일까지 정성스럽게. 일본 기술과 국제적인 감각을 더해 오사카에서 고급 네일 경험을 제공합니다.', hero_cta1:'지금 예약하기', hero_cta2:'디자인 보기',
+    hero_eyebrow:'오사카 네일 아틀리에', hero_title:"<span class=\"hero-title-lead\">아름다움은,</span><em>자신감이 됩니다.</em>", hero_sub:"당신의 아름다움에, 진심을 담아.", hero_desc:"모든 여성이 자신의 손끝에 자신감을 가질 수 있도록.<br><br>한 분 한 분의 아름다움을 소중히 여기며, 정성을 담은 시술로 일상에 작은 행복을 전합니다.", hero_cta1:'지금 예약하기', hero_cta2:'디자인 보기',
     gal_eyebrow:'포트폴리오', gal_title:'<em>최근</em> 작품', gal_more:'200개 이상의 디자인 보기',
     price_eyebrow:'가격표', price_title:'명확하고 투명한 <em>가격</em>', price_basic_label:'베이직', price_basic_name:'젤 네일', price_basic_desc:'원컬러부터 아트 코스까지. 한국, 왕홍, 뉴앙스 스타일 가능.', price_art_label:'인기', price_art_name:'네일 연장', price_art_desc:'자연스러운 연장부터 롱네일까지. 화려한 디자인도 가능합니다.', price_spa_label:'풋 & 제거', price_spa_name:'풋 & 제거', price_spa_desc:'풋 네일과 젤 제거 기본 가격입니다.', price_note:'※ 방문 후 7일 이내 무료 보수<br>※ 기간 한정 캠페인 가격', price_note_ext:'※ 방문 후 7일 이내 무료 보수<br>※ 기간 한정 캠페인 가격',
     svc_eyebrow:'서비스', svc_title:'우리의 <em>서비스</em>', svc1_name:'젤 네일', svc1_desc:'원컬러, 플래시, 글리터 그라데이션. 한국, 왕홍, 뉴앙스 스타일 가능.', svc2_name:'아트 디자인', svc2_desc:'4개, 6개, 10개 아트 코스. 인기 파츠 포함, 가져온 디자인도 가능합니다.', svc3_name:'롱 네일 / 연장', svc3_desc:'연장, 스컬프, 젤 팁 가능. 초롱 네일과 한국 스타일이 인기입니다.', svc4_name:'풋 네일', svc4_desc:'풋 원컬러부터 10개 아트까지. 여름 풋 네일 디자인에 좋습니다.',
@@ -1148,7 +1150,7 @@ Object.assign(i18n, {
   },
   my: { ...i18n.en,
     nav_services:'ဝန်ဆောင်မှုများ', nav_gallery:'ဒီဇိုင်းများ', nav_reviews:'သုံးသပ်ချက်များ', nav_reserve:'ဘိုကင်လုပ်ရန်', nav_news:'ဆောင်းပါး',
-    hero_eyebrow:'အိုဆာကာ လက်သည်း Atelier', hero_title:'လက်ချောင်းထိပ်ပေါ်က<br><em>အလှတရား</em><br>အနုပညာ', hero_sub:'Premium Gel · Nail Art · Spa', hero_desc:'အသေးစိတ်တိုင်းကို ဂရုစိုက်ပြီး ဂျပန်နည်းပညာနှင့် နိုင်ငံတကာစတိုင်ကို ပေါင်းစပ်ထားသော အိုဆာကာရှိ အဆင့်မြင့် လက်သည်းဆိုင်ဖြစ်သည်။', hero_cta1:'ယခုပဲ ဘိုကင်လုပ်ရန်', hero_cta2:'ဒီဇိုင်းများ ကြည့်ရန်',
+    hero_eyebrow:'အိုဆာကာ လက်သည်း Atelier', hero_title:"<span class=\"hero-title-lead\">အလှတရားမှ</span><em>ကိုယ့်ကိုယ်ကို ယုံကြည်မှုဆီသို့။</em>", hero_sub:"သင့်အလှတရားအတွက် စိတ်နှလုံးအပြည့်နဲ့။", hero_desc:"အမျိုးသမီးတိုင်း မိမိတို့၏ လက်ချောင်းထိပ်လေးများအတွက် ကိုယ့်ကိုယ်ကို ယုံကြည်မှုရှိစေရန်။<br><br>တစ်ဦးချင်းစီ၏ ထူးခြားသောအလှကို တန်ဖိုးထားပြီး စေတနာအပြည့်ဖြင့် ဝန်ဆောင်မှုပေးကာ နေ့စဉ်ဘဝထဲသို့ ပျော်ရွှင်မှုလေးများ ယူဆောင်ပေးပါသည်။", hero_cta1:'ယခုပဲ ဘိုကင်လုပ်ရန်', hero_cta2:'ဒီဇိုင်းများ ကြည့်ရန်',
     gal_eyebrow:'Portfolio', gal_title:'<em>မကြာသေးမီ</em> လက်ရာများ', gal_more:'ဒီဇိုင်း ၂၀၀ ကျော် ကြည့်ရန်',
     price_eyebrow:'စျေးနှုန်း', price_title:'ရှင်းလင်းသော <em>စျေးနှုန်း</em>', price_basic_label:'အခြေခံ', price_basic_name:'Gel Nail', price_basic_desc:'တစ်ရောင်မှ art course အထိ။ Korean, Wanghong နှင့် nuance စတိုင်များရနိုင်သည်။', price_art_label:'လူကြိုက်များ', price_art_name:'လက်သည်းရှည်တိုးခြင်း', price_art_desc:'သဘာဝဆန်သော အရှည်တိုးခြင်းမှ လက်သည်းရှည်ဒီဇိုင်းအထိ ရနိုင်သည်။', price_spa_label:'Foot & Off', price_spa_name:'Foot & Off', price_spa_desc:'ခြေသည်းနှင့် gel ဖယ်ရှားခြင်းအတွက် အခြေခံစျေးနှုန်းများ။', price_note:'※ လာရောက်ပြီး ၇ ရက်အတွင်း အခမဲ့ပြင်ဆင်ပေးပါသည်<br>※ ကာလသတ်မှတ် campaign စျေးနှုန်း', price_note_ext:'※ လာရောက်ပြီး ၇ ရက်အတွင်း အခမဲ့ပြင်ဆင်ပေးပါသည်<br>※ ကာလသတ်မှတ် campaign စျေးနှုန်း',
     svc_eyebrow:'ဝန်ဆောင်မှုများ', svc_title:'ကျွန်ုပ်တို့၏ <em>ဝန်ဆောင်မှုများ</em>', svc1_name:'Gel Nail', svc1_desc:'One-color, flash နှင့် glitter gradient။ Korean, Wanghong, nuance စတိုင်ရနိုင်သည်။', svc2_name:'Art Design', svc2_desc:'၄ ချောင်း၊ ၆ ချောင်း၊ ၁၀ ချောင်း art course။ လူကြိုက်များသော parts ပါဝင်ပြီး ကိုယ်တိုင်ယူလာသော design လည်းရပါသည်။', svc3_name:'Long Nail / Extension', svc3_desc:'Extension, sculpt, gel tips ရနိုင်သည်။ Extra-long နှင့် Korean nail စတိုင်များလည်း လူကြိုက်များသည်။', svc4_name:'Foot Nail', svc4_desc:'Foot one-color မှ ၁၀ ချောင်း art အထိ။ နွေရာသီခြေသည်းဒီဇိုင်းများအတွက် သင့်တော်သည်။',
@@ -1157,7 +1159,7 @@ Object.assign(i18n, {
   },
   id: { ...i18n.en,
     nav_services:'Layanan', nav_gallery:'Galeri', nav_reviews:'Ulasan', nav_reserve:'Reservasi', nav_news:'Artikel',
-    hero_eyebrow:'Atelier Nail Osaka', hero_title:'Seni<br><em>keindahan</em><br>di ujung jari', hero_sub:'Premium Gel · Nail Art · Spa', hero_desc:'Perhatian pada setiap detail. Kami memadukan teknik Jepang dengan sentuhan internasional di atelier nail premium Osaka.', hero_cta1:'Reservasi Sekarang', hero_cta2:'Lihat Desain',
+    hero_eyebrow:'Atelier Nail Osaka', hero_title:"<span class=\"hero-title-lead\">Kecantikan menjadi</span><em>percaya diri.</em>", hero_sub:"Merawat kecantikan Anda, sepenuh hati.", hero_desc:"Agar setiap wanita merasa percaya diri hingga ke ujung jarinya.<br><br>Kami menghargai kecantikan unik setiap orang dan menghadirkan kebahagiaan kecil setiap hari melalui perawatan kuku yang tulus dan penuh perhatian.", hero_cta1:'Reservasi Sekarang', hero_cta2:'Lihat Desain',
     gal_eyebrow:'Portofolio', gal_title:'Karya <em>terbaru</em>', gal_more:'Lihat semua 200+ desain',
     price_eyebrow:'Harga', price_title:'Harga yang <em>jelas</em>', price_basic_label:'Dasar', price_basic_name:'Gel Nail', price_basic_desc:'Dari one-color hingga course art. Tersedia gaya Korea, Wanghong, dan nuance.', price_art_label:'Populer', price_art_name:'Nail Extension', price_art_desc:'Dari extension natural hingga kuku panjang. Desain glamor juga tersedia.', price_spa_label:'Foot & Off', price_spa_name:'Foot & Off', price_spa_desc:'Harga dasar untuk nail kaki dan pelepasan gel.', price_note:'※ Perbaikan gratis dalam 7 hari setelah kunjungan<br>※ Harga campaign terbatas', price_note_ext:'※ Perbaikan gratis dalam 7 hari setelah kunjungan<br>※ Harga campaign terbatas',
     svc_eyebrow:'Layanan Kami', svc_title:'<em>Layanan</em> Kami', svc1_name:'Gel Nail', svc1_desc:'One-color, flash, dan glitter gradient. Tersedia gaya Korea, Wanghong, dan nuance.', svc2_name:'Art Design', svc2_desc:'Course art 4, 6, atau 10 kuku. Termasuk parts populer dan bisa membawa desain sendiri.', svc3_name:'Long Nail / Extension', svc3_desc:'Extension, sculpt, dan gel tips. Extra-long dan gaya Korea sangat populer.', svc4_name:'Foot Nail', svc4_desc:'Dari one-color kaki hingga art 10 kuku. Cocok untuk desain foot nail musim panas.',
