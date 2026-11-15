@@ -469,18 +469,22 @@ export async function getSanityStaffMemberBySlug(slug: string): Promise<StaffMem
   return toStaffMember(item);
 }
 
+// Posts removed from the public website, including legacy fallback content.
+const removedBlogSlugs = new Set(['test-sanity-blog', 'nail-care-tips']);
+
 export async function getBlogPostsWithFallback() {
   try {
     const posts = await getSanityBlogPosts();
-    if (posts.length) return posts;
+    if (posts.length) return posts.filter(post => !removedBlogSlugs.has(post.slug));
     console.log(`[Sanity] Blog: no Sanity posts, using ${legacyBlogPosts().length} JSON fallback post(s).`);
   } catch (error) {
     console.warn('Sanity blog fallback:', error);
   }
-  return legacyBlogPosts();
+  return legacyBlogPosts().filter(post => !removedBlogSlugs.has(post.slug));
 }
 
 export async function getBlogPostBySlugWithFallback(slug: string) {
+  if (removedBlogSlugs.has(slug)) return null;
   try {
     const post = await getSanityBlogPostBySlug(slug);
     if (post) return post;

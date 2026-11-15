@@ -136,7 +136,7 @@
       ? contentArticles
       : (Array.isArray(window.GOLYN_CONTENT_ARTICLES) && window.GOLYN_CONTENT_ARTICLES.length ? window.GOLYN_CONTENT_ARTICLES : (window.GOLYN_ARTICLES || []));
     return [...source.map(normalizeArticle), ...readLocalArticles().map(normalizeArticle)]
-      .filter(article => article.id && article.title)
+      .filter(article => article.id && article.title && !['test-sanity-blog', 'nail-care-tips'].includes(article.slug))
       .sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
   }
 
