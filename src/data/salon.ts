@@ -1,3 +1,5 @@
+import { reviewTranslations } from './reviews';
+
 export const salonTranslations = {
   "ja": {
     "acc_addr": "〒542-0081<br>大阪府大阪市中央区南船場3-11-27<br>日宝シルバービル 4階 406号室",
@@ -75,6 +77,9 @@ export const salonHours = { '@type': 'OpeningHoursSpecification', dayOfWeek: ['M
 const accessLabels = {"ja":["住所","営業時間","最寄り駅からのアクセス","Google マップで開く","店舗へのアクセス"],"en":["Address","Opening Hours","Directions from nearby stations","Open Google Maps","Access and Reservation"],"vi":["Địa chỉ","Giờ mở cửa","Đường đi từ các ga gần nhất","Mở Google Maps","Địa chỉ và đặt lịch"],"zh":["地址","营业时间","从附近车站前往","在 Google 地图中打开","到店交通与预约"],"ko":["주소","영업시간","가까운 역에서 오는 길","Google 지도에서 열기","오시는 길 및 예약"],"my":["လိပ်စာ","ဖွင့်ချိန်","အနီးဆုံးဘူတာများမှ လမ်းညွှန်","Google Maps တွင်ဖွင့်ရန်","ဆိုင်သို့ လာရောက်ရန်"],"id":["Alamat","Jam Buka","Arah dari stasiun terdekat","Buka Google Maps","Akses dan Reservasi"]};
 Object.entries(accessLabels).forEach(([lang, values]) => {
   Object.assign(salonTranslations[lang as keyof typeof salonTranslations], Object.fromEntries(['acc_addr_label', 'acc_hours_label', 'acc_dir_label', 'acc_map_link', 'acc_title'].map((key, i) => [key, values[i]])));
+});
+Object.entries(reviewTranslations).forEach(([lang, values]) => {
+  Object.assign(salonTranslations[lang as keyof typeof salonTranslations], values);
 });
 // Use the street address for geocoding; the building and room remain in the salon details.
 export const mapQuery = '〒542-0081 大阪府大阪市中央区南船場3丁目11-27';
