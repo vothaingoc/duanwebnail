@@ -22,6 +22,8 @@ const { JSDOM } = require('jsdom');
       const direction = w.document.querySelector('[data-i18n="acc_dir1"]').textContent;
       if (!direction.includes('2') || !/[3၃]/.test(direction)) throw Error('Missing Exit 2 walking time: ' + lang);
       if (!w.document.querySelector('[data-i18n="acc_dir4"]')) throw Error('Missing fourth station');
+      const hours = w.document.querySelector('[data-i18n="acc_hours"]').textContent;
+      if (!hours.includes('21:00') || !hours.includes('21:30') || hours.includes('20:00')) throw Error('Incorrect opening hours: ' + lang);
     }
     if (file === 'dist/index.html') {
       const hidden = [...w.document.querySelectorAll('.fade-up')].filter(el => !el.classList.contains('visible'));

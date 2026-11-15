@@ -3,7 +3,7 @@ import { reviewTranslations } from './reviews';
 export const salonTranslations = {
   "ja": {
     "acc_addr": "〒542-0081<br>大阪府大阪市中央区南船場3-11-27<br>日宝シルバービル 406号室",
-    "acc_hours": "10:00〜20:00<br>定休日：毎週火曜日",
+    "acc_hours": "平日：10:00〜21:00<br>土・日・祝日：10:00〜21:30<br>定休日：毎週火曜日（祝日の場合は営業）",
     "acc_tel_label": "電話",
     "acc_dir1": "心斎橋駅 北8エスカレーターから徒歩約1分（2番出口から徒歩約3分）",
     "acc_dir2": "四ツ橋駅（1-A出口）より徒歩約7分",
@@ -13,7 +13,7 @@ export const salonTranslations = {
   },
   "en": {
     "acc_addr": "〒542-0081<br>Osaka-fu, Osaka-shi, Chuo-ku, Minamisenba 3-11-27<br>Nippo Building Room 406",
-    "acc_hours": "10:00–20:00<br>Closed every Tuesday",
+    "acc_hours": "Weekdays: 10:00–21:00<br>Saturday, Sunday & public holidays: 10:00–21:30<br>Closed on Tuesdays, except public holidays",
     "acc_tel_label": "Phone",
     "acc_dir1": "About 1 minute on foot from Shinsaibashi Station’s North 8 escalator (about 3 minutes from Exit 2)",
     "acc_dir2": "Yotsubashi Station, Exit 1-A — about 7 minutes on foot",
@@ -23,7 +23,7 @@ export const salonTranslations = {
   },
   "vi": {
     "acc_addr": "〒542-0081<br>Osaka-fu, Osaka-shi, Chuo-ku, Minamisenba 3-11-27<br>Nippo Building Room 406",
-    "acc_hours": "10:00–20:00<br>Nghỉ thứ Ba hằng tuần",
+    "acc_hours": "Ngày thường: 10:00–21:00<br>Thứ Bảy, Chủ nhật và ngày lễ: 10:00–21:30<br>Nghỉ thứ Ba hằng tuần (vẫn mở nếu trùng ngày lễ)",
     "acc_tel_label": "Điện thoại",
     "acc_dir1": "Đi bộ khoảng 1 phút từ thang cuốn Bắc 8 của ga Shinsaibashi (khoảng 3 phút từ cửa ra số 2)",
     "acc_dir2": "Ga Yotsubashi, cửa 1-A — đi bộ khoảng 7 phút",
@@ -33,7 +33,7 @@ export const salonTranslations = {
   },
   "zh": {
     "acc_addr": "〒542-0081<br>Osaka-fu, Osaka-shi, Chuo-ku, Minamisenba 3-11-27<br>Nippo Building Room 406",
-    "acc_hours": "10:00–20:00<br>每周二休息",
+    "acc_hours": "平日：10:00–21:00<br>周六、周日及法定节假日：10:00–21:30<br>每周二休息（如遇法定节假日则正常营业）",
     "acc_tel_label": "电话",
     "acc_dir1": "从心斋桥站北8自动扶梯步行约1分钟（从2号出口步行约3分钟）",
     "acc_dir2": "四桥站（1-A出口）步行约7分钟",
@@ -43,7 +43,7 @@ export const salonTranslations = {
   },
   "ko": {
     "acc_addr": "〒542-0081<br>Osaka-fu, Osaka-shi, Chuo-ku, Minamisenba 3-11-27<br>Nippo Building Room 406",
-    "acc_hours": "10:00–20:00<br>매주 화요일 휴무",
+    "acc_hours": "평일: 10:00–21:00<br>토요일·일요일·공휴일: 10:00–21:30<br>매주 화요일 휴무(공휴일인 경우 영업)",
     "acc_tel_label": "전화",
     "acc_dir1": "신사이바시역 북8 에스컬레이터에서 도보 약 1분(2번 출구에서 도보 약 3분)",
     "acc_dir2": "요쓰바시역 1-A 출구에서 도보 약 7분",
@@ -53,7 +53,7 @@ export const salonTranslations = {
   },
   "my": {
     "acc_addr": "〒542-0081<br>Osaka-fu, Osaka-shi, Chuo-ku, Minamisenba 3-11-27<br>Nippo Building Room 406",
-    "acc_hours": "10:00–20:00<br>အင်္ဂါနေ့တိုင်း ပိတ်သည်",
+    "acc_hours": "ရုံးဖွင့်ရက်များ: 10:00–21:00<br>စနေ၊ တနင်္ဂနွေနှင့် အများပြည်သူရုံးပိတ်ရက်များ: 10:00–21:30<br>အင်္ဂါနေ့တိုင်း ပိတ်သည် (အများပြည်သူရုံးပိတ်ရက်နှင့် တိုက်ဆိုင်ပါက ဖွင့်သည်)",
     "acc_tel_label": "ဖုန်း",
     "acc_dir1": "Shinsaibashi ဘူတာ မြောက်ဘက် 8 စက်လှေကားမှ လမ်းလျှောက် ၁ မိနစ်ခန့် (ထွက်ပေါက် 2 မှ ၃ မိနစ်ခန့်)",
     "acc_dir2": "Yotsubashi ဘူတာ ထွက်ပေါက် 1-A မှ လမ်းလျှောက် ၇ မိနစ်ခန့်",
@@ -63,7 +63,7 @@ export const salonTranslations = {
   },
   "id": {
     "acc_addr": "〒542-0081<br>Osaka-fu, Osaka-shi, Chuo-ku, Minamisenba 3-11-27<br>Nippo Building Room 406",
-    "acc_hours": "10:00–20:00<br>Tutup setiap hari Selasa",
+    "acc_hours": "Hari kerja: 10:00–21:00<br>Sabtu, Minggu & hari libur nasional: 10:00–21:30<br>Tutup setiap Selasa, kecuali jika bertepatan dengan hari libur nasional",
     "acc_tel_label": "Telepon",
     "acc_dir1": "Sekitar 1 menit berjalan kaki dari eskalator Utara 8 Stasiun Shinsaibashi (sekitar 3 menit dari pintu keluar 2)",
     "acc_dir2": "Stasiun Yotsubashi, pintu keluar 1-A — sekitar 7 menit berjalan kaki",
@@ -73,7 +73,10 @@ export const salonTranslations = {
   }
 };
 export const salonAddress = { '@type': 'PostalAddress', postalCode: '542-0081', addressRegion: '大阪府', addressLocality: '大阪市中央区', streetAddress: '南船場3-11-27 日宝シルバービル 406号室', addressCountry: 'JP' };
-export const salonHours = { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday','Wednesday','Thursday','Friday','Saturday','Sunday'], opens: '10:00', closes: '20:00' };
+export const salonHours = [
+  { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Wednesday', 'Thursday', 'Friday'], opens: '10:00', closes: '21:00' },
+  { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Saturday', 'Sunday', 'https://schema.org/PublicHolidays'], opens: '10:00', closes: '21:30' },
+];
 const accessLabels = {"ja":["住所","営業時間","最寄り駅からのアクセス","Google マップで開く","店舗へのアクセス"],"en":["Address","Opening Hours","Directions from nearby stations","Open Google Maps","Access and Reservation"],"vi":["Địa chỉ","Giờ mở cửa","Đường đi từ các ga gần nhất","Mở Google Maps","Địa chỉ và đặt lịch"],"zh":["地址","营业时间","从附近车站前往","在 Google 地图中打开","到店交通与预约"],"ko":["주소","영업시간","가까운 역에서 오는 길","Google 지도에서 열기","오시는 길 및 예약"],"my":["လိပ်စာ","ဖွင့်ချိန်","အနီးဆုံးဘူတာများမှ လမ်းညွှန်","Google Maps တွင်ဖွင့်ရန်","ဆိုင်သို့ လာရောက်ရန်"],"id":["Alamat","Jam Buka","Arah dari stasiun terdekat","Buka Google Maps","Akses dan Reservasi"]};
 Object.entries(accessLabels).forEach(([lang, values]) => {
   Object.assign(salonTranslations[lang as keyof typeof salonTranslations], Object.fromEntries(['acc_addr_label', 'acc_hours_label', 'acc_dir_label', 'acc_map_link', 'acc_title'].map((key, i) => [key, values[i]])));
