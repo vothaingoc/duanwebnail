@@ -11,7 +11,6 @@ const { JSDOM } = require('jsdom');
       w.eval(src ? fs.readFileSync('public' + src, 'utf8') : script.textContent);
     }
     w.document.dispatchEvent(new w.Event('DOMContentLoaded'));
-    const names = [...w.document.querySelectorAll('.test-author')].map(el => el.textContent);
     for (const lang of ['ja', 'en', 'vi', 'zh', 'ko', 'my', 'id']) {
       w.chooseLang(lang);
       await new Promise(resolve => setTimeout(resolve, 300));
@@ -21,10 +20,12 @@ const { JSDOM } = require('jsdom');
         expected.innerHTML = w.golynSalonTranslations[lang]['rev' + n + '_q'];
         if (el.innerHTML !== expected.innerHTML) throw Error(file + ': translation mismatch ' + lang + n);
       }
-      if (lang === 'ja' && !w.document.querySelector('.review-number')) throw Error('Missing legible digit');
-      if (names.join() !== [...w.document.querySelectorAll('.test-author')].map(el => el.textContent).join()) throw Error('Author names changed');
+      if (lang === 'ja' && !w.document.querySelector('[data-i18n="rev1_q"]').textContent.includes('一番')) throw Error('Missing 一番');
+      if (w.document.querySelector('[data-i18n="rev1_author"]').textContent !== (lang === 'ja' ? 'うなゆ 様' : 'Unayu')) throw Error('Author romanization mismatch');
+      if (w.document.querySelector('[data-i18n="rev2_author"]').textContent !== (lang === 'ja' ? 'Nozomi Sakae 様' : 'Nozomi Sakae')) throw Error('Second author mismatch');
+      if (w.document.querySelector('[data-i18n="rev3_author"]').textContent !== (lang === 'ja' ? '若野綺萊 様' : 'Wakano Kira')) throw Error('Third author mismatch');
     }
-    console.log(file + ': all 3 reviews switch correctly in 7 languages; author names preserved');
+    console.log(file + ': all 3 reviews and author names switch correctly in 7 languages');
     dom.window.close();
   }
 })().catch(error => { console.error(error); process.exitCode = 1; });

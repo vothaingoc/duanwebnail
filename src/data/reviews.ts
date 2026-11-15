@@ -1,7 +1,7 @@
 // Japanese originals supplied by the salon; other languages are translations.
 export const reviewTranslations = {
   "ja": {
-    "rev1_q": "すごくていねいに施術していただき 色味も迷っていたら一緒に考えて下さり とても素敵な仕上がりになりました!! いままで通ったネイルサロンで<span class=\"review-number\">1</span>番丁寧でした！",
+    "rev1_q": "すごくていねいに施術していただき 色味も迷っていたら一緒に考えて下さり とても素敵な仕上がりになりました!! いままで通ったネイルサロンで一番丁寧でした！",
     "rev2_q": "初めて利用しましたが、とても丁寧にカウンセリングから施術までしていただき楽しく過ごすことができました！",
     "rev3_q": "亀裂が入っていたにも関わらず、かわいいネイルにして頂きました！<br />ありがとうございました。"
   },
@@ -36,3 +36,12 @@ export const reviewTranslations = {
     "rev3_q": "Meskipun kuku saya retak, mereka tetap berhasil membuat kuku saya terlihat cantik!<br />Terima kasih banyak."
   }
 };
+
+Object.entries(reviewTranslations).forEach(([lang, values]) => {
+  Object.assign(values, {
+    rev1_author: lang === 'ja' ? 'うなゆ 様' : 'Unayu',
+    rev2_author: lang === 'ja' ? 'Nozomi Sakae 様' : 'Nozomi Sakae',
+    // Reading confirmed by the salon: わかの きら.
+    rev3_author: lang === 'ja' ? '若野綺萊 様' : 'Wakano Kira',
+  });
+});
