@@ -391,7 +391,7 @@ function toStaffMember(item: any): StaffMember | null {
   if (slug === 'golyn') {
     return {
       slug,
-      name: 'ゴック リン',
+      name: 'リン',
       position: '店長',
       experience: '',
       specialty: '',

@@ -18,7 +18,7 @@ const { JSDOM } = require('jsdom');
     for (const [lang, role] of Object.entries(roles)) {
       w.chooseLang(lang);
       await new Promise(resolve => setTimeout(resolve, 180));
-      assert.equal(w.document.querySelector('[data-i18n="staff_ngoc_linh_name"]').textContent, lang === 'ja' ? 'ゴック リン' : 'Ngoc Linh');
+      assert.equal(w.document.querySelector('[data-i18n="staff_ngoc_linh_name"]').textContent, lang === 'ja' ? 'リン' : 'Ngoc Linh');
       assert.equal(w.document.querySelector('[data-i18n="staff_ngoc_linh_position"]').textContent, role);
       assert.equal(w.document.documentElement.lang, lang);
     }

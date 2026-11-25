@@ -555,7 +555,7 @@ const organizationSchema = {
       };
       const staffManagerTitles = { ja: '店長', en: 'Salon Manager', vi: 'Quản lý cửa hàng', zh: '店长', ko: '점장', my: 'ဆိုင်မန်နေဂျာ', id: 'Manajer Salon' };
       Object.entries(siteI18n).forEach(([lang, values]) => Object.assign(values, {
-        staff_ngoc_linh_name: lang === 'ja' ? 'ゴック リン' : 'Ngoc Linh',
+        staff_ngoc_linh_name: lang === 'ja' ? 'リン' : 'Ngoc Linh',
         staff_ngoc_linh_position: staffManagerTitles[lang]
       }));
       Object.entries(window.golynSalonTranslations).forEach(([lang, values]) => Object.assign(siteI18n[lang], values));
