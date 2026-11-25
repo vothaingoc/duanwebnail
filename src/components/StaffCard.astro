@@ -13,9 +13,9 @@ const { staff } = Astro.props;
     <img src={staff.photo} alt={`${staff.name}のプロフィール写真`} loading="lazy" />
   </a>
   <div class="staff-card-body">
-    <p class="staff-position">{staff.position}</p>
-    <h2>{staff.name}</h2>
-    <p class="staff-intro">{staff.introduction}</p>
+    <p class="staff-position" data-i18n={staff.slug === 'golyn' ? 'staff_ngoc_linh_position' : undefined}>{staff.position}</p>
+    <h2 data-i18n={staff.slug === 'golyn' ? 'staff_ngoc_linh_name' : undefined}>{staff.name}</h2>
+    {staff.introduction && <p class="staff-intro">{staff.introduction}</p>}
     <a class="staff-button" data-i18n="staff_detail" href={`/staff/${staff.slug}/`}>詳細を見る</a>
   </div>
 </article>

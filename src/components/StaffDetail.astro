@@ -13,8 +13,8 @@ const { staff } = Astro.props;
     <img src={staff.photo} alt={`${staff.name}のプロフィール写真`} />
   </div>
   <div class="profile-content">
-    <p class="profile-position">{staff.position}</p>
-    <h1>{staff.name}</h1>
+    <p class="profile-position" data-i18n={staff.slug === 'golyn' ? 'staff_ngoc_linh_position' : undefined}>{staff.position}</p>
+    <h1 data-i18n={staff.slug === 'golyn' ? 'staff_ngoc_linh_name' : undefined}>{staff.name}</h1>
     <dl class="profile-facts">
       <div>
         <dt data-i18n="staff_experience">経験年数</dt>
@@ -29,11 +29,11 @@ const { staff } = Astro.props;
         <dd>{staff.certifications.join(' / ')}</dd>
       </div>
     </dl>
-    <p class="profile-text">{staff.selfIntroduction}</p>
+    {staff.selfIntroduction && <p class="profile-text">{staff.selfIntroduction}</p>}
   </div>
 </article>
 
-<section class="staff-gallery" aria-labelledby="gallery-title">
+{staff.gallery.length > 0 && <section class="staff-gallery" aria-labelledby="gallery-title">
   <div class="section-heading">
     <p>Gallery</p>
     <h2 id="gallery-title" data-i18n="staff_gallery">担当デザイン</h2>
@@ -44,4 +44,4 @@ const { staff } = Astro.props;
       <img src={image} alt={`${staff.name}の施術ギャラリー ${index + 1}`} loading="lazy" />
     ))}
   </div>
-</section>
+</section>}

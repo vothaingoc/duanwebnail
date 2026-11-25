@@ -553,6 +553,11 @@ const organizationSchema = {
         my: { nav_gallery:'ဒီဇိုင်းများ', price_eyebrow:'စျေးနှုန်း', nav_services:'ဝန်ဆောင်မှုများ', nav_reviews:'သုံးသပ်ချက်များ', acc_eyebrow:'လမ်းညွှန်', staff_eyebrow:'ဝန်ထမ်းများ', nav_news:'ဆောင်းပါး', nav_reserve:'ဘိုကင်လုပ်ရန်', footer_desc:'အိုဆာကာမြို့လယ်ရှိ အဆင့်မြင့် လက်သည်း Atelier။ ဂျပန်နည်းပညာနှင့် နိုင်ငံတကာစတိုင်။', footer_info:'အချက်အလက်', footer_about:'ကျွန်ုပ်တို့အကြောင်း', footer_price:'စျေးနှုန်း', footer_contact:'ဆက်သွယ်ရန်', staff_title:'ဝန်ထမ်း မိတ်ဆက်', staff_subtitle:'Golyn Nail တွင် အလုပ်လုပ်နေသော ဝန်ထမ်းများကို မိတ်ဆက်ပါသည်။', staff_members:'Nail Artists', staff_detail:'အသေးစိတ်ကြည့်ရန်', staff_experience:'အတွေ့အကြုံ', staff_specialty:'ကျွမ်းကျင်မှု', staff_certifications:'လက်မှတ်များ', staff_gallery:'ဒီဇိုင်းများ', staff_back:'ဝန်ထမ်းစာရင်းသို့' },
         id: { nav_gallery:'Galeri', price_eyebrow:'Harga', nav_services:'Layanan', nav_reviews:'Ulasan', acc_eyebrow:'Akses', staff_eyebrow:'Staf', nav_news:'Artikel', nav_reserve:'Reservasi', footer_desc:'Atelier nail premium di pusat Osaka. Teknik Jepang, gaya internasional.', footer_info:'Informasi', footer_about:'Tentang Kami', footer_price:'Harga', footer_contact:'Kontak', staff_title:'Profil Staf', staff_subtitle:'Kenali staf yang bekerja di Golyn Nail.', staff_members:'Nail Artist', staff_detail:'Lihat Detail', staff_experience:'Pengalaman', staff_specialty:'Keahlian', staff_certifications:'Sertifikasi', staff_gallery:'Galeri Desain', staff_back:'Kembali ke Staf' }
       };
+      const staffManagerTitles = { ja: '店長', en: 'Salon Manager', vi: 'Quản lý cửa hàng', zh: '店长', ko: '점장', my: 'ဆိုင်မန်နေဂျာ', id: 'Manajer Salon' };
+      Object.entries(siteI18n).forEach(([lang, values]) => Object.assign(values, {
+        staff_ngoc_linh_name: lang === 'ja' ? 'ゴック リン' : 'Ngoc Linh',
+        staff_ngoc_linh_position: staffManagerTitles[lang]
+      }));
       Object.entries(window.golynSalonTranslations).forEach(([lang, values]) => Object.assign(siteI18n[lang], values));
 const langLabels = { ja:'日本語', en:'English', vi:'Tiếng Việt', zh:'中文', ko:'한국어', my:'မြန်မာ', id:'Bahasa Indonesia' };
       const langFlagClasses = { ja:'flag-ja', en:'flag-uk', vi:'flag-vi', zh:'flag-cn', ko:'flag-ko', my:'flag-my', id:'flag-id' };

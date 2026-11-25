@@ -386,8 +386,23 @@ function toPricingData(categories: any[], items: any[]): PricingData | null {
 function toStaffMember(item: any): StaffMember | null {
   const slug = item?.slug || '';
   const name = item?.name || '';
-  const photo = item?.photo || '';
+  const photo = slug === 'golyn' ? '/images/golyn-staff.jpg' : item?.photo || '';
   if (!slug || !name || !photo) return null;
+  if (slug === 'golyn') {
+    return {
+      slug,
+      name: 'ゴック リン',
+      position: '店長',
+      experience: '',
+      specialty: '',
+      certifications: [],
+      photo,
+      introduction: '',
+      selfIntroduction: '',
+      gallery: [],
+      order: typeof item.order === 'number' ? item.order : 999
+    };
+  }
   return {
     slug,
     name,
