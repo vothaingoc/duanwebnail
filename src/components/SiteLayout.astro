@@ -554,9 +554,22 @@ const organizationSchema = {
         id: { nav_gallery:'Galeri', price_eyebrow:'Harga', nav_services:'Layanan', nav_reviews:'Ulasan', acc_eyebrow:'Akses', staff_eyebrow:'Staf', nav_news:'Artikel', nav_reserve:'Reservasi', footer_desc:'Atelier nail premium di pusat Osaka. Teknik Jepang, gaya internasional.', footer_info:'Informasi', footer_about:'Tentang Kami', footer_price:'Harga', footer_contact:'Kontak', staff_title:'Profil Staf', staff_subtitle:'Kenali staf yang bekerja di Golyn Nail.', staff_members:'Nail Artist', staff_detail:'Lihat Detail', staff_experience:'Pengalaman', staff_specialty:'Keahlian', staff_certifications:'Sertifikasi', staff_gallery:'Galeri Desain', staff_back:'Kembali ke Staf' }
       };
       const staffManagerTitles = { ja: '店長', en: 'Salon Manager', vi: 'Quản lý cửa hàng', zh: '店长', ko: '점장', my: 'ဆိုင်မန်နေဂျာ', id: 'Manajer Salon' };
+      const staffExperience = { ja: '5年', en: '5 years', vi: '5 năm', zh: '5年', ko: '5년', my: '၅ နှစ်', id: '5 tahun' };
+      const staffQualifications = {
+        ja: ['JNA認定 ネイルサロン衛生管理士', 'JNEC ネイリスト技能検定試験 3級'],
+        en: ['JNA Certified Nail Salon Hygiene Manager', 'JNEC Nailist Skills Certification — Grade 3'],
+        vi: ['Chứng chỉ quản lý vệ sinh salon nail do JNA công nhận', 'Chứng chỉ kỹ năng nail JNEC cấp 3'],
+        zh: ['JNA认证 美甲沙龙卫生管理士', 'JNEC美甲师技能检定 3级'],
+        ko: ['JNA 인증 네일 살롱 위생관리사', 'JNEC 네일리스트 기능검정 3급'],
+        my: ['JNA အသိအမှတ်ပြု လက်သည်းအလှပြင်ဆိုင် သန့်ရှင်းရေးစီမံခန့်ခွဲသူ', 'JNEC လက်သည်းအလှပြင် ကျွမ်းကျင်မှု အဆင့် ၃'],
+        id: ['Manajer Higiene Salon Kuku Bersertifikat JNA', 'Sertifikasi Keterampilan Nailist JNEC Tingkat 3']
+      };
       Object.entries(siteI18n).forEach(([lang, values]) => Object.assign(values, {
         staff_ngoc_linh_name: lang === 'ja' ? 'リン' : 'Ngoc Linh',
-        staff_ngoc_linh_position: staffManagerTitles[lang]
+        staff_ngoc_linh_position: staffManagerTitles[lang],
+        staff_ngoc_linh_experience: staffExperience[lang],
+        staff_ngoc_linh_certification_0: staffQualifications[lang][0],
+        staff_ngoc_linh_certification_1: staffQualifications[lang][1]
       }));
       Object.entries(window.golynSalonTranslations).forEach(([lang, values]) => Object.assign(siteI18n[lang], values));
 const langLabels = { ja:'日本語', en:'English', vi:'Tiếng Việt', zh:'中文', ko:'한국어', my:'မြန်မာ', id:'Bahasa Indonesia' };

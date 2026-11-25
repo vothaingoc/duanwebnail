@@ -18,7 +18,7 @@ const { staff } = Astro.props;
     <dl class="profile-facts">
       <div>
         <dt data-i18n="staff_experience">経験年数</dt>
-        <dd>{staff.experience}</dd>
+        <dd data-i18n={staff.slug === 'golyn' ? 'staff_ngoc_linh_experience' : undefined}>{staff.experience}</dd>
       </div>
       <div>
         <dt data-i18n="staff_specialty">得意分野</dt>
@@ -26,7 +26,9 @@ const { staff } = Astro.props;
       </div>
       <div>
         <dt data-i18n="staff_certifications">資格</dt>
-        <dd>{staff.certifications.join(' / ')}</dd>
+        <dd>{staff.certifications.map((certification, index) => (
+          <span class="staff-certification" data-i18n={staff.slug === 'golyn' ? `staff_ngoc_linh_certification_${index}` : undefined}>{certification}</span>
+        ))}</dd>
       </div>
     </dl>
     {staff.selfIntroduction && <p class="profile-text">{staff.selfIntroduction}</p>}
@@ -45,3 +47,7 @@ const { staff } = Astro.props;
     ))}
   </div>
 </section>}
+
+<style>
+  .staff-certification { display: block; }
+</style>

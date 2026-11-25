@@ -21,13 +21,27 @@ const { JSDOM } = require('jsdom');
       assert.equal(w.document.querySelector('[data-i18n="staff_ngoc_linh_name"]').textContent, lang === 'ja' ? 'リン' : 'Ngoc Linh');
       assert.equal(w.document.querySelector('[data-i18n="staff_ngoc_linh_position"]').textContent, role);
       assert.equal(w.document.documentElement.lang, lang);
+      if (file.includes('/golyn/')) {
+        const years = { ja: '5年', en: '5 years', vi: '5 năm', zh: '5年', ko: '5년', my: '၅ နှစ်', id: '5 tahun' };
+        assert.equal(w.document.querySelector('[data-i18n="staff_ngoc_linh_experience"]').textContent, years[lang]);
+        const certificates = w.document.querySelectorAll('[data-i18n^="staff_ngoc_linh_certification_"]');
+        assert.equal(certificates.length, 2);
+        assert(certificates[0].textContent.includes('JNA'));
+        assert(certificates[1].textContent.includes('JNEC'));
+        assert(/[3၃]/.test(certificates[1].textContent));
+        if (lang === 'ja') {
+          assert.equal(certificates[0].textContent, 'JNA認定 ネイルサロン衛生管理士');
+          assert.equal(certificates[1].textContent, 'JNEC ネイリスト技能検定試験 3級');
+        }
+      }
     }
     assert(w.document.querySelector('img[src="/images/golyn-staff.jpg"]'));
-    for (const value of w.document.querySelectorAll('.profile-facts dd')) assert.equal(value.textContent.trim(), '');
+    const specialty = w.document.querySelector('[data-i18n="staff_specialty"] + dd');
+    if (specialty) assert.equal(specialty.textContent.trim(), '');
     assert.equal(w.document.querySelector('.profile-text, .staff-intro, .staff-gallery'), null);
     assert(!w.document.body.textContent.includes('8000 tài lanh'));
     assert(!w.document.body.textContent.includes('chuyên foot'));
-    console.log('PASS: photo, empty demo content, and 7 languages: ' + file);
+    console.log('PASS: photo, experience, certifications, and 7 languages: ' + file);
     dom.window.close();
   }
 })().catch(error => { console.error(error); process.exitCode = 1; });
