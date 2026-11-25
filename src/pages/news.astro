@@ -1105,7 +1105,7 @@ html[lang="vi"] { --serif: 'Cormorant Garamond', serif; --sans: 'Be Vietnam Pro'
 <a data-i18n="price_eyebrow" href="/price-detail/" onclick="toggleMenu()">料金表</a>
 <a data-i18n="nav_services" href="/services/" onclick="toggleMenu()">サービス</a>
 <a data-i18n="nav_reviews" href="/reviews/" onclick="toggleMenu()">口コミ</a>
-<a data-i18n="acc_eyebrow" href="/access/" onclick="toggleMenu()">アクセス</a>
+<a data-i18n="nav_stores" href="/access/" onclick="toggleMenu()">店舗案内</a>
 <a data-i18n="staff_eyebrow" href="/staff/" onclick="toggleMenu()">スタッフ</a>
 <a data-i18n="nav_news" href="/news/" onclick="toggleMenu()">コラム</a>
 <a class="btn-primary" data-i18n="nav_reserve" href="/access/" onclick="toggleMenu()" style="font-family:var(--sans);margin-top:6px">ご予約</a>
@@ -1132,7 +1132,7 @@ html[lang="vi"] { --serif: 'Cormorant Garamond', serif; --sans: 'Be Vietnam Pro'
 <li><a data-i18n="price_eyebrow" href="/price-detail/">料金表</a></li>
 <li><a data-i18n="nav_services" href="/services/">サービス</a></li>
 <li><a data-i18n="nav_reviews" href="/reviews/">口コミ</a></li>
-<li><a data-i18n="acc_eyebrow" href="/access/">アクセス</a></li>
+<li><a data-i18n="nav_stores" href="/access/">店舗案内</a></li>
 <li><a data-i18n="staff_eyebrow" href="/staff/">スタッフ</a></li>
 <li><a data-i18n="nav_news" href="/news/">コラム</a></li>
 </ul>
@@ -1280,7 +1280,7 @@ function toggleMenu(){const menu=document.getElementById('mobileNav');if(!menu)r
 function closeLangMenus(){document.querySelectorAll('.lang-picker.open').forEach(picker=>{picker.classList.remove('open');const button=picker.querySelector('.lang-current');if(button)button.setAttribute('aria-expanded','false')})}
 function toggleLangMenu(button){const picker=button.closest('.lang-picker');const shouldOpen=!picker.classList.contains('open');closeLangMenus();picker.classList.toggle('open',shouldOpen);button.setAttribute('aria-expanded',String(shouldOpen))}
 function updateLangPickers(lang){document.querySelectorAll('.lang-picker').forEach(picker=>{const flag=picker.querySelector('.lang-current .flag');const label=picker.querySelector('.lang-current-label');if(flag)flag.className='flag '+(langFlagClasses[lang]||langFlagClasses.ja);if(label)label.textContent=langLabels[lang]||langLabels.ja;picker.querySelectorAll('[data-lang-option]').forEach(option=>option.classList.toggle('active',option.dataset.langOption===lang))})}
-function setLang(lang){if(!blogI18n[lang])lang='ja';document.documentElement.lang=lang;const dict=blogI18n[lang];document.querySelectorAll('[data-i18n]').forEach(el=>{const key=el.getAttribute('data-i18n');if(dict[key])el.innerHTML=dict[key]});updateLangPickers(lang);localStorage.setItem('golynLang',lang)}
+function setLang(lang){if(!blogI18n[lang])lang='ja';document.documentElement.lang=lang;const dict={...blogI18n[lang],...window.golynStoreTranslations[lang]};document.querySelectorAll('[data-i18n]').forEach(el=>{const key=el.getAttribute('data-i18n');if(dict[key])el.innerHTML=dict[key]});updateLangPickers(lang);localStorage.setItem('golynLang',lang)}
 function chooseLang(lang){localStorage.setItem('golynLangUserSet','true');setLang(lang);closeLangMenus()}
 function redirectHeaderHashLinks(){document.querySelectorAll('#navbar a[href^="#"], .mobile-nav a[href^="#"]').forEach(link=>{link.addEventListener('click',event=>{const hash=link.getAttribute('href');if(hash&&hash!=='#'){event.preventDefault();window.location.href='/' + hash}})})}
 window.toggleMenu=toggleMenu;

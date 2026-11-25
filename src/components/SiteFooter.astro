@@ -1,3 +1,9 @@
+---
+import { storeTranslations } from '../data/store-labels';
+---
+<script is:inline define:vars={{ storeTranslations }}>
+  window.golynStoreTranslations = storeTranslations;
+</script>
 <footer>
   <div class="footer-grid">
     <div>
@@ -11,6 +17,7 @@
         <li><a data-i18n="footer_price" href="/price-detail/">料金表</a></li>
         <li><a href="/news/">Blog</a></li>
         <li><a data-i18n="staff_eyebrow" href="/staff/">スタッフ</a></li>
+        <li><a data-i18n="nav_stores" href="/access/">店舗案内</a></li>
       </ul>
     </div>
     <div>

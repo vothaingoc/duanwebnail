@@ -1,7 +1,7 @@
 const fs = require('fs');
 const { JSDOM } = require('jsdom');
 (async () => {
-  for (const file of ['dist/index.html', 'dist/access/index.html']) {
+  for (const file of ['dist/index.html', 'dist/access/shinsaibashi/index.html']) {
     const dom = new JSDOM(fs.readFileSync(file, 'utf8'), { url: 'https://golynnail.jp/', runScripts: 'outside-only', pretendToBeVisual: true });
     const w = dom.window;
     w.IntersectionObserver = class { constructor(callback) { this.callback = callback; } observe(target) { this.callback([{ target, isIntersecting: true }]); } unobserve() {} };

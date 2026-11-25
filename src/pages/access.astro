@@ -1,171 +1,55 @@
 ---
-import { salonTranslations, mapUrl, mapEmbedUrl } from "../data/salon";
 import SiteLayout from '../components/SiteLayout.astro';
-
-const title = 'アクセス・予約 | 大阪・心斎橋ネイル Golyn Nail';
-const description = 'Golyn Nailのアクセス・予約情報。大阪・心斎橋エリアでネイルサロンをお探しの方へ。LINE、Instagram、Google Mapsからお問い合わせください。';
+import { stores } from '../data/stores';
+const translations = Object.fromEntries(Object.keys(stores[0]?.translations || {}).map(lang => [lang,
+  Object.fromEntries(stores.flatMap(store => [
+    [`store_${store.slug}_address`, store.translations[lang].acc_addr],
+    [`store_${store.slug}_station`, store.translations[lang].acc_dir1]
+  ]))
+]));
 ---
-
-<SiteLayout title={title} description={description}>
+<SiteLayout title="店舗案内・店舗一覧 | Golyn Nail" description="Golyn Nailの店舗一覧。各店舗の写真、営業時間、所在地とアクセスをご案内します。" translations={translations}>
   <main>
     <section class="page-hero">
-      <div class="hero-eyebrow">Access</div>
-      <h1 data-i18n="acc_title">店舗へのアクセス</h1>
-      <p data-i18n="acc_addr" set:html={salonTranslations.ja.acc_addr} />
+      <div class="hero-eyebrow">Our Salons</div>
+      <h1 data-i18n="stores_title">店舗一覧</h1>
+      <p data-i18n="stores_intro">ご希望の店舗を選び、店内の様子やアクセスをご確認ください。</p>
       <div class="sec-line"></div>
     </section>
-
-    <section class="access-page" aria-labelledby="access-title">
-      <div class="section-heading">
-        <p data-i18n="acc_eyebrow">アクセス</p>
-        <h2 id="access-title">Golyn Nail</h2>
-      </div>
-      <div class="access-grid">
-        <div class="map-wrap">
-          <iframe allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src={mapEmbedUrl} title="Golyn Nail map"></iframe>
-        </div>
-        <div class="access-card">
-          <h3>Golyn Nail</h3>
-          <dl>
-            <div>
-              <dt data-i18n="acc_addr_label">住所</dt>
-              <dd data-i18n="acc_addr" set:html={salonTranslations.ja.acc_addr} />
+    <section class="store-list" aria-label="Golyn Nail salons">
+      <div class="store-grid">
+        {stores.map(store => (
+          <article class="store-card">
+            <a class="store-photo" href={`/access/${store.slug}/`}>
+              <img src={store.photos[0]} alt={`Golyn Nail ${store.name}`} width="2016" height="1512" />
+            </a>
+            <div class="store-body">
+              <p class="store-brand">Golyn Nail</p>
+              <h2><a href={`/access/${store.slug}/`} data-i18n={store.nameKey}>{store.name}</a></h2>
+              <p class="store-address" data-i18n={`store_${store.slug}_address`} set:html={store.translations.ja.acc_addr} />
+              <p class="store-station" data-i18n={`store_${store.slug}_station`}>{store.translations.ja.acc_dir1}</p>
+              <a class="store-button" href={`/access/${store.slug}/`} data-i18n="store_details">店舗詳細を見る</a>
             </div>
-            <div>
-              <dt data-i18n="acc_hours_label">営業時間</dt>
-              <dd data-i18n="acc_hours" set:html={salonTranslations.ja.acc_hours} />
-            </div>
-            <div>
-              <dt data-i18n="acc_dir_label">最寄り駅からのアクセス</dt>
-              <dd><p data-i18n="acc_dir1">{salonTranslations.ja.acc_dir1}</p><p data-i18n="acc_dir2">{salonTranslations.ja.acc_dir2}</p><p data-i18n="acc_dir3">{salonTranslations.ja.acc_dir3}</p><p data-i18n="acc_dir4">{salonTranslations.ja.acc_dir4}</p></dd>
-            </div>
-          <div><dt data-i18n="acc_tel_label">電話</dt><dd><a href="tel:07088366688">070-8836-6688</a></dd></div></dl>
-          <div class="page-actions">
-            <a class="btn-primary" href={mapUrl} rel="noopener noreferrer" target="_blank" data-i18n="acc_map_link">Google マップで開く</a>
-            <a class="btn-secondary" href="https://www.instagram.com/golynnail?igsh=MWhoNmR1NXV1dnFmcg%3D%3D&utm_source=qr" rel="noopener noreferrer" target="_blank">Instagram</a>
-          </div>
-        </div>
+          </article>
+        ))}
       </div>
     </section>
   </main>
 </SiteLayout>
-
 <style>
-  .access-page {
-    padding: 72px 20px 96px;
-  }
-  .section-heading {
-    max-width: 840px;
-    margin: 0 auto 34px;
-    text-align: center;
-  }
-  .section-heading p {
-    margin-bottom: 8px;
-    color: var(--gold);
-    font-size: 12px;
-    letter-spacing: .26em;
-    text-transform: uppercase;
-  }
-  .section-heading h2 {
-    font-family: var(--serif);
-    font-size: clamp(30px, 4vw, 46px);
-    font-weight: 300;
-    color: var(--brown-deep);
-    line-height: 1.2;
-  }
-  .access-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 1.1fr) minmax(320px, .9fr);
-    gap: 32px;
-    max-width: 1100px;
-    margin: 0 auto;
-    align-items: stretch;
-  }
-  .map-wrap {
-    min-height: 480px;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 8px 40px rgba(74,55,40,.1);
-  }
-  .map-wrap iframe {
-    width: 100%;
-    height: 100%;
-    border: 0;
-  }
-  .access-card {
-    padding: 34px 30px;
-    background: var(--white);
-    border: 1px solid rgba(217,197,160,.72);
-    border-bottom: 2px solid var(--cream-deep);
-    border-radius: 6px;
-    box-shadow: 0 12px 36px rgba(74,55,40,.07);
-  }
-  .access-card h3 {
-    margin-bottom: 24px;
-    font-family: var(--serif);
-    font-size: 34px;
-    font-weight: 400;
-    color: var(--brown-deep);
-  }
-  .access-card dl,
-  .access-card dd {
-    margin: 0;
-  }
-  .access-card dl > div {
-    padding: 18px 0;
-    border-top: 1px solid var(--cream-deep);
-  }
-  .access-card dt {
-    margin-bottom: 8px;
-    color: var(--gold);
-    font-size: 11px;
-    letter-spacing: .18em;
-    text-transform: uppercase;
-    font-weight: 500;
-  }
-  .access-card dd {
-    color: var(--text-mid);
-    font-size: 14px;
-    line-height: 1.8;
-  }
-  .page-actions {
-    display: flex;
-    gap: 12px;
-    margin-top: 28px;
-    flex-wrap: wrap;
-  }
-  .btn-primary,
-  .btn-secondary {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 46px;
-    padding: 12px 24px;
-    border-radius: 2px;
-    text-decoration: none;
-    font-size: 13px;
-    letter-spacing: .12em;
-  }
-  .btn-primary {
-    width: fit-content;
-    flex: 0 0 auto;
-    border-radius: 12px;
-    padding: 10px 18px;
-    background: var(--gold);
-    color: var(--brown-deep);
-    border: 1px solid var(--gold);
-    font-weight: 500;
-    box-shadow: 0 4px 12px rgba(201,150,60,.18);
-  }
-  .btn-secondary {
-    border: 1px solid var(--cream-deep);
-    color: var(--brown-deep);
-  }
-  @media (max-width: 900px) {
-    .access-grid { grid-template-columns: 1fr; max-width: 760px; }
-  }
-  @media (max-width: 640px) {
-    .access-page { padding: 56px 20px 72px; }
-    .map-wrap { min-height: 360px; }
-  }
+  .store-list { padding:64px 20px 96px; }
+  .store-grid { display:flex; flex-wrap:wrap; justify-content:center; align-items:stretch; gap:28px; max-width:1100px; margin:0 auto; }
+  .store-card { flex:0 1 calc((100% - 28px) / 2); min-width:0; max-width:536px; display:flex; flex-direction:column; overflow:hidden; background:var(--white); border:1px solid var(--cream-deep); border-radius:8px; box-shadow:0 12px 36px rgba(74,55,40,.07); }
+  .store-photo { display:block; overflow:hidden; }
+  .store-photo img { display:block; width:100%; height:auto; aspect-ratio:4/3; object-fit:cover; transition:transform .4s; }
+  .store-photo:hover img { transform:scale(1.025); }
+  .store-body { padding:28px 30px 32px; display:flex; flex-direction:column; flex:1; }
+  .store-brand { color:var(--gold); font-size:14px; letter-spacing:.16em; margin-bottom:8px; }
+  h2 { font-family:var(--serif); font-size:clamp(28px,4vw,36px); font-weight:300; margin-bottom:20px; }
+  h2 a { color:var(--brown-deep); text-decoration:none; }
+  .store-address, .store-station { color:var(--text-mid); font-size:16px; line-height:1.9; }
+  .store-station { margin:14px 0 26px; }
+  .store-button { align-self:flex-start; margin-top:auto; display:inline-flex; align-items:center; justify-content:center; min-height:46px; padding:12px 24px; background:var(--brown-deep); color:var(--cream); text-decoration:none; border-radius:2px; font-size:14px; letter-spacing:.08em; }
+  .store-button:hover { background:var(--brown); }
+  @media(max-width:640px) { .store-list { padding:40px 20px 64px; } .store-card { flex-basis:100%; } .store-body { padding:24px; } }
 </style>

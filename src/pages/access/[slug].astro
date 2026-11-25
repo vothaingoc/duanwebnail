@@ -1,0 +1,192 @@
+---
+import { stores } from '../../data/stores';
+export function getStaticPaths() {
+  return stores.map(store => ({ params: { slug: store.slug }, props: { store } }));
+}
+const { store } = Astro.props;
+const salonTranslations = store.translations;
+const { mapUrl, mapEmbedUrl } = store;
+import SiteLayout from '../../components/SiteLayout.astro';
+
+const title = `${store.name}・アクセス | Golyn Nail`;
+const description = `Golyn Nail ${store.name}の店内写真・営業時間・所在地・最寄り駅からのアクセスをご案内します。`;
+---
+
+<SiteLayout title={title} description={description} translations={store.translations}>
+  <main>
+    <section class="page-hero">
+      <div class="hero-eyebrow">Golyn Nail</div>
+      <h1 data-i18n={store.nameKey}>{store.name}</h1>
+      <p data-i18n="acc_addr" set:html={salonTranslations.ja.acc_addr} />
+      <div class="sec-line"></div>
+    </section>
+
+    <section class="store-photos" aria-labelledby="store-photos-title">
+      <h2 id="store-photos-title" data-i18n="store_photos">店内の様子</h2>
+      <div class="photo-grid">
+        {store.photos.map((photo, index) => <img src={photo} alt={`Golyn Nail ${store.name} 店内 ${index + 1}`} width="2016" height="1512" loading={index === 0 ? 'eager' : 'lazy'} />)}
+      </div>
+    </section>
+    <section class="access-page" aria-labelledby="access-title">
+      <div class="section-heading">
+        <p>Access</p>
+        <h2 id="access-title" data-i18n="store_access">アクセス</h2>
+      </div>
+      <div class="access-grid">
+        <div class="map-wrap">
+          <iframe allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src={mapEmbedUrl} title="Golyn Nail map"></iframe>
+        </div>
+        <div class="access-card">
+          <h3 data-i18n={store.nameKey}>{store.name}</h3>
+          <dl>
+            <div>
+              <dt data-i18n="acc_addr_label">住所</dt>
+              <dd data-i18n="acc_addr" set:html={salonTranslations.ja.acc_addr} />
+            </div>
+            <div>
+              <dt data-i18n="acc_hours_label">営業時間</dt>
+              <dd data-i18n="acc_hours" set:html={salonTranslations.ja.acc_hours} />
+            </div>
+            <div>
+              <dt data-i18n="acc_dir_label">最寄り駅からのアクセス</dt>
+              <dd><p data-i18n="acc_dir1">{salonTranslations.ja.acc_dir1}</p><p data-i18n="acc_dir2">{salonTranslations.ja.acc_dir2}</p><p data-i18n="acc_dir3">{salonTranslations.ja.acc_dir3}</p><p data-i18n="acc_dir4">{salonTranslations.ja.acc_dir4}</p></dd>
+            </div>
+          <div><dt data-i18n="acc_tel_label">電話</dt><dd><a href={store.phoneHref}>{store.phone}</a></dd></div></dl>
+          <div class="page-actions">
+            <a class="btn-primary" href={mapUrl} rel="noopener noreferrer" target="_blank" data-i18n="acc_map_link">Google マップで開く</a>
+            <a class="btn-secondary" href={store.reservationUrl} rel="noopener noreferrer" target="_blank"><span data-i18n="nav_reserve">ご予約</span> · Instagram</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="back-actions"><a href="/access/" class="btn-secondary" data-i18n="store_back">店舗一覧へ戻る</a></div>
+  </main>
+</SiteLayout>
+
+<style>
+  .store-photos { max-width: 1100px; margin: 0 auto; padding: 64px 20px 0; }
+  .store-photos h2 { text-align:center; font-family:var(--serif); font-size:clamp(26px,4vw,36px); font-weight:300; margin-bottom:28px; }
+  .photo-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px; }
+  .photo-grid img { display:block; width:100%; height:auto; aspect-ratio:4/3; object-fit:cover; border-radius:8px; }
+  .photo-grid img:first-child { grid-column:1/-1; aspect-ratio:16/9; }
+  .back-actions { display:flex; justify-content:center; padding:0 20px 72px; }
+  @media(max-width:640px) { .store-photos { padding-top:40px; } .photo-grid { grid-template-columns:1fr; gap:16px; } .photo-grid img:first-child { aspect-ratio:4/3; } }
+
+  .access-page {
+    padding: 72px 20px 96px;
+  }
+  .section-heading {
+    max-width: 840px;
+    margin: 0 auto 34px;
+    text-align: center;
+  }
+  .section-heading p {
+    margin-bottom: 8px;
+    color: var(--gold);
+    font-size: 12px;
+    letter-spacing: .26em;
+    text-transform: uppercase;
+  }
+  .section-heading h2 {
+    font-family: var(--serif);
+    font-size: clamp(30px, 4vw, 46px);
+    font-weight: 300;
+    color: var(--brown-deep);
+    line-height: 1.2;
+  }
+  .access-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(320px, .9fr);
+    gap: 32px;
+    max-width: 1100px;
+    margin: 0 auto;
+    align-items: stretch;
+  }
+  .map-wrap {
+    min-height: 480px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(74,55,40,.1);
+  }
+  .map-wrap iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+  .access-card {
+    padding: 34px 30px;
+    background: var(--white);
+    border: 1px solid rgba(217,197,160,.72);
+    border-bottom: 2px solid var(--cream-deep);
+    border-radius: 6px;
+    box-shadow: 0 12px 36px rgba(74,55,40,.07);
+  }
+  .access-card h3 {
+    margin-bottom: 24px;
+    font-family: var(--serif);
+    font-size: 34px;
+    font-weight: 400;
+    color: var(--brown-deep);
+  }
+  .access-card dl,
+  .access-card dd {
+    margin: 0;
+  }
+  .access-card dl > div {
+    padding: 18px 0;
+    border-top: 1px solid var(--cream-deep);
+  }
+  .access-card dt {
+    margin-bottom: 8px;
+    color: var(--gold);
+    font-size: 16px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .access-card dd {
+    color: var(--text-mid);
+    font-size: 14px;
+    line-height: 1.8;
+  }
+  .page-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 28px;
+    flex-wrap: wrap;
+  }
+  .btn-primary,
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    padding: 12px 24px;
+    border-radius: 2px;
+    text-decoration: none;
+    font-size: 14px;
+    letter-spacing: .12em;
+  }
+  .btn-primary {
+    width: fit-content;
+    flex: 0 0 auto;
+    border-radius: 12px;
+    padding: 10px 18px;
+    background: var(--gold);
+    color: var(--brown-deep);
+    border: 1px solid var(--gold);
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(201,150,60,.18);
+  }
+  .btn-secondary {
+    border: 1px solid var(--cream-deep);
+    color: var(--brown-deep);
+  }
+  @media (max-width: 900px) {
+    .access-grid { grid-template-columns: 1fr; max-width: 760px; }
+  }
+  @media (max-width: 640px) {
+    .access-page { padding: 56px 20px 72px; }
+    .map-wrap { min-height: 360px; }
+  }
+</style>

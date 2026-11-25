@@ -5,9 +5,11 @@ import SiteFooter from './SiteFooter.astro';
 interface Props {
   title: string;
   description: string;
+  translations?: Record<string, Record<string, string>>;
 }
 
 const { title, description } = Astro.props;
+const pageTranslations = Object.fromEntries(Object.entries(salonTranslations).map(([lang, values]) => [lang, { ...values, ...Astro.props.translations?.[lang] }]));
 const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://golynnail.jp').toString();
 const socialImage = new URL('/images/golyn-logo.jpg', Astro.site ?? 'https://golynnail.jp').toString();
 const organizationSchema = {
@@ -487,7 +489,7 @@ const organizationSchema = {
       <a data-i18n="price_eyebrow" href="/price-detail/" onclick="toggleMenu()">料金表</a>
       <a data-i18n="nav_services" href="/services/" onclick="toggleMenu()">サービス</a>
       <a data-i18n="nav_reviews" href="/reviews/" onclick="toggleMenu()">口コミ</a>
-      <a data-i18n="acc_eyebrow" href="/access/" onclick="toggleMenu()">アクセス</a>
+      <a data-i18n="nav_stores" href="/access/" onclick="toggleMenu()">店舗案内</a>
       <a data-i18n="staff_eyebrow" href="/staff/" onclick="toggleMenu()">スタッフ</a>
       <a data-i18n="nav_news" href="/news/" onclick="toggleMenu()">コラム</a>
       <a class="btn-primary" data-i18n="nav_reserve" href="/access/" onclick="toggleMenu()">ご予約</a>
@@ -513,7 +515,7 @@ const organizationSchema = {
         <li><a data-i18n="price_eyebrow" href="/price-detail/">料金表</a></li>
         <li><a data-i18n="nav_services" href="/services/">サービス</a></li>
         <li><a data-i18n="nav_reviews" href="/reviews/">口コミ</a></li>
-        <li><a data-i18n="acc_eyebrow" href="/access/">アクセス</a></li>
+        <li><a data-i18n="nav_stores" href="/access/">店舗案内</a></li>
         <li><a data-i18n="staff_eyebrow" href="/staff/">スタッフ</a></li>
         <li><a data-i18n="nav_news" href="/news/">コラム</a></li>
       </ul>
@@ -540,7 +542,7 @@ const organizationSchema = {
     </nav>
     <slot />
     <SiteFooter />
-    <script is:inline define:vars={{ salonTranslations }}>
+    <script is:inline define:vars={{ salonTranslations: pageTranslations }}>
       window.golynSalonTranslations = salonTranslations;
     </script>
     <script is:inline>

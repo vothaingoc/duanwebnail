@@ -1,4 +1,5 @@
 import { reviewTranslations } from './reviews';
+import { storeTranslations } from './store-labels';
 
 export const salonTranslations = {
   "ja": {
@@ -82,6 +83,9 @@ Object.entries(accessLabels).forEach(([lang, values]) => {
   Object.assign(salonTranslations[lang as keyof typeof salonTranslations], Object.fromEntries(['acc_addr_label', 'acc_hours_label', 'acc_dir_label', 'acc_map_link', 'acc_title'].map((key, i) => [key, values[i]])));
 });
 Object.entries(reviewTranslations).forEach(([lang, values]) => {
+  Object.assign(salonTranslations[lang as keyof typeof salonTranslations], values);
+});
+Object.entries(storeTranslations).forEach(([lang, values]) => {
   Object.assign(salonTranslations[lang as keyof typeof salonTranslations], values);
 });
 // Use the street address for geocoding; the building and room remain in the salon details.
