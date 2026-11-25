@@ -1,4 +1,5 @@
 ---
+import '../styles/language-fonts.css';
 import SiteFooter from '../components/SiteFooter.astro';
 import { getPricingCampaignOverride, getPricingDataOverride } from '../lib/sanity';
 
@@ -137,7 +138,6 @@ body.mobile-nav-open { overflow:hidden; touch-action:none; }
   .menu-item { grid-template-columns:1fr; gap:8px; padding:22px 24px; } .price-box { text-align:left; } .menu-head { padding:28px 24px 16px; }
 }
 html[lang="zh"] .detail-title, html[lang="ko"] .detail-title, html[lang="my"] .detail-title, html[lang="id"] .detail-title, html[lang="zh"] h1, html[lang="zh"] h2, html[lang="ko"] h1, html[lang="ko"] h2, html[lang="my"] h1, html[lang="my"] h2, html[lang="id"] h1, html[lang="id"] h2 { font-family: var(--sans); }
-html[lang="vi"] { --serif:'Cormorant Garamond', serif; --sans:'Be Vietnam Pro', sans-serif; }
 </style>
 <style is:global>
 .menu-wrap { max-width:1100px; margin:0 auto; display:flex; flex-direction:column; gap:34px; }

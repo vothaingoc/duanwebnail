@@ -1,4 +1,5 @@
 ---
+import '../styles/language-fonts.css';
 import SiteFooter from '../components/SiteFooter.astro';
 import PhotoDisclaimer from '../components/PhotoDisclaimer.astro';
 import { getGalleryWithFallback } from '../lib/sanity';
@@ -630,7 +631,6 @@ section[id] { scroll-margin-top: var(--nav-h); }
 
 @media (max-width: 600px) { .pricing { padding: 50px 20px; } }
 html[lang="zh"] .hero-title, html[lang="ko"] .hero-title, html[lang="my"] .hero-title, html[lang="id"] .hero-title, html[lang="zh"] h1, html[lang="zh"] h2, html[lang="ko"] h1, html[lang="ko"] h2, html[lang="my"] h1, html[lang="my"] h2, html[lang="id"] h1, html[lang="id"] h2 { font-family: var(--sans); }
-html[lang="vi"] { --serif: 'Cormorant Garamond', serif; --sans: 'Be Vietnam Pro', sans-serif; }
 
 .gallery-page{padding:calc(var(--nav-h) + 72px) 80px 96px;background:var(--cream)}
 .gallery-page .gallery-grid{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;grid-auto-rows:auto!important;align-items:start}

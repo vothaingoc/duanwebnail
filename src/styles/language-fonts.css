@@ -1,0 +1,10 @@
+/* Keep Vietnamese letters and accents in the same font on every page. */
+html[lang="vi"] {
+  --sans: 'Be Vietnam Pro', Arial, sans-serif;
+  --serif: 'Cormorant Garamond', 'Be Vietnam Pro', serif;
+}
+
+/* The language option must render correctly even before Vietnamese is selected. */
+.lang-option[data-lang-option="vi"] {
+  font-family: 'Be Vietnam Pro', Arial, sans-serif;
+}
