@@ -1,0 +1,147 @@
+/* Readable Latin typography while retaining the salon palette and display headings. */
+html:is([lang="en"], [lang="id"]) { --sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; }
+
+html:is([lang="en"], [lang="vi"], [lang="id"]) body { font-size:17px; font-weight:400; line-height:1.65; --text-light:#64472c; }
+
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .hero-desc,
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .blog-lead,
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .article-body,
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .profile-text,
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .staff-intro,
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .service-desc,
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .store-address,
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .store-station { font-size:18px; font-weight:400; line-height:1.75; letter-spacing:0; color:var(--text-mid); }
+
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .hero-subtitle { font-size:clamp(19px,1.7vw,24px); font-weight:400; line-height:1.6; letter-spacing:0; }
+
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .pricing-desc,
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .item-desc,
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .access-address,
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .access-row-value { font-size:17px; font-weight:400; line-height:1.65; letter-spacing:0; color:var(--text-mid); }
+
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .pricing-name,
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .menu-title { font-size:30px; font-weight:500; line-height:1.25; }
+
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .pricing-card-label,
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .menu-label,
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .sec-eyebrow,
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .hero-eyebrow { font-size:13px; font-weight:500; letter-spacing:.12em; color:#76501f; }
+
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .pricing-list li { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:start; column-gap:16px; padding:16px 0; font-size:18px; line-height:1.55; font-weight:400; color:var(--text-mid); }
+
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .pricing-list .pricing-item-name { min-width:0; overflow-wrap:break-word; }
+
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .pricing-list li > span,
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .price-wrap > span,
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .price-new { font-family:var(--sans); font-size:20px; font-weight:500; font-style:normal; line-height:1.4; letter-spacing:0; font-variant-numeric:tabular-nums; color:var(--brown-deep); white-space:nowrap; }
+
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .pricing-list .price-wrap { display:flex; flex-direction:column; align-items:flex-end; gap:2px; }
+
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .pricing-list li .price-old,
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .menu-item .price-old { font-family:var(--sans); font-size:14px; font-style:normal; font-weight:400; opacity:1; line-height:1.4; margin-right:0; color:#a83222; }
+
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .item-name { font-size:19px; font-weight:500; line-height:1.5; }
+
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .pricing-note,
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .item-note,
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .notice,
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .campaign-note,
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .campaign-badge { font-size:15px; font-weight:400; line-height:1.65; letter-spacing:0; color:var(--text-mid); }
+
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .pricing-card.featured .pricing-desc,
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .pricing-card.featured .pricing-note,
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .menu-section.featured .item-desc,
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .menu-section.featured .item-note { color:#f2e9dc; }
+
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .pricing-card.featured .pricing-list li,
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .pricing-card.featured .pricing-list li > span,
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .pricing-card.featured .price-wrap > span,
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .menu-section.featured .price-new { color:#fff4dc; }
+
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .pricing-card.featured .price-old,
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .menu-section.featured .price-old { color:#ffb8a4; }
+
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .pricing-card.featured .pricing-card-label,
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .menu-section.featured .menu-label { color:#f4d38b; }
+
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .btn-primary,
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .btn-secondary,
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .btn-ghost,
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .btn-price-detail,
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .nav-cta,
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .staff-button,
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .store-button,
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .access-map-link,
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .blog-read-more { font-size:16px; font-weight:500; letter-spacing:.025em; min-height:44px; line-height:1.5; }
+
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .nav-links a { font-size:14px; font-weight:500; letter-spacing:.035em; }
+
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .lang-current { min-height:40px; }
+
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .lang-current .lang-current-label,
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .lang-option { font-size:14px; font-weight:500; letter-spacing:0; }
+
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .lang-option { min-height:44px; }
+
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .footer-desc,
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .footer-links a { font-size:16px; font-weight:400; line-height:1.7; color:#e2d5c4; }
+
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .footer-copy { font-size:14px; color:#cfc1ae; }
+
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .test-quote { font-size:20px; font-weight:400; line-height:1.65; }
+
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .test-author,
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .blog-card time,
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .article-date,
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .access-row-label,
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .gallery-label { font-size:14px; font-weight:400; letter-spacing:.025em; }
+
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .blog-card p,
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .blog-feed-intro p { font-size:17px; line-height:1.65; font-weight:400; }
+
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .blog-tag,
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .blog-language-note { font-size:14px; line-height:1.5; }
+
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .profile-facts dd,
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .staff-certification { font-size:17px; line-height:1.65; }
+
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .article-body h2 { font-size:32px; font-weight:500; }
+
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .article-body h3 { font-size:24px; font-weight:500; }
+
+@media (max-width:600px) {
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .hero-desc,
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .article-body { font-size:17px; line-height:1.7; }
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .hero-subtitle { font-size:19px; }
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .pricing-card { padding:32px 24px; }
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .pricing-list li { font-size:17px; column-gap:12px; }
+}
+@media (min-width:1101px) and (max-width:1350px) {
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .nav-links { gap:16px; }
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .nav-links a { font-size:13px; letter-spacing:.02em; }
+}
+
+/* Keep the language picker and menu within small screens at readable sizes. */
+@media (max-width:600px) {
+html:is([lang="en"], [lang="vi"], [lang="id"]) body nav { padding-left:12px; padding-right:12px; gap:8px; }
+html:is([lang="en"], [lang="vi"], [lang="id"]) body nav .nav-logo-wrap { flex-shrink:0; padding:2px; }
+html:is([lang="en"], [lang="vi"], [lang="id"]) body nav .nav-logo-img { height:40px; width:auto; max-width:106px; }
+html:is([lang="en"], [lang="vi"], [lang="id"]) body nav .nav-right { gap:8px; flex-shrink:0; }
+html:is([lang="en"], [lang="vi"], [lang="id"]) body nav .lang-current { min-width:0; gap:6px; padding:6px 8px; }
+html:is([lang="en"], [lang="vi"], [lang="id"]) body nav .lang-current-label { font-size:13px; }
+html:is([lang="en"], [lang="vi"], [lang="id"]) body nav .hamburger { width:28px; min-height:44px; flex-shrink:0; justify-content:center; }
+}
+@media (max-width:360px) {
+html:is([lang="en"], [lang="vi"], [lang="id"]) body nav .nav-logo-img { height:28px; }
+html:is([lang="en"], [lang="vi"], [lang="id"]) body nav .lang-current-label { font-size:12px; }
+}
+
+@media (max-width:360px) {
+html:is([lang="en"], [lang="vi"], [lang="id"]) body nav { padding-left:8px; padding-right:8px; gap:4px; }
+html:is([lang="en"], [lang="vi"], [lang="id"]) body nav .nav-right { gap:4px; }
+}
+
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .service-name { font-size:18px; font-weight:500; letter-spacing:.04em; line-height:1.4; }
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .service-price { font-family:var(--sans); font-size:20px; font-style:normal; font-weight:500; line-height:1.5; }
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .photo-disclaimer { font-size:16px; line-height:1.7; color:var(--text-mid); }
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .profile-position, html:is([lang="en"], [lang="vi"], [lang="id"]) body .staff-position, html:is([lang="en"], [lang="vi"], [lang="id"]) body .profile-facts dt { font-size:14px; line-height:1.5; }

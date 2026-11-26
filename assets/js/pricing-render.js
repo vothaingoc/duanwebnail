@@ -159,12 +159,10 @@
       const category = (window.GOLYN_PRICING_CATEGORIES || {})[card.category] || {};
       const featured = category.featured ? ' featured' : '';
       const delay = card.delay ? ` style="transition-delay:${card.delay}"` : '';
-      const descStyle = category.featured ? ' style="color:rgba(250,247,242,.6)"' : '';
-      const noteStyle = category.featured ? ' style="color:rgba(250,247,242,.4);border-color:rgba(250,247,242,.12)"' : '';
       const items = card.itemIds.map(getItem).filter(Boolean).map(item => {
         const text = itemText(item, lang);
         const name = text.summaryName || text.name;
-        return `<li>${escapeHtml(name)} ${priceInline(item, text)}</li>`;
+        return `<li><div class="pricing-item-name">${escapeHtml(name)}</div>${priceInline(item, text)}</li>`;
       }).join('');
       const note = homeNoteHtml(card, lang);
       const cardText = localizedText(card.translations, lang);
@@ -174,9 +172,9 @@
       return `<div class="pricing-card${featured} fade-up"${delay}>
 <div class="pricing-card-label"${card.labelKey ? ` data-i18n="${card.labelKey}"` : ''}>${label}</div>
 <div class="pricing-name"${card.nameKey ? ` data-i18n="${card.nameKey}"` : ''}>${title}</div>
-<p class="pricing-desc"${card.descKey ? ` data-i18n="${card.descKey}"` : ''}${descStyle}>${desc}</p>
+<p class="pricing-desc"${card.descKey ? ` data-i18n="${card.descKey}"` : ''}>${desc}</p>
 <ul class="pricing-list">${items}</ul>
-${note ? `<div class="pricing-note"${noteStyle}>${note}</div>` : ''}
+${note ? `<div class="pricing-note">${note}</div>` : ''}
 </div>`;
     }).join('');
     renderServicePrices(lang);

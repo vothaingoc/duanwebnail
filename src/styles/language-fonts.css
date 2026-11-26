@@ -1,3 +1,5 @@
+@import './latin-readability.css';
+
 /* Keep Vietnamese letters and accents in the same font on every page. */
 html[lang="vi"] {
   --sans: 'Be Vietnam Pro', Arial, sans-serif;
