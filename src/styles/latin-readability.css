@@ -51,7 +51,7 @@ html:is([lang="en"], [lang="vi"], [lang="id"]) body .campaign-badge { font-size:
 html:is([lang="en"], [lang="vi"], [lang="id"]) body .pricing-card.featured .pricing-desc,
 html:is([lang="en"], [lang="vi"], [lang="id"]) body .pricing-card.featured .pricing-note,
 html:is([lang="en"], [lang="vi"], [lang="id"]) body .menu-section.featured .item-desc,
-html:is([lang="en"], [lang="vi"], [lang="id"]) body .menu-section.featured .item-note { color:#f2e9dc; }
+html:is([lang="en"], [lang="vi"], [lang="id"]) body .menu-section.featured .item-note { color:#f2e9dc !important; }
 
 html:is([lang="en"], [lang="vi"], [lang="id"]) body .pricing-card.featured .pricing-list li,
 html:is([lang="en"], [lang="vi"], [lang="id"]) body .pricing-card.featured .pricing-list li > span,
