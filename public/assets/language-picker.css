@@ -1,18 +1,18 @@
 .golyn-language-dialog { box-sizing:border-box; position:fixed; inset:0; margin:auto; width:calc(100% - 32px); max-width:420px; max-height:calc(100dvh - 32px); overflow:auto; padding:30px 26px 22px; color:var(--brown-deep,#2e1a08); background:var(--white,#fbf6ee); border:1px solid var(--cream-deep,#d9c5a0); border-radius:12px; box-shadow:0 20px 80px #2e1a0833; font-family:var(--sans,Arial,sans-serif); }
 .golyn-language-dialog::backdrop { background:#2e1a0866; }
-.golyn-language-dialog .golyn-language-close { position:absolute; top:8px; right:10px; width:36px; height:36px; border:0; background:transparent; color:inherit; font-size:26px; cursor:pointer; }
+.golyn-language-dialog .golyn-language-close { position:absolute; top:8px; right:10px; width:44px; height:44px; border:0; background:transparent; color:inherit; font-size:26px; cursor:pointer; }
 .golyn-language-brand { margin:0 0 10px; color:var(--brown,#5c3d1e); font-size:12px; letter-spacing:.18em; }
 .golyn-language-dialog h2 { margin:0 0 12px; font-size:24px; font-weight:500; }
-.golyn-language-dialog #golyn-language-description { margin:0 0 20px; font-size:14px; line-height:1.8; color:var(--text-mid,#4a2e10); }
+.golyn-language-dialog #golyn-language-description { margin:0 0 20px; font-size:16px; line-height:1.8; color:var(--text-mid,#4a2e10); }
 .golyn-language-options { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
-.golyn-language-options button { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; min-width:0; min-height:68px; padding:10px 8px; border:1px solid var(--cream-deep,#d9c5a0); border-radius:6px; background:var(--white,#fbf6ee); color:inherit; font:inherit; font-size:15px; cursor:pointer; }
+.golyn-language-options button { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; min-width:0; min-height:68px; padding:10px 8px; border:1px solid var(--cream-deep,#d9c5a0); border-radius:6px; background:var(--white,#fbf6ee); color:inherit; font:inherit; font-size:16px; cursor:pointer; }
 .golyn-language-option-label { display:inline-flex; align-items:center; justify-content:center; gap:9px; max-width:100%; line-height:1.5; }
 .golyn-language-option-label .flag { flex-shrink:0; }
 .golyn-language-options button:last-child:nth-child(odd) { grid-column:1 / -1; min-height:54px; }
 .golyn-language-options button[lang="vi"] { font-family:'Be Vietnam Pro',Arial,sans-serif; }
 .golyn-language-options button:hover, .golyn-language-options button.suggested { border-color:var(--brown,#5c3d1e); background:var(--cream,#f5efe6); }
-.golyn-language-options small { font-size:11px; line-height:1.5; }
-.golyn-language-dialog .golyn-language-dismiss { display:block; width:100%; margin-top:18px; min-height:44px; padding:8px 0; border:0; background:transparent; color:var(--text-mid,#4a2e10); font:inherit; font-size:12px; cursor:pointer; text-decoration:underline; text-underline-offset:4px; }
+.golyn-language-options small { font-size:12px; line-height:1.5; }
+.golyn-language-dialog .golyn-language-dismiss { display:block; width:100%; margin-top:18px; min-height:44px; padding:8px 0; border:0; background:transparent; color:var(--text-mid,#4a2e10); font:inherit; font-size:14px; cursor:pointer; text-decoration:underline; text-underline-offset:4px; }
 .golyn-language-dialog button:focus-visible, .lang-current:focus-visible { outline:2px solid var(--brown,#5c3d1e); outline-offset:3px; }
 .lang-current .lang-current-label { font-size:12px; letter-spacing:0; }
 @media(max-width:360px) { .golyn-language-dialog { padding:28px 18px 16px; } }

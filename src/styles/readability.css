@@ -1,0 +1,167 @@
+/* Shared readable typography for every supported language. */
+html:is([lang="en"], [lang="id"]) { --sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; }
+
+html[lang] body { font-size:1.0625rem; font-weight:400; line-height:1.65; --text-light:#64472c; }
+
+html[lang] body .hero-desc,
+html[lang] body .blog-lead,
+html[lang] body .article-body,
+html[lang] body .profile-text,
+html[lang] body .staff-intro,
+html[lang] body .service-desc,
+html[lang] body .store-address,
+html[lang] body .store-station { font-size:1.125rem; font-weight:400; line-height:1.75; letter-spacing:0; color:var(--text-mid); }
+
+html[lang] body .hero-subtitle { font-size:clamp(1.1875rem,1.7vw,1.5rem); font-weight:400; line-height:1.6; letter-spacing:0; }
+
+html[lang] body .pricing-desc,
+html[lang] body .item-desc,
+html[lang] body .access-address,
+html[lang] body .access-row-value { font-size:1.0625rem; font-weight:400; line-height:1.65; letter-spacing:0; color:var(--text-mid); }
+
+html[lang] body .pricing-name,
+html[lang] body .menu-title { font-size:1.875rem; font-weight:500; line-height:1.25; }
+
+html[lang] body .pricing-card-label,
+html[lang] body .menu-label,
+html[lang] body .sec-eyebrow,
+html[lang] body .hero-eyebrow { font-size:0.8125rem; font-weight:500; letter-spacing:.12em; color:#76501f; }
+
+html[lang] body .pricing-list li { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:start; column-gap:16px; padding:16px 0; font-size:1.125rem; line-height:1.55; font-weight:400; color:var(--text-mid); }
+
+html[lang] body .pricing-list .pricing-item-name { min-width:0; overflow-wrap:break-word; }
+
+html[lang] body .pricing-list li > span,
+html[lang] body .price-wrap > span,
+html[lang] body .price-new { font-family:var(--sans); font-size:1.25rem; font-weight:500; font-style:normal; line-height:1.4; letter-spacing:0; font-variant-numeric:tabular-nums; color:var(--brown-deep); white-space:nowrap; }
+
+html[lang] body .pricing-list .price-wrap { display:flex; flex-direction:column; align-items:flex-end; gap:2px; }
+
+html[lang] body .pricing-list li .price-old,
+html[lang] body .menu-item .price-old { font-family:var(--sans); font-size:0.875rem; font-style:normal; font-weight:400; opacity:1; line-height:1.4; margin-right:0; color:#a83222; }
+
+html[lang] body .item-name { font-size:1.1875rem; font-weight:500; line-height:1.5; }
+
+html[lang] body .pricing-note,
+html[lang] body .item-note,
+html[lang] body .notice,
+html[lang] body .campaign-note,
+html[lang] body .campaign-badge { font-size:0.9375rem; font-weight:400; line-height:1.65; letter-spacing:0; color:var(--text-mid); }
+
+html[lang] body .pricing-card.featured .pricing-desc,
+html[lang] body .pricing-card.featured .pricing-note,
+html[lang] body .menu-section.featured .item-desc,
+html[lang] body .menu-section.featured .item-note { color:#f2e9dc !important; }
+
+html[lang] body .pricing-card.featured .pricing-list li,
+html[lang] body .pricing-card.featured .pricing-list li > span,
+html[lang] body .pricing-card.featured .price-wrap > span,
+html[lang] body .menu-section.featured .price-new { color:#fff4dc; }
+
+html[lang] body .pricing-card.featured .price-old,
+html[lang] body .menu-section.featured .price-old { color:#ffb8a4; }
+
+html[lang] body .pricing-card.featured .pricing-card-label,
+html[lang] body .menu-section.featured .menu-label { color:#f4d38b; }
+
+html[lang] body .btn-primary,
+html[lang] body .btn-secondary,
+html[lang] body .btn-ghost,
+html[lang] body .btn-price-detail,
+html[lang] body .nav-cta,
+html[lang] body .staff-button,
+html[lang] body .store-button,
+html[lang] body .access-map-link,
+html[lang] body .blog-read-more { font-size:1rem; font-weight:500; letter-spacing:.025em; min-height:44px; line-height:1.5; }
+
+html[lang] body .nav-links a { font-size:0.875rem; font-weight:500; letter-spacing:.035em; }
+
+html[lang] body .lang-current { min-height:40px; }
+
+html[lang] body .lang-current .lang-current-label,
+html[lang] body .lang-option { font-size:0.875rem; font-weight:500; letter-spacing:0; }
+
+html[lang] body .lang-option { min-height:44px; }
+
+html[lang] body .footer-desc,
+html[lang] body .footer-links a { font-size:1rem; font-weight:400; line-height:1.7; color:#e2d5c4; }
+
+html[lang] body .footer-copy { font-size:0.875rem; color:#cfc1ae; }
+
+html[lang] body .test-quote { font-size:1.25rem; font-weight:400; line-height:1.65; }
+
+html[lang] body .test-author,
+html[lang] body .blog-card time,
+html[lang] body .article-date,
+html[lang] body .access-row-label,
+html[lang] body .gallery-label { font-size:0.875rem; font-weight:400; letter-spacing:.025em; }
+
+html[lang] body .blog-card p,
+html[lang] body .blog-feed-intro p { font-size:1.0625rem; line-height:1.65; font-weight:400; }
+
+html[lang] body .blog-tag,
+html[lang] body .blog-language-note { font-size:0.875rem; line-height:1.5; }
+
+html[lang] body .profile-facts dd,
+html[lang] body .staff-certification { font-size:1.0625rem; line-height:1.65; }
+
+html[lang] body .article-body h2 { font-size:2rem; font-weight:500; }
+
+html[lang] body .article-body h3 { font-size:1.5rem; font-weight:500; }
+
+@media (max-width:600px) {
+html[lang] body .hero-desc,
+html[lang] body .article-body { font-size:1.0625rem; line-height:1.7; }
+html[lang] body .hero-subtitle { font-size:1.1875rem; }
+html[lang] body .pricing-card { padding:32px 24px; }
+html[lang] body .pricing-list li { font-size:1.0625rem; column-gap:12px; }
+}
+@media (min-width:1101px) and (max-width:1350px) {
+html[lang] body .nav-links { gap:16px; }
+html[lang] body .nav-links a { font-size:0.8125rem; letter-spacing:.02em; }
+}
+
+/* Keep the language picker and menu within small screens at readable sizes. */
+@media (max-width:600px) {
+html[lang] body :is(nav, #navbar) { padding-left:12px; padding-right:12px; gap:8px; }
+html[lang] body nav .nav-logo-wrap { flex-shrink:0; padding:2px; }
+html[lang] body nav .nav-logo-img { height:40px; width:auto; max-width:106px; }
+html[lang] body nav .nav-right { gap:8px; flex-shrink:0; }
+html[lang] body nav .lang-current { min-width:0; gap:6px; padding:6px 8px; }
+html[lang] body nav .lang-current-label { font-size:0.8125rem; }
+html[lang] body nav .hamburger { width:28px; min-height:44px; flex-shrink:0; justify-content:center; }
+}
+@media (max-width:360px) {
+html[lang] body nav .nav-logo-img { height:28px; }
+html[lang] body nav .lang-current-label { font-size:0.75rem; }
+}
+
+@media (max-width:360px) {
+html[lang] body :is(nav, #navbar) { padding-left:8px; padding-right:8px; gap:4px; }
+html[lang] body nav .nav-right { gap:4px; }
+}
+
+html[lang] body .service-name { font-size:1.125rem; font-weight:500; letter-spacing:.04em; line-height:1.4; }
+html[lang] body .service-price { font-family:var(--sans); font-size:1.25rem; font-style:normal; font-weight:500; line-height:1.5; }
+html[lang] body .photo-disclaimer { font-size:1rem; line-height:1.7; color:var(--text-mid); }
+html[lang] body .profile-position, html[lang] body .staff-position, html[lang] body .profile-facts dt { font-size:0.875rem; line-height:1.5; }
+
+/* Prefer script-appropriate sans-serif fonts for body copy and prices. */
+html[lang="ja"] { --sans:"Noto Sans JP",system-ui,sans-serif; }
+html[lang="zh"] { --sans:"Noto Sans SC","Microsoft YaHei",system-ui,sans-serif; }
+html[lang="ko"] { --sans:"Noto Sans KR","Malgun Gothic",system-ui,sans-serif; }
+html[lang="my"] { --sans:"Noto Sans Myanmar","Myanmar Text",system-ui,sans-serif; }
+html[lang="my"] body { line-height:1.85; }
+html[lang="my"] body .pricing-list li { line-height:1.8; }
+html[lang="my"] body .hero-title { line-height:1.55; }
+
+/* Clear text, focus states and touch targets on shared controls. */
+html[lang] body input, html[lang] body select, html[lang] body textarea { font-size:1rem; line-height:1.5; }
+html[lang] body .form-group label { font-size:1rem; font-weight:500; }
+html[lang] body .pagination-btn { font-size:1rem; min-width:44px; min-height:44px; }
+html[lang] body .lightbox-close, html[lang] body .lightbox-nav, html[lang] body .modal-close, html[lang] body .mobile-nav-close { min-width:44px; min-height:44px; }
+html[lang] body :is(a,button,input,select,textarea):focus-visible { outline:3px solid #805326; outline-offset:3px; }
+html[lang] body footer a:focus-visible { outline-color:#f4d38b; }
+html[lang] body .service-campaign, html[lang] body .lightbox-counter, html[lang] body .news-date, html[lang] body .news-tag { font-size:.875rem; line-height:1.6; }
+html[lang] body .news-desc { font-size:1.0625rem; line-height:1.7; }
+html[lang] body .news-read { font-size:1rem; min-height:44px; display:inline-flex; align-items:center; }
