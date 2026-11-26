@@ -165,3 +165,10 @@ html[lang] body footer a:focus-visible { outline-color:#f4d38b; }
 html[lang] body .service-campaign, html[lang] body .lightbox-counter, html[lang] body .news-date, html[lang] body .news-tag { font-size:.875rem; line-height:1.6; }
 html[lang] body .news-desc { font-size:1.0625rem; line-height:1.7; }
 html[lang] body .news-read { font-size:1rem; min-height:44px; display:inline-flex; align-items:center; }
+
+/* Keep regular and discounted detail prices visually separate. */
+html[lang] body .menu-item .price-box { display:flex; align-items:baseline; justify-content:flex-end; gap:.75rem; }
+html[lang] body .price-box > .price-old, html[lang] body .price-box > .price-new { flex:0 0 auto; }
+@media (max-width:900px) {
+  html[lang] body .menu-item .price-box { justify-content:flex-start; }
+}
