@@ -45,7 +45,7 @@ const description = '大阪・心斎橋エリアのGolyn Nailサービス。ジ�
   <script is:inline src="/assets/js/pricing-render.js"></script>
   <script is:inline>
     document.addEventListener('DOMContentLoaded', () => {
-      const lang = localStorage.getItem('golynLang') || 'ja';
+      const lang = (window.GolynLanguage?.get() || 'ja') || 'ja';
       if (window.GolynPricing) {
         window.GolynPricing.renderServicePrices(lang);
         window.GolynPricing.applyCampaignState();

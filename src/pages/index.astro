@@ -72,6 +72,7 @@ const homeSchema = {
 <script type="application/ld+json" set:html={JSON.stringify(homeSchema)}></script>
 <link rel="icon" type="image/png" href="/favicon.png"/>
 <link rel="apple-touch-icon" href="/favicon.png"/>
+<link rel="stylesheet" href="/assets/language-picker.css" />
 <script is:inline src="/assets/js/language-detect.js"></script>
 
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
@@ -758,10 +759,10 @@ html[lang="zh"] .hero-title, html[lang="ko"] .hero-title, html[lang="my"] .hero-
 <a data-i18n="nav_stores" href="/access/" onclick="toggleMenu()">店舗案内</a>
 <a data-i18n="staff_eyebrow" href="/staff/" onclick="toggleMenu()">スタッフ</a>
 <a data-i18n="nav_news" href="/news/" onclick="toggleMenu()">コラム</a>
-<a class="btn-primary" data-i18n="nav_reserve" href="/access/" onclick="toggleMenu()" style="font-family:var(--sans);margin-top:6px">ご予約</a>
+<a class="btn-primary" data-i18n="nav_reserve" href="https://beauty.hotpepper.jp/CSP/kr/reserve/?storeId=H000836089" onclick="toggleMenu()" style="font-family:var(--sans);margin-top:6px">ご予約</a>
 <div class="lang-switcher" style="margin-top:18px">
 <div class="lang-picker">
-<button aria-expanded="false" aria-haspopup="listbox" class="lang-current" onclick="toggleLangMenu(this)" type="button"><span class="flag flag-ja"></span><span class="lang-current-label">日本語</span><span class="lang-caret">▾</span></button>
+<button aria-expanded="false" aria-haspopup="listbox" class="lang-current" onclick="toggleLangMenu(this)" type="button"><span class="flag flag-ja"></span><span class="lang-current-label">言語 / Language</span><span class="lang-caret">▾</span></button>
 <div class="lang-menu" role="listbox">
 <button class="lang-option active" data-lang-option="ja" onclick="chooseLang('ja')" type="button"><span class="flag flag-ja"></span><span>日本語</span></button>
 <button class="lang-option" data-lang-option="en" onclick="chooseLang('en')" type="button"><span class="flag flag-uk"></span><span>English</span></button>
@@ -789,7 +790,7 @@ html[lang="zh"] .hero-title, html[lang="ko"] .hero-title, html[lang="my"] .hero-
 <div class="nav-right">
 <div class="lang-switcher">
 <div class="lang-picker">
-<button aria-expanded="false" aria-haspopup="listbox" class="lang-current" onclick="toggleLangMenu(this)" type="button"><span class="flag flag-ja"></span><span class="lang-current-label">日本語</span><span class="lang-caret">▾</span></button>
+<button aria-expanded="false" aria-haspopup="listbox" class="lang-current" onclick="toggleLangMenu(this)" type="button"><span class="flag flag-ja"></span><span class="lang-current-label">言語 / Language</span><span class="lang-caret">▾</span></button>
 <div class="lang-menu" role="listbox">
 <button class="lang-option active" data-lang-option="ja" onclick="chooseLang('ja')" type="button"><span class="flag flag-ja"></span><span>日本語</span></button>
 <button class="lang-option" data-lang-option="en" onclick="chooseLang('en')" type="button"><span class="flag flag-uk"></span><span>English</span></button>
@@ -801,7 +802,7 @@ html[lang="zh"] .hero-title, html[lang="ko"] .hero-title, html[lang="my"] .hero-
 </div>
 </div>
 </div>
-<a class="nav-cta" data-i18n="nav_reserve" href="/access/">ご予約</a>
+<a class="nav-cta" data-i18n="nav_reserve" href="https://beauty.hotpepper.jp/CSP/kr/reserve/?storeId=H000836089">ご予約</a>
 <div class="hamburger" onclick="toggleMenu()">
 <span></span><span></span><span></span>
 </div>
@@ -815,7 +816,7 @@ html[lang="zh"] .hero-title, html[lang="ko"] .hero-title, html[lang="my"] .hero-
 <p class="hero-subtitle" data-i18n="hero_sub">あなたの美しさに、心を込めて。</p>
 <p class="hero-desc" data-i18n="hero_desc">すべての女性が、自分の指先に自信を持てるように。一人ひとりの美しさに寄り添い、心を込めた施術を通して、毎日に小さな幸せをお届けします。</p>
 <div class="hero-btns">
-<a class="btn-primary" data-i18n="hero_cta1" href="/access/">今すぐ予約する</a>
+<a class="btn-primary" data-i18n="hero_cta1" href="https://beauty.hotpepper.jp/CSP/kr/reserve/?storeId=H000836089">今すぐ予約する</a>
 <a class="btn-ghost" data-i18n="hero_cta2" href="/gallery/">デザインを見る</a>
 </div>
 </div>
@@ -1231,32 +1232,27 @@ function setLang(lang) {
   if (lang === currentLang) return;
   if (!i18n[lang]) lang = 'ja';
   currentLang = lang;
-  localStorage.setItem('golynLang', lang);
+  window.GolynLanguage?.apply(lang);
 
   document.documentElement.lang = { ja:'ja', en:'en', vi:'vi', zh:'zh', ko:'ko', my:'my', id:'id' }[lang] || 'ja';
-  document.body.classList.add('lang-switching');
 
-  setTimeout(() => {
-    const t = i18n[lang] || i18n.en;
-    if (window.GolynPricing) window.GolynPricing.renderHome(lang);
+  const t = i18n[lang] || i18n.en;
+  if (window.GolynPricing) window.GolynPricing.renderHome(lang);
 
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-      const k = el.getAttribute('data-i18n');
-      if (t[k] !== undefined) el.innerHTML = t[k];
-    });
-    if (window.GolynPricing) {
-      window.GolynPricing.renderServicePrices(lang);
-      window.GolynPricing.applyCampaignState();
-    }
-    document.querySelectorAll('[data-i18n-ph]').forEach(el => {
-      const k = el.getAttribute('data-i18n-ph');
-      if (t[k] !== undefined) el.placeholder = t[k];
-    });
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const k = el.getAttribute('data-i18n');
+    if (t[k] !== undefined) el.innerHTML = t[k];
+  });
+  if (window.GolynPricing) {
+    window.GolynPricing.renderServicePrices(lang);
+    window.GolynPricing.applyCampaignState();
+  }
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+    const k = el.getAttribute('data-i18n-ph');
+    if (t[k] !== undefined) el.placeholder = t[k];
+  });
 
-    document.body.classList.remove('lang-switching');
-
-    updateLangPickers(lang);
-  }, 170);
+  updateLangPickers(lang);
 }
 
 function updateLangPickers(lang) {
@@ -1264,7 +1260,7 @@ function updateLangPickers(lang) {
     const flag = picker.querySelector('.lang-current .flag');
     const label = picker.querySelector('.lang-current-label');
     if (flag) flag.className = `flag ${langFlagClasses[lang] || langFlagClasses.ja}`;
-    if (label) label.textContent = langLabels[lang] || langLabels.ja;
+    if (label) label.textContent = '言語 / Language';
     picker.querySelectorAll('[data-lang-option]').forEach(option => {
       option.classList.toggle('active', option.dataset.langOption === lang);
     });
@@ -1288,7 +1284,7 @@ function toggleLangMenu(button) {
 }
 
 function chooseLang(lang) {
-  localStorage.setItem('golynLangUserSet', 'true');
+  window.GolynLanguage?.select(lang);
   setLang(lang);
   closeLangMenus();
 }
@@ -1463,7 +1459,7 @@ document.addEventListener('keydown', (e) => {
 });
 
 function initHomePage() {
-  const savedLang = localStorage.getItem('golynLang');
+  const savedLang = (window.GolynLanguage?.get() || 'ja');
   setLang(i18n[savedLang] ? savedLang : 'ja');
   stabilizeInitialHashScroll();
 }

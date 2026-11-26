@@ -17,7 +17,7 @@
   let currentPage = 1;
 
   function currentLang() {
-    const lang = localStorage.getItem("golynLang") || document.documentElement.lang || "ja";
+    const lang = (window.GolynLanguage?.get() || 'ja') || document.documentElement.lang || "ja";
     return supportedLangs.includes(lang) ? lang : "ja";
   }
 

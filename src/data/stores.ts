@@ -16,6 +16,6 @@ export const stores = [
     mapEmbedUrl,
     phone: '070-8836-6688',
     phoneHref: 'tel:07088366688',
-    reservationUrl: 'https://www.instagram.com/golynnail?igsh=MWhoNmR1NXV1dnFmcg%3D%3D&utm_source=qr'
+    reservationUrl: 'https://beauty.hotpepper.jp/CSP/kr/reserve/?storeId=H000836089'
   }
 ];
