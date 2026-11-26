@@ -694,6 +694,18 @@ section[id] { scroll-margin-top: var(--nav-h); }
 
 @media (max-width: 600px) { .pricing { padding: 50px 20px; } }
 html[lang="zh"] .hero-title, html[lang="ko"] .hero-title, html[lang="my"] .hero-title, html[lang="id"] .hero-title, html[lang="zh"] h1, html[lang="zh"] h2, html[lang="ko"] h1, html[lang="ko"] h2, html[lang="my"] h1, html[lang="my"] h2, html[lang="id"] h1, html[lang="id"] h2 { font-family: var(--sans); }
+/* Give the Indonesian introduction a more readable size at every breakpoint. */
+:global(html[lang="id"]) .hero-title { font-size: clamp(46px, 4.6vw, 72px); }
+:global(html[lang="id"]) .hero-subtitle { font-size: clamp(17px, 1.6vw, 24px); }
+:global(html[lang="id"]) .hero-desc { font-size: 16px; }
+@media (max-width: 1100px) {
+  :global(html[lang="id"]) .hero-title { font-size: clamp(48px, 6.8vw, 72px); }
+}
+@media (max-width: 600px) {
+  :global(html[lang="id"]) .hero-title { font-size: clamp(34px, 9vw, 48px); }
+  :global(html[lang="id"]) .hero-subtitle { font-size: clamp(16px, 4.3vw, 20px); }
+}
+
 </style>
 <style is:global>
 .pricing-card { background: var(--white); padding: 40px 32px; position: relative; transition: .3s; }
