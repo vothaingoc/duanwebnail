@@ -4,8 +4,11 @@
 .golyn-language-brand { margin:0 0 10px; color:var(--brown,#5c3d1e); font-size:12px; letter-spacing:.18em; }
 .golyn-language-dialog h2 { margin:0 0 12px; font-size:24px; font-weight:500; }
 .golyn-language-dialog #golyn-language-description { margin:0 0 20px; font-size:14px; line-height:1.8; color:var(--text-mid,#4a2e10); }
-.golyn-language-options { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-.golyn-language-options button { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; min-height:54px; padding:10px 6px; border:1px solid var(--cream-deep,#d9c5a0); border-radius:6px; background:var(--white,#fbf6ee); color:inherit; font:inherit; font-size:16px; cursor:pointer; }
+.golyn-language-options { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+.golyn-language-options button { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; min-width:0; min-height:68px; padding:10px 8px; border:1px solid var(--cream-deep,#d9c5a0); border-radius:6px; background:var(--white,#fbf6ee); color:inherit; font:inherit; font-size:15px; cursor:pointer; }
+.golyn-language-option-label { display:inline-flex; align-items:center; justify-content:center; gap:9px; max-width:100%; line-height:1.5; }
+.golyn-language-option-label .flag { flex-shrink:0; }
+.golyn-language-options button:last-child:nth-child(odd) { grid-column:1 / -1; min-height:54px; }
 .golyn-language-options button[lang="vi"] { font-family:'Be Vietnam Pro',Arial,sans-serif; }
 .golyn-language-options button:hover, .golyn-language-options button.suggested { border-color:var(--brown,#5c3d1e); background:var(--cream,#f5efe6); }
 .golyn-language-options small { font-size:11px; line-height:1.5; }
@@ -13,3 +16,33 @@
 .golyn-language-dialog button:focus-visible, .lang-current:focus-visible { outline:2px solid var(--brown,#5c3d1e); outline-offset:3px; }
 .lang-current .lang-current-label { font-size:12px; letter-spacing:0; }
 @media(max-width:360px) { .golyn-language-dialog { padding:28px 18px 16px; } }
+
+/* Match the menu flags; dialog options are created outside Astro scoped styles. */
+.golyn-language-options .flag {
+  position: relative; display: inline-block; flex: 0 0 auto;
+  width: 22px; height: 15px; overflow: hidden;
+  border-radius: 3px; background: #fff;
+  box-shadow: 0 0 0 1px rgba(46,26,8,.16), 0 1px 2px rgba(46,26,8,.16);
+}
+.golyn-language-options .flag-ja::after { content: ""; position: absolute; width: 8px; height: 8px; border-radius: 50%; background: #bc002d; left: 7px; top: 3.5px; }
+.golyn-language-options .flag-uk {
+  background-color: #012169;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 30'%3E%3CclipPath id='a'%3E%3Cpath d='M0 0v30h60V0z'/%3E%3C/clipPath%3E%3Cg clip-path='url(%23a)'%3E%3Cpath d='M0 0v30h60V0z' fill='%23012169'/%3E%3Cpath d='M0 0l60 30M60 0L0 30' stroke='%23fff' stroke-width='6'/%3E%3Cpath d='M0 0l60 30M60 0L0 30' stroke='%23C8102E' stroke-width='4'/%3E%3Cpath d='M30 0v30M0 15h60' stroke='%23fff' stroke-width='10'/%3E%3Cpath d='M30 0v30M0 15h60' stroke='%23C8102E' stroke-width='6'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.golyn-language-options .flag-vi { background: #da251d; }
+.golyn-language-options .flag-vi::after { content: "★"; position: absolute; inset: 0; color: #ffde00; font-size: 10px; line-height: 15px; text-align: center; }
+.golyn-language-options .flag-cn {
+  background-color: #de2910;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 40'%3E%3Crect width='60' height='40' fill='%23de2910'/%3E%3Cg fill='%23ffde00'%3E%3Cpolygon points='10,5 11.76,10.43 17.46,10.43 12.85,13.79 14.61,19.22 10,15.86 5.39,19.22 7.15,13.79 2.54,10.43 8.24,10.43'/%3E%3Cpolygon points='22,4 22.82,6.54 25.5,6.54 23.34,8.11 24.16,10.66 22,9.09 19.84,10.66 20.66,8.11 18.5,6.54 21.18,6.54'/%3E%3Cpolygon points='27,8 27.82,10.54 30.5,10.54 28.34,12.11 29.16,14.66 27,13.09 24.84,14.66 25.66,12.11 23.5,10.54 26.18,10.54'/%3E%3Cpolygon points='27,15 27.82,17.54 30.5,17.54 28.34,19.11 29.16,21.66 27,20.09 24.84,21.66 25.66,19.11 23.5,17.54 26.18,17.54'/%3E%3Cpolygon points='22,19 22.82,21.54 25.5,21.54 23.34,23.11 24.16,25.66 22,24.09 19.84,25.66 20.66,23.11 18.5,21.54 21.18,21.54'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.golyn-language-options .flag-ko::before { content: ""; position: absolute; width: 9px; height: 9px; border-radius: 50%; left: 6.5px; top: 3px; background: linear-gradient(to bottom,#c60c30 0 50%,#003478 50%); transform: rotate(-28deg); }
+.golyn-language-options .flag-ko::after { content: ""; position: absolute; left: 3px; top: 3px; width: 3px; height: 1px; background: #111; box-shadow: 0 3px #111, 13px 0 #111, 13px 3px #111, 0 6px #111, 13px 6px #111; }
+.golyn-language-options .flag-my { background: linear-gradient(to bottom,#fecb00 0 33.33%,#34b233 33.33% 66.66%,#ea2839 66.66%); }
+.golyn-language-options .flag-my::after { content: "★"; position: absolute; inset: 0; color: #fff; font-size: 10px; line-height: 15px; text-align: center; }
+.golyn-language-options .flag-id { background: linear-gradient(to bottom,#ce1126 0 50%,#fff 50%); }

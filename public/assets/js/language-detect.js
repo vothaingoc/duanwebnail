@@ -96,13 +96,22 @@
       '<p id="golyn-language-description">表示する言語をお選びください。<br>Choose your preferred language.</p>' +
       '<div class="golyn-language-options"></div><button type="button" class="golyn-language-dismiss">日本語のまま見る / Continue in Japanese</button>';
     const options = dialog.querySelector('.golyn-language-options');
+    const flags = { ja: 'ja', en: 'uk', vi: 'vi', zh: 'cn', ko: 'ko', my: 'my', id: 'id' };
     Object.entries(names).forEach(function (entry) {
       const lang = entry[0];
       const button = document.createElement('button');
       button.type = 'button';
       button.lang = lang;
       button.dataset.language = lang;
-      button.textContent = entry[1];
+      const label = document.createElement('span');
+      label.className = 'golyn-language-option-label';
+      const flag = document.createElement('span');
+      flag.className = 'flag flag-' + flags[lang];
+      flag.setAttribute('aria-hidden', 'true');
+      const name = document.createElement('span');
+      name.textContent = entry[1];
+      label.append(flag, name);
+      button.appendChild(label);
       if (lang === first) {
         button.className = 'suggested';
         button.setAttribute('autofocus', '');
